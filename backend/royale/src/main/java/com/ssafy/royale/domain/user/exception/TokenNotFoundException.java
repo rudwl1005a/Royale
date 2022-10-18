@@ -1,4 +1,4 @@
-package com.ssafy.royale.domain.member.exception;
+package com.ssafy.royale.domain.user.exception;
 
 
 import com.ssafy.royale.global.error.exception.CustomException;
