@@ -33,6 +33,8 @@ public class Apply {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "division_seq", nullable = false)
     private Division division;
+    private boolean weightCheck;
+    private boolean moneyCheck;
     @CreationTimestamp
     @Column(name = "REG_DTM", nullable = false)
     private LocalDateTime REG_DTM;
