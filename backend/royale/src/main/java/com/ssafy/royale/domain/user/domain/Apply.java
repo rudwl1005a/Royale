@@ -2,7 +2,7 @@ package com.ssafy.royale.domain.user.domain;
 
 
 import com.ssafy.royale.domain.league.domain.League;
-import com.ssafy.royale.domain.match.domain.Division;
+import com.ssafy.royale.domain.game.domain.Division;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,7 +20,7 @@ public class Apply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "apply_seq")
-    private Long apply;
+    private Long applySeq;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_seq", nullable = false)
     private League league;

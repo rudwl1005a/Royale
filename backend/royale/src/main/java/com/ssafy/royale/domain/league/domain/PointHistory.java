@@ -1,6 +1,6 @@
 package com.ssafy.royale.domain.league.domain;
 
-import com.ssafy.royale.domain.user.domain.User;
+import com.ssafy.royale.domain.user.domain.Apply;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,8 +20,8 @@ public class PointHistory {
     @Column(name = "point_history_seq")
     private Long pointSeq;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_seq", nullable = false)
-    private User user;
+    @JoinColumn(name = "apply_seq", nullable = false)
+    private Apply apply;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_seq", nullable = false)
     private League league;

@@ -17,8 +17,8 @@ import java.util.Set;
 @EnableWebMvc
 public class SwaggerConfig {
     private ApiInfo swaggerInfo() {
-        return new ApiInfoBuilder().title("ChuAniOne API")
-                .description("ChuAniOne API Docs").build();
+        return new ApiInfoBuilder().title("Royale API")
+                .description("Royale API Docs").build();
     }
 
     @Bean

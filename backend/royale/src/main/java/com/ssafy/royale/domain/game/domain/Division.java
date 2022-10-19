@@ -1,4 +1,4 @@
-package com.ssafy.royale.domain.match.domain;
+package com.ssafy.royale.domain.game.domain;
 
 import lombok.*;
 
