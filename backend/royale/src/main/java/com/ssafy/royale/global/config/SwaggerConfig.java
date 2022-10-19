@@ -17,8 +17,8 @@ import java.util.Set;
 @EnableWebMvc
 public class SwaggerConfig {
     private ApiInfo swaggerInfo() {
-        return new ApiInfoBuilder().title("ChuAniOne API")
-                .description("ChuAniOne API Docs").build();
+        return new ApiInfoBuilder().title("Royale API")
+                .description("Royale API Docs").build();
     }
 
     @Bean
@@ -27,7 +27,7 @@ public class SwaggerConfig {
                 .consumes(getConsumeContentTypes())
                 .produces(getProduceContentTypes())
                 .apiInfo(swaggerInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.ssafy.chuanione.domain"))
+                .apis(RequestHandlerSelectors.basePackage("com.ssafy.royale.domain"))
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);
