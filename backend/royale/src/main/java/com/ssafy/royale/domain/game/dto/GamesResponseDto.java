@@ -4,6 +4,7 @@ import com.ssafy.royale.domain.user.dto.ParticipantsDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.ToString;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 @ApiModel(value = "GameResponseDto", description = "대진표")
 @Builder
 @ToString
+@Getter
 public class GamesResponseDto {
     @ApiModelProperty(name = "game_seq값")
     private Integer id;

@@ -106,19 +106,21 @@ public class GameServiceImpl implements GameService{
                 if(i == ((applies.size()-1) / 2)-1) {
                     nextMatchId = null;
                 }
+                List<ParticipantsDto> list = new ArrayList<>();
+                list.add(null);
+                list.add(null);
                 GamesResponseDto gamesResponseDto = GamesResponseDto.builder()
                         .id(game.getGame_seq().intValue())
                         .name(Integer.toString(game.getMatGameNum()))
                         .startTime(Integer.toString(game.getGame_seq().intValue()))
                         .tournamentRoundText(Integer.toString(game.getTournamentRoundText()))
-                        .participants(null)
+                        .participants(list)
                         .nextMatchId(nextMatchId)
                         .state(null)
                         .build();
                 gamesResponseDtoList.add(gamesResponseDto);
                 gameIndex++;
             }
-
         }
         return gamesResponseDtoList;
     }
