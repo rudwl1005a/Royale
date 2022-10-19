@@ -18,8 +18,8 @@ import java.time.LocalDateTime;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long user_seq;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long userSeq;
 
     @Column(name = "user_email", unique = true, nullable = false)
     private String userEmail;
@@ -29,6 +29,8 @@ public class User {
     private String userName;
     @Column(name = "user_phone", unique = false, nullable = false)
     private String userPhone;
+    @Column(name = "user_token", unique = false, nullable = true)
+    private String userToken;
 
     @CreationTimestamp
     @Column(name = "REG_DTM", nullable = false)
@@ -38,5 +40,21 @@ public class User {
     @Column(name = "MOD_DTM", nullable = true)
     private LocalDateTime MOD_DTM;
 
+    public void updateUser(String userPassword, String userName, String userPhone) {
+        this.userPassword = userPassword;
+        this.userName = userName;
+        this.userPhone = userPhone;
+    }
+
+    public void deleteUser() {
+        this.userEmail = "탈퇴된 회원(" + this.userSeq + ")의 이메일";
+        this.userPassword = "탈퇴된 회원(" + this.userSeq + ")의 패스워드";
+        this.userPhone = "탈퇴된 회원(" + this.userSeq + ")의 번호";
+    }
+
+    public void saveToken(String userToken) {
+        this.userToken = userToken;
+    }
 }
+
 
