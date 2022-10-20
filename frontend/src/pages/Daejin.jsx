@@ -18,6 +18,7 @@ export default function Daejin(props){
     const [matches,setMatches] = useState('')
     const URL = `http://localhost:8080/api/game/finish/${params.id}/`
 
+    //반복렌더링 연습
     const [dom,setDom] = useState('')
 
 
@@ -77,6 +78,7 @@ export default function Daejin(props){
                     />
             </div> 
             : ''}
+            {/* 반복렌더링 3항연산자 통해서 있을 때만 실행 */}
             {dom ? dom : ''}
         </div>
     )
