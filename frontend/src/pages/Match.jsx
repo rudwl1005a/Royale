@@ -1,5 +1,5 @@
 import React from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Match(props){
@@ -12,12 +12,18 @@ export default function Match(props){
 
     const params = useParams()
 
+    //경기정보
+    const [info,setInfo] = useState()
+
     const URL1 = '경기 정보를 받아올 URL'
     const URL2 = '경기 데이터를 수정 할 URL'
 
     useEffect(()=>{
         // 경기정보를 받아옵니다
         // useState를 통해서 경기 정보를 받아옵니다
+        //axios.get()
+        //.then()
+        //setInfo(res.data)
     },[])
 
     function F(){
