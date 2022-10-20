@@ -107,8 +107,9 @@ public class GameServiceImpl implements GameService{
                     nextMatchId = null;
                 }
                 List<ParticipantsDto> list = new ArrayList<>();
-                list.add(null);
-                list.add(null);
+                list.add(ParticipantsDto.builder().build());
+                list.add(ParticipantsDto.builder().build());
+
                 GamesResponseDto gamesResponseDto = GamesResponseDto.builder()
                         .id(game.getGame_seq().intValue())
                         .name(Integer.toString(game.getMatGameNum()))
