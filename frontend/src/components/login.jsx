@@ -19,6 +19,7 @@ export default function Login(){
             console.log('id',id)
             console.log('email',email)
             console.log('pass',pass)
+            //필요하다면 로그인 성공후 navigate를 사용해서 바로 원하는 페이지로 이동시킬수 있습니다
         }
         else {
             alert('비밀번호와 비밀번호 확인이 일치하지 않습니다')

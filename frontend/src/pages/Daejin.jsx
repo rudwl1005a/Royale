@@ -18,13 +18,42 @@ export default function Daejin(props){
     const [matches,setMatches] = useState('')
     const URL = `http://localhost:8080/api/game/finish/${params.id}/`
 
+    const [dom,setDom] = useState('')
+
+
     useEffect(()=>{
         axios.get(URL)
         .then(res=>{
             setMatches(res.data)
             console.log(res.data)
+        
+            
+
         })
     },[])
+
+    //배열형태로 들어오는 정보 반복 렌더링하기
+    useEffect(()=>{
+            //ex) 배열 matches
+            if (matches){
+                //matches가 존재 할때
+                const tmp = matches.map((match,idx)=>
+                    //개별 컨텐츠 match
+                    //key idx
+                    <div>
+                        <div>아이디 번호 : {match.id}</div>
+                        <div>이름 : {match.name}</div>
+                        <div>참가자 1 : {match.participants[0].name}</div>
+                        <div>참가자 2 : {match.participants[1].name}</div>
+                    </div>
+                )
+                //set 사용해서 변경
+                setDom(tmp)
+            }
+    },[matches]) //matches가 변경 될때 마다 실행
+
+    
+
 
     function A(e){
         if (e.target.className==='sc-gswNZR bsxbPA'){
@@ -48,6 +77,7 @@ export default function Daejin(props){
                     />
             </div> 
             : ''}
+            {dom ? dom : ''}
         </div>
     )
 }
