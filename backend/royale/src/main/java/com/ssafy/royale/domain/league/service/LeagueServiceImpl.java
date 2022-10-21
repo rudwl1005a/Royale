@@ -3,6 +3,7 @@ package com.ssafy.royale.domain.league.service;
 import com.ssafy.royale.domain.league.dao.LeagueRepository;
 import com.ssafy.royale.domain.league.domain.League;
 import com.ssafy.royale.domain.league.dto.CreateLeagueRequestDto;
+import com.ssafy.royale.domain.league.dto.UpdateLeagueRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,11 +47,9 @@ public class LeagueServiceImpl implements LeagueService{
      * 대회 정보 수정
      */
     @Override
-    public League updateLeague(CreateLeagueRequestDto updateLeagueRequestDto, Long leagueSeq) {
+    public League updateLeague(UpdateLeagueRequestDto updateLeagueRequestDto) {
         // 리그 정보 가져오기
-        League updateLeague = leagueRepository.findById(leagueSeq).get();
-
-        System.out.println(updateLeagueRequestDto.getLeagueName());
+        League updateLeague = leagueRepository.findById(updateLeagueRequestDto.getLeagueSeq()).get();
 
         // 리그 정보 수정
         updateLeague.updateLeague(

@@ -2,6 +2,7 @@ package com.ssafy.royale.domain.league.api;
 
 import com.ssafy.royale.domain.league.domain.League;
 import com.ssafy.royale.domain.league.dto.CreateLeagueRequestDto;
+import com.ssafy.royale.domain.league.dto.UpdateLeagueRequestDto;
 import com.ssafy.royale.domain.league.service.LeagueService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Api(value = "대회 API", tags = {"League"})
 @RestController
-@RequestMapping("api/leagues")
+@RequestMapping(value = "api/leagues", produces="application/json;charset=UTF-8")
 @CrossOrigin
 public class LeagueController {
 
@@ -38,6 +39,8 @@ public class LeagueController {
         || createLeagueRequestDto.getLeaguePoster().equals("") || createLeagueRequestDto.getLeagueInfo().equals("") ) {
             return ResponseEntity.status(405).body("모든 내용을 입력해주세요");
         }
+
+        System.out.println(createLeagueRequestDto.getLeagueName());
 
         try {
             League league = leagueService.createLeague(createLeagueRequestDto);
@@ -73,7 +76,8 @@ public class LeagueController {
         }
     }
 
-    @PatchMapping("/{leagueSeq}")
+//    @PatchMapping("/{leagueSeq}")
+    @PatchMapping
     @ApiOperation(value = "대회 수정", notes = "대회 정보 수정")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
@@ -83,17 +87,22 @@ public class LeagueController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> updateLeague(
-            @PathVariable(value = "leagueSeq")
+//            @PathVariable(value = "leagueSeq")
             @RequestBody
-            @ApiParam(value = "대회 정보 수정", required = true) long leagueSeq, CreateLeagueRequestDto updateLeagueRequestDto ) {
+            @ApiParam(value = "대회 정보 수정", required = true) UpdateLeagueRequestDto updateLeagueRequestDto ) {
+//            @ApiParam(value = "대회 정보 수정", required = true) long leagueSeq, CreateLeagueRequestDto updateLeagueRequestDto ) {
         /**
          * 권한 확인 필요!!
          */
+        int in = 5;
+        Long l = new Long(in);
 
         // 등록된 대회가 없을 경우
-        if ( leagueService.findLeagueByLeagueSeq(leagueSeq) == null ) {
+        if ( leagueService.findLeagueByLeagueSeq(l) == null ) {
             return ResponseEntity.status(404).body("등록된 대회가 없습니다.");
         }
+
+        System.out.println(updateLeagueRequestDto);
 
         // 모든 정보가 입력되지 않은 경우
 //        if (updateLeagueRequestDto.getLeagueName().equals("") || updateLeagueRequestDto.getLeaguePlace().equals("")
@@ -103,7 +112,7 @@ public class LeagueController {
 //        }
 
         try {
-            League league = leagueService.updateLeague(updateLeagueRequestDto, leagueSeq);
+            League league = leagueService.updateLeague(updateLeagueRequestDto);
             return ResponseEntity.status(200).body(league);
         } catch (Exception e) {
             return ResponseEntity.status(400).body("대회 정보 수정 실패");
