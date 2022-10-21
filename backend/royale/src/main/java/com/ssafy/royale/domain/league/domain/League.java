@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,6 +21,7 @@ public class League {
     private Long leagueSeq;
     private String leagueName;
     private String leaguePlace;
+    private LocalDate leagueDate;
     private LocalDateTime leagueDeadline;
     private String leaguePoster;
     private String leagueInfo;
@@ -29,4 +31,14 @@ public class League {
     @UpdateTimestamp
     @Column(name = "MOD_DTM", nullable = true)
     private LocalDateTime MOD_DTM;
+
+    public void updateLeague(String leagueName, String leaguePlace, LocalDate leagueDate,
+                             LocalDateTime leagueDeadline, String leaguePoster, String leagueInfo) {
+        this.leagueName = leagueName;
+        this.leaguePlace = leaguePlace;
+        this.leagueDate = leagueDate;
+        this.leagueDeadline = leagueDeadline;
+        this.leaguePoster = leaguePoster;
+        this.leagueInfo = leagueInfo;
+    }
 }
