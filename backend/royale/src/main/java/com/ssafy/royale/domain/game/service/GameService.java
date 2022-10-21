@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface GameService {
     List<GamesResponseDto> autoMakeGame(Long seq);
+    List<GamesResponseDto> getTournament(Long leagueSeq, Long divisionSeq);
 }

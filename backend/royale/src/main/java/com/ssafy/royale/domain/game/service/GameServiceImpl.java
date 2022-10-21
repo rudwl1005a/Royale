@@ -5,6 +5,7 @@ import com.ssafy.royale.domain.game.dao.GameRepository;
 import com.ssafy.royale.domain.game.domain.Division;
 import com.ssafy.royale.domain.game.domain.Game;
 import com.ssafy.royale.domain.game.dto.GamesResponseDto;
+import com.ssafy.royale.domain.game.exception.DivisionNotFoundException;
 import com.ssafy.royale.domain.league.dao.LeagueRepository;
 import com.ssafy.royale.domain.league.domain.League;
 import com.ssafy.royale.domain.league.exception.LeagueNotFoundException;
@@ -32,7 +33,7 @@ public class GameServiceImpl implements GameService{
     public List<GamesResponseDto> autoMakeGame(Long seq) {
         List<Division> divisions = divisionRepository.findAll();
         League league = leagueRepository.findById(seq).orElseThrow(LeagueNotFoundException::new);
-        //8강인 경우 7개의 경기를 담아야함, 1라운드(4경기)는 참가자를 다 채워서 담음
+        //8강인 경우 7개의 경기를 담아야함, 1라운드(4경기)는 참가자를 다 채워서 담음, 더미도 삽입
         List<GamesResponseDto> gamesResponseDtoList = new ArrayList<>();
 
         for (Division division: divisions) {
@@ -44,7 +45,7 @@ public class GameServiceImpl implements GameService{
             int tournamentDepthCount = 1;
             //8강일경우 8개
             int applySize = applies.size();
-            //8강인경우 7개의 경기 생성
+            //8강인경우 7개의 경기 생성, 첫 경기들은 userSeq에 값을 다 넣어놔야함(아직 안했음)
             while (applySize > 0){
                 applySize /= 2;
 
@@ -123,6 +124,59 @@ public class GameServiceImpl implements GameService{
                 gameIndex++;
             }
         }
+        return gamesResponseDtoList;
+    }
+
+    //삽입된 게임을 조회해서 토너먼트 형식에 맞게 뿌려줌
+    //전체 값을 list에 담아서 보내야하므로 game에 담긴 값을 다 꺼내서 뿌려야함
+    //game이 null이지 않는 한 null값은 내가 넣지 않는다
+    @Override
+    public List<GamesResponseDto> getTournament(Long leagueSeq, Long divisionSeq) {
+        Division division = divisionRepository.findById(divisionSeq).orElseThrow(DivisionNotFoundException::new);
+        League league = leagueRepository.findById(leagueSeq).orElseThrow(LeagueNotFoundException::new);
+
+        //대회와 division정보를 바탕으로 만들어진 game을 조회
+        List<Game> gameList = gameRepository.findAllByLeagueAndDivision(league, division);
+        List<GamesResponseDto> gamesResponseDtoList = new ArrayList<>();
+        //gameList의 길이는 N-1개
+        for (int i=0; i < gameList.size(); i++) {
+            List<ParticipantsDto> participantsDtoList = new ArrayList<>();
+            GamesResponseDto gamesResponseDto;
+            //회원이 비었다면, 아직 대진 결과가 안나온 상태라서 빈 객체값을 담아야함
+            if(gameList.get(i).getPlayer1_seq() == null){
+                participantsDtoList.add(ParticipantsDto.builder().build());
+                participantsDtoList.add(ParticipantsDto.builder().build());
+            }else{
+                ParticipantsDto apply1 = ParticipantsDto.builder()
+                        .id(Long.toString(gameList.get(i).getPlayer1_seq().getApplySeq()))
+                        .name(gameList.get(i).getPlayer1_seq().getUser().getUserName())
+                        .status("NO_SHOW")
+                        .build();
+                ParticipantsDto apply2 = ParticipantsDto.builder()
+                        .id(Long.toString(gameList.get(i).getPlayer2_seq().getApplySeq()))
+                        .name(gameList.get(i).getPlayer2_seq().getUser().getUserName())
+                        .status("NO_SHOW")
+                        .build();
+                participantsDtoList.add(apply1);
+                participantsDtoList.add(apply2);
+
+            }
+
+            //마지막 index는 null처리
+            Integer nextMatchId = gameList.get((i/2) + (gameList.size() / 2) + 1).getGame_seq().intValue();
+            if(i == gameList.size()-1) nextMatchId = null;
+
+            gamesResponseDto = GamesResponseDto.builder()
+                    .id(gameList.get(i).getGame_seq().intValue())
+                    .name(Integer.toString(gameList.get(i).getMatGameNum()))
+                    .nextMatchId(nextMatchId)
+                    .tournamentRoundText(Integer.toString(gameList.get(i).getTournamentRoundText()))
+                    .startTime(Integer.toString(gameList.get(i).getGame_seq().intValue()))
+                    .participants(participantsDtoList)
+                    .build();
+            gamesResponseDtoList.add(gamesResponseDto);
+        }
+
         return gamesResponseDtoList;
     }
 

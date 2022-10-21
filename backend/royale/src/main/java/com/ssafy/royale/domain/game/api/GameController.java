@@ -24,4 +24,12 @@ public class GameController {
         System.out.println(result.get(0).toString());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("")
+    @ApiOperation(value = "Division을 통한 대진표 조회")
+    public ResponseEntity<List<GamesResponseDto>> getTournament(@RequestParam Long leagueSeq, @RequestParam Long divisionSeq){
+        List<GamesResponseDto> result = gameService.autoMakeGame(seq);
+        System.out.println(result.get(0).toString());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

@@ -22,7 +22,7 @@ public class GamesResponseDto {
     private Integer nextMatchId;
     @ApiModelProperty(name = "토너먼트 경기 깊이, 1라운드 1, 2라운드 2...")
     private String tournamentRoundText;
-    @ApiModelProperty(name = "경기 시작 시간")
+    @ApiModelProperty(name = "경기 시작 시간 -> game_seq값을 넣어서 식별가능하게 변경")
     private String startTime;
     @ApiModelProperty(name = "경기 상태")
     private String state;
