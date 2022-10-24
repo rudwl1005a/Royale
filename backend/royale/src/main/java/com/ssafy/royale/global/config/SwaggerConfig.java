@@ -27,7 +27,7 @@ public class SwaggerConfig {
                 .consumes(getConsumeContentTypes())
                 .produces(getProduceContentTypes())
                 .apiInfo(swaggerInfo()).select()
-                .apis(RequestHandlerSelectors.basePackage("com.ssafy.chuanione.domain"))
+                .apis(RequestHandlerSelectors.basePackage("com.ssafy.royale.domain"))
                 .paths(PathSelectors.any())
                 .build()
                 .useDefaultResponseMessages(false);

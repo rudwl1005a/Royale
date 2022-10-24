@@ -38,90 +38,32 @@ public class GameServiceImpl implements GameService{
 
         for (Division division: divisions) {
             List<Apply> applies = applyRepository.findAllByLeagueAndDivision(league, division);
+            addApplicantDummyData(applies);
             //applies에는 한 대진에 있는 모든 유저값이 들어있다.
             //대진표 순서 -> 같은 체육관은 멀리 등 알고리즘은 짯다고 치고 수행
             //더미 삽입 후 해당 함수 수행
             int matCount = 1;
-            int tournamentDepthCount = 1;
-            //8강일경우 8개
-            int applySize = applies.size();
+            int tournamentRoundText = 1;
+            //8강일경우 8개 -> 더미 삽입도 만들어야함
+            int tournamentDepthCount = applies.size();
+            int applyCount = 0;
             //8강인경우 7개의 경기 생성, 첫 경기들은 userSeq에 값을 다 넣어놔야함(아직 안했음)
-            while (applySize > 0){
-                applySize /= 2;
+            while (tournamentDepthCount > 0){
+                tournamentDepthCount /= 2;
 
-                for (int i = 0; i < applySize; i++) {
+                for (int i = 0; i < tournamentDepthCount; i++) {
                     Game game = Game.builder()
                             .league(league)
                             .division(division)
                             .matGameNum(matCount++)
-                            .tournamentRoundText(tournamentDepthCount)
+                            .tournamentRoundText(tournamentRoundText)
                             .build();
+                    if(applyCount < applies.size()){
+                        game.setAddPlayer(applies.get(applyCount++), applies.get(applyCount++));
+                    }
                     gameRepository.save(game);
                 }
-                tournamentDepthCount++;
-            }
-
-            //gameList는 8강인 경우 길이가 7임
-            List<Game> gameList = gameRepository.findAllByLeagueAndDivision(league, division);
-            int gameIndex = 0;
-            //1라운드 참가자 생성
-            for (int i = 0; i < applies.size()-1; i++) {
-                Apply apply1 = applies.get(i++);
-                List<ParticipantsDto> participantsList = new ArrayList<>();
-                ParticipantsDto player1 = ParticipantsDto.builder()
-                        .id(Long.toBinaryString(apply1.getApplySeq()))
-                        .name(apply1.getUser().getUserName())
-                        .status(NOSHOW)
-                        .build();
-
-                Apply apply2 = applies.get(i);
-                ParticipantsDto player2 = ParticipantsDto.builder()
-                        .id(Long.toBinaryString(apply2.getApplySeq()))
-                        .name(apply2.getUser().getUserName())
-                        .status(NOSHOW)
-                        .build();
-
-                participantsList.add(player1);
-                participantsList.add(player2);
-
-                //게임 엔티티를 받아서 gameResponseDto에 삽입
-                Game game = gameList.get(gameIndex);
-                GamesResponseDto gamesResponseDto = GamesResponseDto.builder()
-                        .id(game.getGame_seq().intValue())
-                        .name(Integer.toString(game.getMatGameNum()))
-                        .startTime(Integer.toString(game.getGame_seq().intValue()))
-                        .tournamentRoundText(Integer.toString(game.getTournamentRoundText()))
-                        .participants(participantsList)
-                        .nextMatchId(gameList.get((gameIndex/2) + (applies.size() / 2)).getGame_seq().intValue())
-                        .state(null)
-                        .build();
-                gamesResponseDtoList.add(gamesResponseDto);
-                gameIndex++;
-            }
-
-            //2라운드부터 현재 참가자가 없는 라운드 gamesListponseDto 생성
-            for (int i = 0; i < (applies.size()-1) / 2; i++) {
-                Game game = gameList.get(gameIndex);
-                //i가 마지막값에 도달한 경우 nextMatchId를 null로 넣음
-                Integer nextMatchId = gameList.get((gameIndex/2) + (applies.size() / 2)).getGame_seq().intValue();
-                if(i == ((applies.size()-1) / 2)-1) {
-                    nextMatchId = null;
-                }
-                List<ParticipantsDto> list = new ArrayList<>();
-                list.add(ParticipantsDto.builder().build());
-                list.add(ParticipantsDto.builder().build());
-
-                GamesResponseDto gamesResponseDto = GamesResponseDto.builder()
-                        .id(game.getGame_seq().intValue())
-                        .name(Integer.toString(game.getMatGameNum()))
-                        .startTime(Integer.toString(game.getGame_seq().intValue()))
-                        .tournamentRoundText(Integer.toString(game.getTournamentRoundText()))
-                        .participants(list)
-                        .nextMatchId(nextMatchId)
-                        .state(null)
-                        .build();
-                gamesResponseDtoList.add(gamesResponseDto);
-                gameIndex++;
+                tournamentRoundText++;
             }
         }
         return gamesResponseDtoList;
@@ -163,8 +105,7 @@ public class GameServiceImpl implements GameService{
             }
 
             //마지막 index는 null처리
-            Integer nextMatchId = gameList.get((i/2) + (gameList.size() / 2) + 1).getGame_seq().intValue();
-            if(i == gameList.size()-1) nextMatchId = null;
+            Integer nextMatchId = i == gameList.size()-1 ? null : gameList.get((i/2) + (gameList.size() / 2) + 1).getGame_seq().intValue();
 
             gamesResponseDto = GamesResponseDto.builder()
                     .id(gameList.get(i).getGame_seq().intValue())
@@ -176,10 +117,23 @@ public class GameServiceImpl implements GameService{
                     .build();
             gamesResponseDtoList.add(gamesResponseDto);
         }
-
         return gamesResponseDtoList;
     }
 
+    public void addApplicantDummyData(List<Apply> applies){
+        if(applies.size() < 8){
+            for (int i = 0; i < 8 - applies.size(); i++) {
+                applies.add(new Apply());
+            }
+        }else if(applies.size() > 8 && applies.size() < 16){
+            for (int i = 0; i < 16 - applies.size(); i++) {
+                applies.add(new Apply());
+            }
+        }else if(applies.size() > 16 && applies.size() < 32)
+            for (int i = 0; i < 32 - applies.size(); i++) {
+                applies.add(new Apply());
+            }
+    }
     /*
     autoMakeGame함수가 해야할 일
     대전 마감 버튼 클릭
