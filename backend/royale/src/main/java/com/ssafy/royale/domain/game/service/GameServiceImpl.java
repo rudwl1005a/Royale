@@ -123,15 +123,15 @@ public class GameServiceImpl implements GameService{
     public void addApplicantDummyData(List<Apply> applies){
         if(applies.size() < 8){
             for (int i = 0; i < 8 - applies.size(); i++) {
-                applies.add(new Apply());
+                applies.add(Apply.builder().build());
             }
         }else if(applies.size() > 8 && applies.size() < 16){
             for (int i = 0; i < 16 - applies.size(); i++) {
-                applies.add(new Apply());
+                applies.add(Apply.builder().applySeq(1L).build());
             }
         }else if(applies.size() > 16 && applies.size() < 32)
             for (int i = 0; i < 32 - applies.size(); i++) {
-                applies.add(new Apply());
+                applies.add(Apply.builder().applySeq(1L).build());
             }
     }
     /*

@@ -22,21 +22,21 @@ public class Apply {
     @Column(name = "apply_seq")
     private Long applySeq;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "league_seq", nullable = false)
+    @JoinColumn(name = "league_seq")
     private League league;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_seq", nullable = false)
+    @JoinColumn(name = "user_seq", unique = true)
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_seq", nullable = false)
+    @JoinColumn(name = "team_seq")
     private Team team;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "division_seq", nullable = false)
+    @JoinColumn(name = "division_seq")
     private Division division;
     private boolean weightCheck;
     private boolean moneyCheck;
     @CreationTimestamp
-    @Column(name = "REG_DTM", nullable = false)
+    @Column(name = "REG_DTM")
     private LocalDateTime REG_DTM;
 
     @UpdateTimestamp
