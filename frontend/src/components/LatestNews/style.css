@@ -1,0 +1,229 @@
+/*Latest News CSS*/
+.fag-blog-area {
+  position: relative
+}
+
+.blog-item {
+  margin-top: 30px
+}
+
+.blog-image {
+  overflow: hidden;
+  border-radius: 18px;
+  position: relative
+}
+
+.blog-image img {
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  border-radius: 18px;
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  width: 100%
+}
+
+.blog-item:hover .blog-image img {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1)
+}
+
+.blog-image .play-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) scale(1);
+          transform: translate(-50%, -50%) scale(1);
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  font-size: 25px;
+  background: rgba(246, 139, 31, 0.53);
+  border-radius: 50%;
+  color: #fff;
+  -webkit-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
+  overflow: hidden;
+}
+
+.blog-image .play-video i {
+  margin-left: 5px;
+}
+
+.blog-image:hover .play-video {
+  background: #ff7a21;
+  -webkit-transform: translate(-50%, -50%) scale(1.1);
+          transform: translate(-50%, -50%) scale(1.1);
+}
+
+.blog-text {
+  padding-top: 20px;
+}
+
+.blog-cat a {
+  background: #ff7a21 none repeat scroll 0 0;
+  color: #fff;
+  text-transform: capitalize;
+  font-family: 'Rajdhani', sans-serif;
+  display: inline-block;
+  font-weight: 600;
+  border-radius: 18px;
+  padding: 5px 20px;
+}
+
+.blog-text h3 {
+  color: #fff;
+  font-size: 35px;
+  margin-bottom: 15px
+}
+
+.blog-text h3 a {
+  color: #fff
+}
+
+.blog-text h3 a:hover {
+  color: #ff7a21
+}
+
+.post-info {
+  border-top: 1px dashed #4e4e4e;
+  margin-top: 20px;
+  padding-top: 15px;
+}
+
+.post-info li {
+  display: inline-block;
+  margin-right: 25px
+}
+
+.post-info li:last-child {
+  margin: 0
+}
+
+.post-info li a {
+  color: #999
+}
+
+.post-info li a svg {
+  color: #ff7a21;
+  margin-right: 5px
+}
+
+.post-small .blog-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.post-small .blog-image {
+  width: 35%;
+  border-top-right-radius: 0;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius-bottomright: 0;
+  -moz-background-clip: padding;
+  border-bottom-right-radius: 0;
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  position: relative
+}
+
+.post-small .blog-image img {
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.post-small .blog-text {
+  width: 65%;
+  padding: 20px 30px;
+  background: #080811 none repeat scroll 0 0;
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+.post-small .blog-text h3 {
+  font-size: 24px
+}
+.post-small .blog-text p.blog-cat{
+  display: inline-block
+}
+.post-small .blog-text p{
+  display: none
+}
+
+.load_more a {
+  padding: 10px 50px;
+  background: transparent
+}
+
+.load_more a:hover {
+  background: #ff7a21 none repeat scroll 0 0
+}
+
+.fag-news-page-area {
+  padding-top: 50px
+}
+
+.fag-news-page-area .blog-item {
+  margin-top: 50px
+}
+
+.fag-news-page-area .pagination-box-row {
+  text-align: left;
+  margin-top: 50px
+}
+
+
+/*Responsive*/
+
+@media(max-width:767px){
+  .blog-text h3{
+    font-size: 26px
+  }
+  .post-small .blog-image img{
+      position: inherit
+  }
+  .post-small .blog-item{
+      display: block
+  }
+  .post-small .blog-image{
+      width: 100%
+  }
+  .post-small .blog-text {
+      width: 100%;
+      padding: 20px 0 0;
+      background: transparent;
+  }
+  .post-small .blog-text p{
+      display: block
+  }
+}
+@media(min-width: 768px) and (max-width: 991px){
+  .blog-text h3{
+    font-size: 26px
+  }
+  .post-small .blog-image img{
+      position: inherit
+  }
+  .post-small .blog-item{
+      display: block
+  }
+  .post-small .blog-image{
+      width: 100%
+  }
+  .post-small .blog-text {
+      width: 100%;
+      padding: 20px 0 0;
+      background: transparent;
+  }
+  .post-small .blog-text p{
+      display: block
+  }
+}

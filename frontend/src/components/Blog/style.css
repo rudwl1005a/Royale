@@ -1,0 +1,19 @@
+/*Blog Page CSS*/
+.fag-news-page-area {
+    padding-top: 50px
+}
+
+.fag-news-page-area .blog-item {
+    margin-top: 50px
+}
+
+.fag-news-page-area .pagination-box-row {
+    text-align: left;
+    margin-top: 50px
+}
+.play-video{
+    cursor: pointer;
+}
+.fag-news-page-area{
+    padding-top: 70px !important;
+}
