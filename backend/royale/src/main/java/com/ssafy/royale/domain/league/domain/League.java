@@ -20,6 +20,7 @@ public class League {
     private Long leagueSeq;
     private String leagueName;
     private String leaguePlace;
+    private String leagueDate;
     private LocalDateTime leagueDeadline;
     private String leaguePoster;
     private String leagueInfo;
