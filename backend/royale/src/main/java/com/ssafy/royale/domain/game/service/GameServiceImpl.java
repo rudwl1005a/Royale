@@ -5,6 +5,7 @@ import com.ssafy.royale.domain.game.dao.GameRepository;
 import com.ssafy.royale.domain.game.domain.Division;
 import com.ssafy.royale.domain.game.domain.Game;
 import com.ssafy.royale.domain.game.dto.GamesResponseDto;
+import com.ssafy.royale.domain.game.dto.PlayerTree;
 import com.ssafy.royale.domain.game.exception.DivisionNotFoundException;
 import com.ssafy.royale.domain.league.dao.LeagueRepository;
 import com.ssafy.royale.domain.league.domain.League;
@@ -30,43 +31,50 @@ public class GameServiceImpl implements GameService{
     private final String NOSHOW = "NO_SHOW";
 
     @Override
-    public List<GamesResponseDto> autoMakeGame(Long seq) {
+    public Boolean autoMakeGame(Long seq) {
         List<Division> divisions = divisionRepository.findAll();
         League league = leagueRepository.findById(seq).orElseThrow(LeagueNotFoundException::new);
-        //8강인 경우 7개의 경기를 담아야함, 1라운드(4경기)는 참가자를 다 채워서 담음, 더미도 삽입
-        List<GamesResponseDto> gamesResponseDtoList = new ArrayList<>();
 
         for (Division division: divisions) {
             List<Apply> applies = applyRepository.findAllByLeagueAndDivision(league, division);
-            addApplicantDummyData(applies);
-            //applies에는 한 대진에 있는 모든 유저값이 들어있다.
-            //대진표 순서 -> 같은 체육관은 멀리 등 알고리즘은 짯다고 치고 수행
-            //더미 삽입 후 해당 함수 수행
-            int matCount = 1;
-            int tournamentRoundText = 1;
-            //8강일경우 8개 -> 더미 삽입도 만들어야함
-            int tournamentDepthCount = applies.size();
-            int applyCount = 0;
-            //8강인경우 7개의 경기 생성, 첫 경기들은 userSeq에 값을 다 넣어놔야함(아직 안했음)
-            while (tournamentDepthCount > 0){
-                tournamentDepthCount /= 2;
+            applies.sort((e1, e2) -> (int) (e1.getTeam().getTeamSeq() - e2.getTeam().getTeamSeq()));
 
-                for (int i = 0; i < tournamentDepthCount; i++) {
-                    Game game = Game.builder()
-                            .league(league)
-                            .division(division)
-                            .matGameNum(matCount++)
-                            .tournamentRoundText(tournamentRoundText)
-                            .build();
-                    if(applyCount < applies.size()){
-                        game.setAddPlayer(applies.get(applyCount++), applies.get(applyCount++));
-                    }
-                    gameRepository.save(game);
-                }
-                tournamentRoundText++;
+            PlayerTree tree = new PlayerTree();
+            addApplicantDummyData(applies);
+            for (Apply apply: applies) {
+                tree.insert(apply);
             }
+            try {
+                applies = tree.inorder(tree.root);
+                //applies에는 한 대진에 있는 모든 유저값이 들어있다.
+                //대진표 순서 -> 같은 체육관은 멀리 등 알고리즘은 짯다고 치고 수행
+                //더미 삽입 후 해당 함수 수행
+                int matCount = 1;
+                int tournamentRoundText = 1;
+                //8강일경우 8개 -> 더미 삽입도 만들어야함
+                int tournamentDepthCount = applies.size();
+                int applyCount = 0;
+                //8강인경우 7개의 경기 생성, 첫 경기들은 userSeq에 값을 다 넣어놔야함(아직 안했음)
+                while (tournamentDepthCount > 0) {
+                    tournamentDepthCount /= 2;
+
+                    for (int i = 0; i < tournamentDepthCount; i++) {
+                        Game game = Game.builder()
+                                .league(league)
+                                .division(division)
+                                .matGameNum(matCount++)
+                                .tournamentRoundText(tournamentRoundText)
+                                .build();
+                        if (applyCount < applies.size()) {
+                            game.setAddPlayer(applies.get(applyCount++), applies.get(applyCount++));
+                        }
+                        gameRepository.save(game);
+                    }
+                    tournamentRoundText++;
+                }
+            }catch (Exception e){e.printStackTrace();}
         }
-        return gamesResponseDtoList;
+        return true;
     }
 
     //삽입된 게임을 조회해서 토너먼트 형식에 맞게 뿌려줌
@@ -121,17 +129,18 @@ public class GameServiceImpl implements GameService{
     }
 
     public void addApplicantDummyData(List<Apply> applies){
-        if(applies.size() < 8){
-            for (int i = 0; i < 8 - applies.size(); i++) {
-                applies.add(Apply.builder().build());
+        int size = applies.size();
+        if(size < 8){
+            for (int i = 0; i < 8 - size; i++) {
+                applies.add(null);
             }
-        }else if(applies.size() > 8 && applies.size() < 16){
-            for (int i = 0; i < 16 - applies.size(); i++) {
-                applies.add(Apply.builder().applySeq(1L).build());
+        }else if(size > 8 && size < 16){
+            for (int i = 0; i < 16 - size; i++) {
+                applies.add(null);
             }
-        }else if(applies.size() > 16 && applies.size() < 32)
-            for (int i = 0; i < 32 - applies.size(); i++) {
-                applies.add(Apply.builder().applySeq(1L).build());
+        }else if(size > 16 && size < 32)
+            for (int i = 0; i < 32 - size; i++) {
+                applies.add(null);
             }
     }
     /*

@@ -19,10 +19,8 @@ public class GameController {
 
     @GetMapping("/finish/{seq}")
     @ApiOperation(value = "대회 신청 마감, 자동 대진표 생성")
-    public ResponseEntity<List<GamesResponseDto>> autoMakeGame(@PathVariable Long seq){
-        List<GamesResponseDto> result = gameService.autoMakeGame(seq);
-        System.out.println(result.get(0).toString());
-        return new ResponseEntity<>(result, HttpStatus.OK);
+    public ResponseEntity<Boolean> autoMakeGame(@PathVariable Long seq){
+        return new ResponseEntity<>(gameService.autoMakeGame(seq), HttpStatus.OK);
     }
 
     @GetMapping("")
