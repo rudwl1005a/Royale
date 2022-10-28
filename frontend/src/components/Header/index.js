@@ -1,0 +1,181 @@
+import React, { useState } from "react";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import MobileMenu from "../MobileMenu";
+// import logo from "../../img/Logo_LeagueRoyale_black.png";
+import logo from "../../img/Logo_Royale_black.png";
+import admin from "../../img/admin.jpg";
+
+import "./style.css";
+
+function Header(props) {
+  // const [show, setShow] = useState(false);
+
+  // const SubmitHandler = (e) => {
+  //   e.preventDefault();
+  // };
+
+  const onClick = (e) => {
+    e.preventDefault();
+  };
+
+  const [state, setstate] = useState(false);
+  const changeClass = () => {
+    const scrollValue = document.documentElement.scrollTop;
+    if (scrollValue > 100) {
+      setstate(true);
+    } else {
+      setstate(false);
+    }
+  };
+  window.addEventListener("scroll", changeClass);
+  return (
+    <>
+      <header className={state ? "header-area scroll" : "header-area "}>
+        <Container>
+          <div className="header-inn d-flex align-items-center justify-content-between">
+            <div className="site-logo">
+              <Link to="/">
+                <img src={logo} alt="img" width={"200px"}/>
+              </Link>
+            </div>
+            <div className="header-navigation d-flex align-items-center justify-content-between">
+              <div className="mainmenu">
+                <nav>
+                  <ul>
+                    <li>
+                      <Link to="/">Home</Link>
+                    </li>
+                    <li className="has-sub">
+                      <Link to="/" onClick={onClick}>
+                        League
+                      </Link>
+                      <ul>
+                        <li>
+                          <Link to="/about">About Us</Link>
+                        </li>
+                        <li>
+                          <Link to="/games">Our Games</Link>
+                        </li>
+                        <li>
+                          <Link to="/game-single">Game Single</Link>
+                        </li>
+                        <li>
+                          <Link to="/match">Matches</Link>
+                        </li>
+                        <li>
+                          <Link to="/match-single">Matches Single</Link>
+                        </li>
+                        <li>
+                          <Link to="/error">404 Error</Link>
+                        </li>
+                        <li>
+                          <Link to="/login">Login</Link>
+                        </li>
+                        <li>
+                          <Link to="/register">register</Link>
+                        </li>
+                      </ul>
+                    </li>
+                    <li className="has-sub">
+                      <Link to="/" onClick={onClick}>
+                        rule
+                      </Link>
+                      <ul>
+                        <li>
+                          <Link to="/blog">All News</Link>
+                        </li>
+                        <li>
+                          <Link to="/blog-single">News Single</Link>
+                        </li>
+                      </ul>
+                    </li>
+                    <li className="has-sub">
+                      <Link to="/" onClick={onClick}>
+                        Store
+                      </Link>
+                      <ul>
+                        <li>
+                          <Link to="/products">All Products</Link>
+                        </li>
+                        <li>
+                          <Link to="/product-single">Product Single</Link>
+                        </li>
+                        <li>
+                          <Link to="/cart">Cart</Link>
+                        </li>
+                        <li>
+                          <Link to="/checkout">Checkout</Link>
+                        </li>
+                      </ul>
+                    </li>
+                    <li className="has-sub">
+                      <Link to="/" onClick={onClick}>
+                        Video
+                      </Link>
+                      <ul>
+                        <li>
+                          <Link to="/blog">All News</Link>
+                        </li>
+                        <li>
+                          <Link to="/blog-single">News Single</Link>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <Link to="/contact">Contact</Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+
+              <div className="header-right d-flex align-items-center justify-content-between">
+                <div className="header-auth">
+                  <Link to="/" onClick={onClick} className="lang-btn">
+                    <img src={admin} alt="admin" />
+                    Dave
+                  </Link>
+                  <ul className="user_menu">
+                    <li>
+                      <Link to="/" onClick={onClick}>
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/" onClick={onClick}>
+                        Forums
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/" onClick={onClick}>
+                        Message
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/" onClick={onClick}>
+                        challenges
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/" onClick={onClick}>
+                        Settings
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/" onClick={onClick}>
+                        Logout
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <MobileMenu />
+            </div>
+          </div>
+        </Container>
+      </header>
+    </>
+  );
+}
+
+export default Header;
