@@ -17,6 +17,7 @@ import ProductDetailsPage from "../ProductDetailsPage";
 import CartPage from "../CartPage";
 import CheckoutPage from "../CheckoutPage";
 import ContactPage from "../ContactPage";
+import ScoreboardPage from "../ScoreboardPage";
 
 const AllRoute = () => {
   return (
@@ -38,6 +39,7 @@ const AllRoute = () => {
           <Route exact path="/cart" element={<CartPage />} />
           <Route exact path="/checkout" element={<CheckoutPage />} />
           <Route exact path="/contact" element={<ContactPage />} />
+          <Route exact path="/scoreboard" element={<ScoreboardPage />} />
           <Route
             exact
             path="/product-single"
