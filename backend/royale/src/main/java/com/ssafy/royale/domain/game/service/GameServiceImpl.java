@@ -167,6 +167,18 @@ public class GameServiceImpl implements GameService{
                 applies.add(null);
             }
     }
+
+    public ParticipantsDto insertParticipant(Game game){
+        return ParticipantsDto.builder()
+                .id(Long.toString(game.getPlayer1_seq().getApplySeq()))
+                .name(game.getPlayer1_seq().getUser().getUserName())
+                .resultText(game.getPlayer1_score())
+                .status("NO_SHOW")
+                .build();
+    }
+    public ParticipantsDto insertDummyUser(){
+        return ParticipantsDto.builder().build();
+    }
     /*
     autoMakeGame함수가 해야할 일
     대전 마감 버튼 클릭
