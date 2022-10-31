@@ -36,7 +36,7 @@ function Header(props) {
           <div className="header-inn d-flex align-items-center justify-content-between">
             <div className="site-logo">
               <Link to="/">
-                <img src={logo} alt="img" width={"200px"}/>
+                <img src={logo} alt="img" width={"200px"} />
               </Link>
             </div>
             <div className="header-navigation d-flex align-items-center justify-content-between">
@@ -46,7 +46,9 @@ function Header(props) {
                     <li>
                       <Link to="/">Home</Link>
                     </li>
-                    <li className="has-sub">
+                    <li>
+                      {" "}
+                      {/* <li className="has-sub"> */}
                       <Link to="/" onClick={onClick}>
                         League
                       </Link>
@@ -55,72 +57,43 @@ function Header(props) {
                           <Link to="/about">About Us</Link>
                         </li>
                         <li>
-                          <Link to="/games">Our Games</Link>
+                          <Link to="/leaguelist">schedule</Link>
                         </li>
                         <li>
-                          <Link to="/game-single">Game Single</Link>
-                        </li>
-                        <li>
-                          <Link to="/match">Matches</Link>
-                        </li>
-                        <li>
-                          <Link to="/match-single">Matches Single</Link>
-                        </li>
-                        <li>
-                          <Link to="/error">404 Error</Link>
-                        </li>
-                        <li>
-                          <Link to="/login">Login</Link>
-                        </li>
-                        <li>
-                          <Link to="/register">register</Link>
+                          <Link to="/rule">Rule</Link>
                         </li>
                       </ul>
                     </li>
-                    <li className="has-sub">
+                    <li>
                       <Link to="/" onClick={onClick}>
-                        rule
+                        Rank
                       </Link>
                       <ul>
                         <li>
-                          <Link to="/blog">All News</Link>
+                          <Link to="/personalRank">개인 랭킹</Link>
                         </li>
                         <li>
-                          <Link to="/blog-single">News Single</Link>
+                          <Link to="/teamRank">팀별 랭킹</Link>
                         </li>
                       </ul>
                     </li>
-                    <li className="has-sub">
-                      <Link to="/" onClick={onClick}>
+                    <li>
+                      <a
+                        href="http://jiujitsuroyale.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Store
-                      </Link>
-                      <ul>
-                        <li>
-                          <Link to="/products">All Products</Link>
-                        </li>
-                        <li>
-                          <Link to="/product-single">Product Single</Link>
-                        </li>
-                        <li>
-                          <Link to="/cart">Cart</Link>
-                        </li>
-                        <li>
-                          <Link to="/checkout">Checkout</Link>
-                        </li>
-                      </ul>
+                      </a>
                     </li>
-                    <li className="has-sub">
-                      <Link to="/" onClick={onClick}>
+                    <li>
+                      <a
+                        href="https://www.youtube.com/channel/UCeSQZrz7nc-ABi9W7xqSpnA"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Video
-                      </Link>
-                      <ul>
-                        <li>
-                          <Link to="/blog">All News</Link>
-                        </li>
-                        <li>
-                          <Link to="/blog-single">News Single</Link>
-                        </li>
-                      </ul>
+                      </a>
                     </li>
                     <li>
                       <Link to="/contact">Contact</Link>
@@ -128,7 +101,6 @@ function Header(props) {
                   </ul>
                 </nav>
               </div>
-
               <div className="header-right d-flex align-items-center justify-content-between">
                 <div className="header-auth">
                   <Link to="/" onClick={onClick} className="lang-btn">

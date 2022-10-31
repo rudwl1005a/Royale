@@ -1,16 +1,16 @@
 import React from "react";
 
 import Header from "../components/Header";
-import GameDetails from "../components/GameDetails";
+import LeagueInfo from "../components/LeagueInfo";
 import Footer from "../components/Footer";
 
-const GameDetailsPage = () => {
+const LeagueInfoPage = () => {
   return (
     <>
       <Header />
-      <GameDetails />
+      <LeagueInfo />
       <Footer />
     </>
   );
 };
-export default GameDetailsPage;
+export default LeagueInfoPage;

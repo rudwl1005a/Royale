@@ -2,23 +2,23 @@ import React from "react";
 
 import Header from "../components/Header";
 import PageTitle from "../components/PageTitle";
-import GamesPage from "../components/GamesPage";
+import About from "../components/AboutPage";
 import Footer from "../components/Footer";
 
-const OurGamePage = () => {
+const AboutPage = () => {
   return (
     <>
       <Header />
       <PageTitle
         Title={
           <>
-            Our <span>Games</span>
+            About <span>Us</span>
           </>
         }
       />
-      <GamesPage />
+      <About />
       <Footer />
     </>
   );
 };
-export default OurGamePage;
+export default AboutPage;
