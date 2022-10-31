@@ -1,25 +1,19 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FiSearch } from "react-icons/fi";
-import { FaSearch, FaTimes } from "react-icons/fa";
 import MobileMenu from "../MobileMenu";
-import logo from "../../img/logo.png";
-import cart from "../../img/shopping-cart.png";
-import uk from "../../img/uk.png";
-import spain from "../../img/spain.png";
-import china from "../../img/china.png";
-import russia from "../../img/russia.png";
+// import logo from "../../img/Logo_LeagueRoyale_black.png";
+import logo from "../../img/Logo_Royale_black.png";
 import admin from "../../img/admin.jpg";
 
 import "./style.css";
 
 function Header(props) {
-  const [show, setShow] = useState(false);
+  // const [show, setShow] = useState(false);
 
-  const SubmitHandler = (e) => {
-    e.preventDefault();
-  };
+  // const SubmitHandler = (e) => {
+  //   e.preventDefault();
+  // };
 
   const onClick = (e) => {
     e.preventDefault();
@@ -42,7 +36,7 @@ function Header(props) {
           <div className="header-inn d-flex align-items-center justify-content-between">
             <div className="site-logo">
               <Link to="/">
-                <img src={logo} alt="img" />
+                <img src={logo} alt="img" width={"200px"} />
               </Link>
             </div>
             <div className="header-navigation d-flex align-items-center justify-content-between">
@@ -52,68 +46,54 @@ function Header(props) {
                     <li>
                       <Link to="/">Home</Link>
                     </li>
-                    <li className="has-sub">
+                    <li>
+                      {" "}
+                      {/* <li className="has-sub"> */}
                       <Link to="/" onClick={onClick}>
-                        Pages
+                        League
                       </Link>
                       <ul>
                         <li>
                           <Link to="/about">About Us</Link>
                         </li>
                         <li>
-                          <Link to="/games">Our Games</Link>
+                          <Link to="/leaguelist">schedule</Link>
                         </li>
                         <li>
-                          <Link to="/game-single">Game Single</Link>
-                        </li>
-                        <li>
-                          <Link to="/match">Matches</Link>
-                        </li>
-                        <li>
-                          <Link to="/match-single">Matches Single</Link>
-                        </li>
-                        <li>
-                          <Link to="/error">404 Error</Link>
-                        </li>
-                        <li>
-                          <Link to="/login">Login</Link>
-                        </li>
-                        <li>
-                          <Link to="/register">register</Link>
+                          <Link to="/rule">Rule</Link>
                         </li>
                       </ul>
                     </li>
-                    <li className="has-sub">
+                    <li>
                       <Link to="/" onClick={onClick}>
-                        News
+                        Rank
                       </Link>
                       <ul>
                         <li>
-                          <Link to="/blog">All News</Link>
+                          <Link to="/personalRank">개인 랭킹</Link>
                         </li>
                         <li>
-                          <Link to="/blog-single">News Single</Link>
+                          <Link to="/teamRank">팀별 랭킹</Link>
                         </li>
                       </ul>
                     </li>
-                    <li className="has-sub">
-                      <Link to="/" onClick={onClick}>
+                    <li>
+                      <a
+                        href="http://jiujitsuroyale.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         Store
-                      </Link>
-                      <ul>
-                        <li>
-                          <Link to="/products">All Products</Link>
-                        </li>
-                        <li>
-                          <Link to="/product-single">Product Single</Link>
-                        </li>
-                        <li>
-                          <Link to="/cart">Cart</Link>
-                        </li>
-                        <li>
-                          <Link to="/checkout">Checkout</Link>
-                        </li>
-                      </ul>
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.youtube.com/channel/UCeSQZrz7nc-ABi9W7xqSpnA"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Video
+                      </a>
                     </li>
                     <li>
                       <Link to="/contact">Contact</Link>
@@ -122,96 +102,28 @@ function Header(props) {
                 </nav>
               </div>
               <div className="header-right d-flex align-items-center justify-content-between">
-                <div className="header-search">
-                  <div id="search-trigger" onClick={() => setShow(true)}>
-                    <FiSearch />
-                  </div>
-                </div>
-                <div
-                  id="search-overlay"
-                  className={`block ${show ? "show" : ""}`}
-                >
-                  <div className="centered">
-                    <div id="search-box">
-                      <span id="close-btn" onClick={() => setShow(false)}>
-                        <FaTimes />
-                      </span>
-                      <form id="search-form" onSubmit={SubmitHandler}>
-                        <input
-                          id="search-text"
-                          name="q"
-                          placeholder="What're you looking for?"
-                          type="text"
-                        />
-                        <button id="search-button" type="submit">
-                          <FaSearch />
-                        </button>
-                      </form>
-                    </div>
-                  </div>
-                </div>
-                <div className="header-cart">
-                  <Link to="/cart">
-                    <img src={cart} alt="shopping cart" />
-                    $12.00
-                  </Link>
-                </div>
-                <div className="header-lang">
-                  <Link to="/" onClick={onClick}>
-                    <img src={uk} alt="uk" />
-                    EN
-                  </Link>
-                  <ul className="lang-menu">
-                    <li>
-                      <Link to="/" onClick={onClick}>
-                        <img src={spain} alt="spain" />
-                        <span>SP</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" onClick={onClick}>
-                        <img src={china} alt="china" />
-                        <span>CH</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/">
-                        <img src={russia} alt="russia" />
-                        <span>RU</span>
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
                 <div className="header-auth">
                   <Link to="/" onClick={onClick} className="lang-btn">
                     <img src={admin} alt="admin" />
-                    Siman
+                    Dave
                   </Link>
                   <ul className="user_menu">
                     <li>
-                      <Link to="/" onClick={onClick}>
-                        Profile
+                      <Link to="/competition/:id">Competition</Link>
+                    </li>
+                    <li>
+                      <Link to="/match/finish/:id">Daejin</Link>
+                    </li>
+                    <li>
+                      <Link to="/tournament/:leagueSeq/:divisionSeq">
+                        Tournament
                       </Link>
                     </li>
                     <li>
-                      <Link to="/" onClick={onClick}>
-                        Forums
-                      </Link>
+                      <Link to="/match/:id">Match</Link>
                     </li>
                     <li>
-                      <Link to="/" onClick={onClick}>
-                        Message
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" onClick={onClick}>
-                        challenges
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" onClick={onClick}>
-                        Settings
-                      </Link>
+                      <Link to="/register">register</Link>
                     </li>
                     <li>
                       <Link to="/" onClick={onClick}>

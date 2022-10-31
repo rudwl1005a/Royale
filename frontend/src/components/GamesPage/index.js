@@ -5,16 +5,16 @@ import { FaAngleRight, FaPlay } from "react-icons/fa";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { BiLoaderAlt } from "react-icons/bi";
 import { MdClose } from "react-icons/md";
-import games1 from "../../img/games-1.jpg";
-import games2 from "../../img/game-2.jpg";
-import games3 from "../../img/game-3.jpg";
+import games1 from "../../img/poster20111203.jpg";
+import games2 from "../../img/poster_reda_seminar.jpg";
+import games3 from "../../img/poster20111105.jpg";
 import games4 from "../../img/game-4.jpg";
 import games5 from "../../img/game-5.jpg";
 import games6 from "../../img/game-6.jpg";
 
 import "./style.css";
 
-function GamesPage(props) {
+function LeagueSchedule(props) {
   const [modal, setModal] = useState(false);
   const [videoLoading, setVideoLoading] = useState(true);
 
@@ -152,36 +152,16 @@ function GamesPage(props) {
                       </div>
                       <div className="games-desc">
                         <h3>
-                          <Link to="/game-single">Desperados III Digital</Link>
+                          <Link to="/game-single">Royale Seoul</Link>
                         </h3>
-                        <p className="game-meta">Action | Desktop</p>
                         <p className="game-meta">
-                          Release date:<span> 07.12.2015</span>
+                          Release date:<span> 2022.12.03 </span>
                         </p>
-                        <div className="game-rating">
-                          <h4>4.5</h4>
-                          <ul>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiOutlineStar />
-                            </li>
-                          </ul>
-                        </div>
+                        <p className="game-meta">place: 서울 KBS 88 체육관</p>
                         <div className="game-action">
                           <div className="game-price">
-                            <h4>$28.99</h4>
-                            <p className="off">50% OFF</p>
+                            <h4>₩50,000~</h4>
+                            <p className="free">10% OFF</p>
                           </div>
                           <div className="game-buy">
                             <Link to="/game-single" className="fag-btn-outline">
@@ -210,36 +190,16 @@ function GamesPage(props) {
                       </div>
                       <div className="games-desc">
                         <h3>
-                          <Link to="/game-single">Red Dead Redemption 2</Link>
+                          <Link to="/game-single">Reda Mebtouche Seminar</Link>
                         </h3>
-                        <p className="game-meta">Action | Desktop</p>
                         <p className="game-meta">
-                          Release date:<span> 07.12.2015</span>
+                          date:<span> 2022.11.05 ~ 2022.11.13 </span>
                         </p>
-                        <div className="game-rating">
-                          <h4>4.5</h4>
-                          <ul>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiOutlineStar />
-                            </li>
-                          </ul>
-                        </div>
+                        <p className="game-meta">palce: 부산, 서면, 인천</p>
                         <div className="game-action">
                           <div className="game-price">
-                            <h4>$18.99</h4>
-                            <p className="off">40% OFF</p>
+                            <h4>₩50,000</h4>
+                            <p className="free">Comming Soon</p>
                           </div>
                           <div className="game-buy">
                             <Link to="/game-single" className="fag-btn-outline">
@@ -268,42 +228,22 @@ function GamesPage(props) {
                       </div>
                       <div className="games-desc">
                         <h3>
-                          <Link to="/game-single">Baldur's Gate II</Link>
+                          <Link to="/game-single">Royale BUSAN</Link>
                         </h3>
-                        <p className="game-meta">Action | Desktop</p>
                         <p className="game-meta">
-                          Release date:<span> 07.12.2015</span>
+                          date:<span> 2022.11.05 </span>
                         </p>
-                        <div className="game-rating">
-                          <h4>4.2</h4>
-                          <ul>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiFillStar />
-                            </li>
-                            <li>
-                              <AiOutlineStar />
-                            </li>
-                          </ul>
-                        </div>
+                        <p className="game-meta">
+                          palce: BEXCO 제 2전시장 5B 홀
+                        </p>
                         <div className="game-action">
                           <div className="game-price">
-                            <h4>
-                              <del>$18.99</del>
-                            </h4>
-                            <p className="free">FREE</p>
+                            <h4>₩50,000~</h4>
+                            <p className="off">DONE</p>
                           </div>
                           <div className="game-buy">
                             <Link to="/game-single" className="fag-btn-outline">
-                              Download
+                              Buy Now!
                             </Link>
                           </div>
                         </div>
@@ -559,4 +499,4 @@ function GamesPage(props) {
   );
 }
 
-export default GamesPage;
+export default LeagueSchedule;

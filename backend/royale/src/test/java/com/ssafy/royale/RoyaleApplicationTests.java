@@ -7,7 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 class RoyaleApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void 대진표매칭테스트() {
+		int[] arr = new int[] {1,2,3,1,1,2,4,4};
+		int[] result = new int[8];
+
+
 	}
 
 }
