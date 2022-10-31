@@ -1,7 +1,8 @@
 /*Pre Order CSS*/
 .fag-preorder-area {
   position: relative;
-  background: url(../../img/cho.gif) no-repeat fixed 0 0 / cover;
+  background: url(../../img/preloader_bg.jpg) no-repeat fixed 0 0 / cover;
+  /* background: url(../../img/cho.gif) no-repeat fixed 0 0 / cover; */
   z-index: 1;
   padding: 100px 0;
   height: 540px;
