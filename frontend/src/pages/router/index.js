@@ -12,6 +12,11 @@ import LeagueDetailPage from "../LeagueDetailPage";
 import PersonalRankPage from "../PersonalRankPage";
 import TeamRankPage from "../TeamRankPage";
 import ContactPage from "../ContactPage";
+// 세영
+import Competition from "../Competition";
+import Match from "../Match";
+import Daejin from "../Daejin";
+import Tournament from "../Tournament";
 
 const AllRoute = () => {
   return (
@@ -41,6 +46,21 @@ const AllRoute = () => {
 
           {/* Contact */}
           <Route exact path="/contact" element={<ContactPage />} />
+
+          {/* 세영 */}
+          {/* 대회페이지 */}
+          {/* 동적으로 페이지를 추가 react-router-dom에서 useParams를 통해서 접근 가능 */}
+          <Route path="/competition/:id" element={<Competition />}></Route>
+          {/* 대회 마감 후 게임 삽입 */}
+          <Route path="/match/finish/:id" element={<Daejin />}></Route>
+          {/* 대회 분야별 대진표 */}
+          <Route
+            path="/tournament/:leagueSeq/:divisionSeq"
+            element={<Tournament />}
+          ></Route>
+
+          {/* 대회 개별 경기 페이지 */}
+          <Route path="/match/:id" element={<Match />}></Route>
 
           {/* 나머지 경로는 에러로 던짐 */}
           <Route path="*" element={<ErrorPage />} />

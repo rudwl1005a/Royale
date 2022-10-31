@@ -109,24 +109,18 @@ function Header(props) {
                   </Link>
                   <ul className="user_menu">
                     <li>
-                      <Link to="/" onClick={onClick}>
-                        Profile
+                      <Link to="/competition/:id">Competition</Link>
+                    </li>
+                    <li>
+                      <Link to="/match/finish/:id">Daejin</Link>
+                    </li>
+                    <li>
+                      <Link to="/tournament/:leagueSeq/:divisionSeq">
+                        Tournament
                       </Link>
                     </li>
                     <li>
-                      <Link to="/" onClick={onClick}>
-                        Forums
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" onClick={onClick}>
-                        Message
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" onClick={onClick}>
-                        challenges
-                      </Link>
+                      <Link to="/match/:id">Match</Link>
                     </li>
                     <li>
                       <Link to="/register">register</Link>
