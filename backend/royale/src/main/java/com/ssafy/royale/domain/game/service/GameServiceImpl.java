@@ -90,26 +90,47 @@ public class GameServiceImpl implements GameService{
         List<GamesResponseDto> gamesResponseDtoList = new ArrayList<>();
         //gameList의 길이는 N-1개
         for (int i=0; i < gameList.size(); i++) {
+            try{
             List<ParticipantsDto> participantsDtoList = new ArrayList<>();
             GamesResponseDto gamesResponseDto;
             //회원이 비었다면, 아직 대진 결과가 안나온 상태라서 빈 객체값을 담아야함
-            if(gameList.get(i).getPlayer1_seq() == null){
+            if(gameList.get(i).getPlayer1_seq() == null && gameList.get(i).getPlayer2_seq() == null){
                 participantsDtoList.add(ParticipantsDto.builder().build());
                 participantsDtoList.add(ParticipantsDto.builder().build());
-            }else{
+            }else if(gameList.get(i).getPlayer1_seq() == null){
+                participantsDtoList.add(ParticipantsDto.builder().build());
+                ParticipantsDto apply1 = ParticipantsDto.builder()
+                        .id(Long.toString(gameList.get(i).getPlayer2_seq().getApplySeq()))
+                        .name(gameList.get(i).getPlayer2_seq().getUser().getUserName())
+                        .resultText(gameList.get(i).getPlayer2_score())
+                        .status("NO_SHOW")
+                        .build();
+                participantsDtoList.add(apply1);
+            }else if(gameList.get(i).getPlayer2_seq() == null){
+                ParticipantsDto apply1 = ParticipantsDto.builder()
+                        .id(Long.toString(gameList.get(i).getPlayer1_seq().getApplySeq()))
+                        .name(gameList.get(i).getPlayer1_seq().getUser().getUserName())
+                        .resultText(gameList.get(i).getPlayer1_score())
+                        .status("NO_SHOW")
+                        .build();
+                participantsDtoList.add(apply1);
+                participantsDtoList.add(ParticipantsDto.builder().build());
+            }
+            else{
                 ParticipantsDto apply1 = ParticipantsDto.builder()
                         .id(Long.toString(gameList.get(i).getPlayer1_seq().getApplySeq()))
                         .name(gameList.get(i).getPlayer1_seq().getUser().getUserName())
                         .status("NO_SHOW")
+                        .resultText(gameList.get(i).getPlayer1_score())
                         .build();
                 ParticipantsDto apply2 = ParticipantsDto.builder()
                         .id(Long.toString(gameList.get(i).getPlayer2_seq().getApplySeq()))
                         .name(gameList.get(i).getPlayer2_seq().getUser().getUserName())
-                        .status("NO_SHOW")
+                        .status("PLAYED")
+                        .resultText(gameList.get(i).getPlayer1_score())
                         .build();
                 participantsDtoList.add(apply1);
                 participantsDtoList.add(apply2);
-
             }
 
             //마지막 index는 null처리
@@ -124,6 +145,9 @@ public class GameServiceImpl implements GameService{
                     .participants(participantsDtoList)
                     .build();
             gamesResponseDtoList.add(gamesResponseDto);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         return gamesResponseDtoList;
     }
