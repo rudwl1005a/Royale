@@ -1,6 +1,11 @@
 // import React, { useState } from "react";
 import React from "react";
-// import { Row, Col, Tab } from "react-bootstrap";
+// import { Row, Col } from "react-bootstrap";
+
+// import feature1 from "../../img/feature-1.png";
+// import feature2 from "../../img/feature-2.png";
+// import feature3 from "../../img/feature-3.png";
+// import feature4 from "../../img/feature-4.png";
 // import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 // import { FaCalendarAlt } from "react-icons/fa";
 // import { AiFillStar } from "react-icons/ai";
@@ -23,16 +28,18 @@ import React from "react";
 
 import "./style.css";
 
-function LeagueInfo(props) {
+function LeagueApply(props) {
   return (
     <>
       <div className="tab-body">
-        <p>대회 소개 페이지 입니다.</p>
-        <p>대회 소개 페이지 입니다.</p>
-        <p>대회 소개 페이지 입니다.</p>
+        <p>대회 신청 페이지 입니다.</p>
+        <p>대회 신청 페이지 입니다.</p>
+        <p>대회 신청 페이지 입니다.</p>
+        <p>대회 신청 페이지 입니다.</p>
+        <p>대회 신청 페이지 입니다.</p>
       </div>
     </>
   );
 }
 
-export default LeagueInfo;
+export default LeagueApply;

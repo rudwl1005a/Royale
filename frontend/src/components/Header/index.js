@@ -129,9 +129,7 @@ function Header(props) {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/" onClick={onClick}>
-                        Settings
-                      </Link>
+                      <Link to="/register">register</Link>
                     </li>
                     <li>
                       <Link to="/" onClick={onClick}>

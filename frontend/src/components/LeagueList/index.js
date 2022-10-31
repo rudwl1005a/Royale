@@ -42,7 +42,7 @@ function GamesPage(props) {
                 <div className="games-single-item img-contain-isotope">
                   <div className="games-thumb">
                     <div className="games-thumb-image">
-                      <Link to="/leagueinfo">
+                      <Link to="/leaguedetail">
                         <img src={games1} alt="games" />
                       </Link>
                     </div>
@@ -56,7 +56,7 @@ function GamesPage(props) {
                   </div>
                   <div className="games-desc">
                     <h3>
-                      <Link to="/leagueinfo">Royale Seoul</Link>
+                      <Link to="/leaguedetail">Royale Seoul</Link>
                     </h3>
                     <p className="game-meta">
                       Release date:<span> 2022.12.03 </span>
@@ -68,7 +68,7 @@ function GamesPage(props) {
                         <p className="free">10% OFF</p>
                       </div>
                       <div className="game-buy">
-                        <Link to="/leagueinfo" className="fag-btn-outline">
+                        <Link to="/leaguedetail" className="fag-btn-outline">
                           Participate
                         </Link>
                       </div>
@@ -80,7 +80,7 @@ function GamesPage(props) {
                 <div className="games-single-item img-contain-isotope">
                   <div className="games-thumb">
                     <div className="games-thumb-image">
-                      <Link to="/leagueinfo">
+                      <Link to="/leaguedetail">
                         <img src={games2} alt="games" />
                       </Link>
                     </div>
@@ -94,7 +94,7 @@ function GamesPage(props) {
                   </div>
                   <div className="games-desc">
                     <h3>
-                      <Link to="/leagueinfo">Reda Mebtouche Seminar</Link>
+                      <Link to="/leaguedetail">Reda Mebtouche Seminar</Link>
                     </h3>
                     <p className="game-meta">
                       date:<span> 2022.11.05 ~ 2022.11.13 </span>
@@ -106,7 +106,7 @@ function GamesPage(props) {
                         <p className="free">Comming Soon</p>
                       </div>
                       <div className="game-buy">
-                        <Link to="/leagueinfo" className="fag-btn-outline">
+                        <Link to="/leaguedetail" className="fag-btn-outline">
                           Participate
                         </Link>
                       </div>
@@ -118,7 +118,7 @@ function GamesPage(props) {
                 <div className="games-single-item img-contain-isotope">
                   <div className="games-thumb">
                     <div className="games-thumb-image">
-                      <Link to="/leagueinfo">
+                      <Link to="/leaguedetail">
                         <img src={games3} alt="games" />
                       </Link>
                     </div>
@@ -132,7 +132,7 @@ function GamesPage(props) {
                   </div>
                   <div className="games-desc">
                     <h3>
-                      <Link to="/leagueinfo">Royale BUSAN</Link>
+                      <Link to="/leaguedetail">Royale BUSAN</Link>
                     </h3>
                     <p className="game-meta">
                       date:<span> 2022.11.05 </span>
@@ -144,7 +144,7 @@ function GamesPage(props) {
                         <p className="off">DONE</p>
                       </div>
                       <div className="game-buy">
-                        <Link to="/leagueinfo" className="fag-btn-outline">
+                        <Link to="/leaguedetail" className="fag-btn-outline">
                           Participate
                         </Link>
                       </div>
@@ -156,7 +156,7 @@ function GamesPage(props) {
                 <div className="games-single-item img-contain-isotope">
                   <div className="games-thumb">
                     <div className="games-thumb-image">
-                      <Link to="/leagueinfo">
+                      <Link to="/leaguedetail">
                         <img src={games4} alt="games" />
                       </Link>
                     </div>
@@ -170,7 +170,7 @@ function GamesPage(props) {
                   </div>
                   <div className="games-desc">
                     <h3>
-                      <Link to="/leagueinfo">Hand of Gilgamech</Link>
+                      <Link to="/leaguedetail">Hand of Gilgamech</Link>
                     </h3>
                     <p className="game-meta">Action | Desktop</p>
                     <p className="game-meta">
@@ -202,7 +202,7 @@ function GamesPage(props) {
                         <p className="off">40% OFF</p>
                       </div>
                       <div className="game-buy">
-                        <Link to="/leagueinfo" className="fag-btn-outline">
+                        <Link to="/leaguedetail" className="fag-btn-outline">
                           Buy Now!
                         </Link>
                       </div>
@@ -214,7 +214,7 @@ function GamesPage(props) {
                 <div className="games-single-item img-contain-isotope">
                   <div className="games-thumb">
                     <div className="games-thumb-image">
-                      <Link to="/leagueinfo">
+                      <Link to="/leaguedetail">
                         <img src={games5} alt="games" />
                       </Link>
                     </div>
@@ -228,7 +228,7 @@ function GamesPage(props) {
                   </div>
                   <div className="games-desc">
                     <h3>
-                      <Link to="/leagueinfo">SteamWorld Quest Ryndo</Link>
+                      <Link to="/leaguedetail">SteamWorld Quest Ryndo</Link>
                     </h3>
                     <p className="game-meta">Action | Desktop</p>
                     <p className="game-meta">
@@ -262,7 +262,7 @@ function GamesPage(props) {
                         <p className="free">FREE</p>
                       </div>
                       <div className="game-buy">
-                        <Link to="/leagueinfo" className="fag-btn-outline">
+                        <Link to="/leaguedetail" className="fag-btn-outline">
                           Download
                         </Link>
                       </div>
@@ -274,7 +274,7 @@ function GamesPage(props) {
                 <div className="games-single-item img-contain-isotope">
                   <div className="games-thumb">
                     <div className="games-thumb-image">
-                      <Link to="/leagueinfo">
+                      <Link to="/leaguedetail">
                         <img src={games6} alt="games" />
                       </Link>
                     </div>
@@ -288,7 +288,7 @@ function GamesPage(props) {
                   </div>
                   <div className="games-desc">
                     <h3>
-                      <Link to="/leagueinfo">A Puzzle of Flesh</Link>
+                      <Link to="/leaguedetail">A Puzzle of Flesh</Link>
                     </h3>
                     <p className="game-meta">Action | Desktop</p>
                     <p className="game-meta">
@@ -322,7 +322,7 @@ function GamesPage(props) {
                         <p className="free">FREE</p>
                       </div>
                       <div className="game-buy">
-                        <Link to="/leagueinfo" className="fag-btn-outline">
+                        <Link to="/leaguedetail" className="fag-btn-outline">
                           Download
                         </Link>
                       </div>
