@@ -1,0 +1,37 @@
+/*Blog Details Page CSS*/
+.fag-news-page-area {
+    padding-top: 50px;
+}
+.blog-details .post-info {
+    border-top: 0px dashed #4e4e4e;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.blog-inner-image {
+    margin: 20px 0;
+}
+
+.blog-inner-image img {
+    border-radius: 5px;
+}
+
+.blog-details blockquote {
+    margin: 20px 0;
+    padding: 15px;
+    border-left: 4px solid #ff7a21;
+    color: #c4c4c4;
+    font-style: italic;
+}
+
+.fag-comment-list {
+    margin-top: 50px;
+}
+
+.comment-group-title h3,
+.fag-leave-comment h3 {
+    color: #fff;
+    font-size: 24px;
+    text-transform: uppercase;
+    margin-bottom: 30px
+}
