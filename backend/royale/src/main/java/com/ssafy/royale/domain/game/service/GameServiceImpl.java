@@ -168,11 +168,11 @@ public class GameServiceImpl implements GameService{
             }
     }
 
-    public ParticipantsDto insertParticipant(Game game){
+    public ParticipantsDto insertParticipant(Apply apply, String score){
         return ParticipantsDto.builder()
-                .id(Long.toString(game.getPlayer1_seq().getApplySeq()))
-                .name(game.getPlayer1_seq().getUser().getUserName())
-                .resultText(game.getPlayer1_score())
+                .id(Long.toString(apply.getApplySeq()))
+                .name(apply.getUser().getUserName())
+                .resultText(score)
                 .status("NO_SHOW")
                 .build();
     }
