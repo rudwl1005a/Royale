@@ -1,5 +1,6 @@
 package com.ssafy.royale.domain.game.api;
 
+import com.ssafy.royale.domain.game.dto.GameLogDto;
 import com.ssafy.royale.domain.game.dto.GameLogUpdateRequestDto;
 import com.ssafy.royale.domain.game.service.GameLogService;
 import io.swagger.annotations.ApiOperation;
@@ -29,7 +30,7 @@ public class GameLogController {
     })
     public ResponseEntity<?> init(@PathVariable(value = "game_seq") @ApiParam(value = "경기 번호") Long gameSeq) {
 
-        if(gameLogService.init(gameSeq)) {
+        if (gameLogService.init(gameSeq)) {
             return ResponseEntity.status(200).body("성공");
         } else {
             return ResponseEntity.status(400).body("잘못된 요청");
@@ -45,7 +46,7 @@ public class GameLogController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> update(@RequestBody @ApiParam(value = "경기 내용 객체") GameLogUpdateRequestDto gameLogUpdateRequestDto) {
-        return ResponseEntity.status(200).body(gameLogService.update(gameLogUpdateRequestDto));
+        return ResponseEntity.status(200).body(GameLogDto.from(gameLogService.update(gameLogUpdateRequestDto)));
     }
 
     @GetMapping("/{game_seq}")
@@ -57,8 +58,8 @@ public class GameLogController {
     })
     public ResponseEntity<?> select(@PathVariable(value = "game_seq") @ApiParam(value = "경기 번호") Long gameSeq) {
 
-        if(gameLogService.select(gameSeq) != null) {
-            return ResponseEntity.status(200).body(gameLogService.select(gameSeq));
+        if (gameLogService.select(gameSeq) != null) {
+            return ResponseEntity.status(200).body(GameLogDto.from(gameLogService.select(gameSeq)));
         } else {
             return ResponseEntity.status(400).body("잘못된 요청");
         }
