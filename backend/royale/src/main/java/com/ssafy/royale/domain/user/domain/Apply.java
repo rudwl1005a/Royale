@@ -25,7 +25,7 @@ public class Apply {
     @JoinColumn(name = "league_seq")
     private League league;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_seq", unique = true)
+    @JoinColumn(name = "user_seq")
     private User user;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_seq")
@@ -33,6 +33,14 @@ public class Apply {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "division_seq")
     private Division division;
+//    @Column(name = "league_seq")
+//    private Long leagueSeq;
+//    @Column(name = "user_seq")
+//    private Long userSeq;
+//    @Column(name = "team_seq")
+//    private Long teamSeq;
+//    @Column(name = "division_seq")
+//    private Long divisionSeq;
     private boolean weightCheck;
     private boolean moneyCheck;
     @CreationTimestamp
