@@ -14,10 +14,10 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 @Entity
-public class PointHistory {
+public class Point {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "point_history_seq")
+    @Column(name = "point_seq")
     private Long pointSeq;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "apply_seq", nullable = false)

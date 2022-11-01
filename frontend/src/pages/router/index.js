@@ -17,6 +17,7 @@ import Competition from "../Competition";
 import Match from "../Match";
 import Daejin from "../Daejin";
 import Tournament from "../Tournament";
+import Scoreboard from "../ScoreboardPage";
 
 const AllRoute = () => {
   return (
@@ -61,6 +62,9 @@ const AllRoute = () => {
 
           {/* 대회 개별 경기 페이지 */}
           <Route path="/match/:id" element={<Match />}></Route>
+          
+          {/* 스코어보드 페이지 */}
+          <Route path="/scoreboard" element={<Scoreboard />}></Route>
 
           {/* 나머지 경로는 에러로 던짐 */}
           <Route path="*" element={<ErrorPage />} />
