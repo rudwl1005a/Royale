@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useBeforeunload } from "react-beforeunload";
 import io from 'socket.io-client'; // Client Socket
-
 import "./style.css";
+// import { gameLogInit, gameLogUpdate, gameLogGet } from "../../api/api";
 
 function Scoreboard(props) {
 
@@ -15,24 +15,35 @@ function Scoreboard(props) {
   const [playerOneTeam, setPlayerOneTeam] = useState("존 프랭클 주짓수랜드")
   const [playerTwoName, setPlayerTwoName] = useState("Dave Yusun Kim")
   const [playerTwoTeam, setPlayerTwoTeam] = useState("주짓수랜드HQ")
-
+  
   const [playerOneScore, setPlayerOneScore] = useState(0);
   const [playerOneAdvantage, setPlayerOneAdvantage] = useState(0);
   const [playerOnePenalty, setPlayerOnePenalty] = useState(0);
-
+  
   const [playerTwoScore, setPlayerTwoScore] = useState(0);
   const [playerTwoAdvantage, setPlayerTwoAdvantage] = useState(0);
   const [playerTwoPenalty, setPlayerTwoPenalty] = useState(0);
-
+  
   const [isStart, setIsStart] = useState(false);
-
+  
   // socket.io
   const socket = io('http://localhost:4000', {
 		cors: {
-			origin: "*",
+      origin: "*",
 		}
 	});
 
+  // 처음 랜더링 될 때 설정
+  // useEffect(() => {
+  //   const gameLogGetDto = gameLogGet(1);
+  //   setPlayerOneScore(gameLogGetDto.score1);
+  //   setPlayerTwoScore(gameLogGetDto.score2);
+  //   setPlayerOneAdvantage(gameLogGetDto.advantage1);
+  //   setPlayerTwoAdvantage(gameLogGetDto.advantage2);
+  //   setPlayerOnePenalty(gameLogGetDto.penalty1);
+  //   setPlayerTwoPenalty(gameLogGetDto.penalty2);
+  // }, [])
+  
   const plusOnePlayer = (n) => {
     if(n === 'A') {
       setPlayerOneAdvantage(playerOneAdvantage + 1);
