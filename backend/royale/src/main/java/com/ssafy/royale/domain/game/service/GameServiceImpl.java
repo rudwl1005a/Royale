@@ -99,38 +99,14 @@ public class GameServiceImpl implements GameService{
                 participantsDtoList.add(ParticipantsDto.builder().build());
             }else if(gameList.get(i).getPlayer1_seq() == null){
                 participantsDtoList.add(ParticipantsDto.builder().build());
-                ParticipantsDto apply1 = ParticipantsDto.builder()
-                        .id(Long.toString(gameList.get(i).getPlayer2_seq().getApplySeq()))
-                        .name(gameList.get(i).getPlayer2_seq().getUser().getUserName())
-                        .resultText(gameList.get(i).getPlayer2_score())
-                        .status("NO_SHOW")
-                        .build();
-                participantsDtoList.add(apply1);
+                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer2_seq(),gameList.get(i).getPlayer2_score()));
             }else if(gameList.get(i).getPlayer2_seq() == null){
-                ParticipantsDto apply1 = ParticipantsDto.builder()
-                        .id(Long.toString(gameList.get(i).getPlayer1_seq().getApplySeq()))
-                        .name(gameList.get(i).getPlayer1_seq().getUser().getUserName())
-                        .resultText(gameList.get(i).getPlayer1_score())
-                        .status("NO_SHOW")
-                        .build();
-                participantsDtoList.add(apply1);
+                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer1_seq(),gameList.get(i).getPlayer1_score()));
                 participantsDtoList.add(ParticipantsDto.builder().build());
             }
             else{
-                ParticipantsDto apply1 = ParticipantsDto.builder()
-                        .id(Long.toString(gameList.get(i).getPlayer1_seq().getApplySeq()))
-                        .name(gameList.get(i).getPlayer1_seq().getUser().getUserName())
-                        .status("NO_SHOW")
-                        .resultText(gameList.get(i).getPlayer1_score())
-                        .build();
-                ParticipantsDto apply2 = ParticipantsDto.builder()
-                        .id(Long.toString(gameList.get(i).getPlayer2_seq().getApplySeq()))
-                        .name(gameList.get(i).getPlayer2_seq().getUser().getUserName())
-                        .status("PLAYED")
-                        .resultText(gameList.get(i).getPlayer1_score())
-                        .build();
-                participantsDtoList.add(apply1);
-                participantsDtoList.add(apply2);
+                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer1_seq(),gameList.get(i).getPlayer1_score()));
+                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer2_seq(),gameList.get(i).getPlayer2_score()));
             }
 
             //마지막 index는 null처리
