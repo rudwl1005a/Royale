@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaFacebookF, FaTwitch, FaTwitter, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import avatar from "../../img/login-avatar.png";
+
+import { loginApi } from "../../api/api";
 
 import "./style.css";
 
@@ -10,6 +12,36 @@ function Login(props) {
   const onClick = (e) => {
     e.preventDefault();
   };
+
+  const [userEmail, setEmail] = useState("");
+  const [userPassword, setPassword] = useState("");
+
+  // const loginApi = async (UserLoginRequestDto) => {
+  //   try {
+  //     const res = await axios.post("/users/login.do", UserLoginRequestDto);
+  //     const {
+  //       data: { accessToken, refreshToken },
+  //     } = res;
+  //     saveToken(accessToken);
+  //     saveRefreshToken(refreshToken);
+  //     console.log("로그인 성공");
+  //     return res;
+  //   } catch (err) {
+  //     return err.response; //err안에 response로 담겨있음
+  //   }
+  // };
+
+  const handleSubmit = (event) => {
+    // alert({ userEmail });
+    const UserLoginRequestDto = {
+      userEmail,
+      userPassword,
+    };
+    loginApi(UserLoginRequestDto);
+    console.log(UserLoginRequestDto);
+    event.preventDefault();
+  };
+
   return (
     <>
       <div className="page-404 section--full-bg">
@@ -20,12 +52,20 @@ function Login(props) {
                 <div className="login-wrapper">
                   <img className="login_user" src={avatar} alt="login user" />
                   <h3>Account Login</h3>
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className="form-row">
-                      <input type="text" placeholder="Username or Email" />
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
                     </div>
                     <div className="form-row">
-                      <input type="password" placeholder="Password" />
+                      <input
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
                     </div>
                     <div className="form-row" />
                     <div className="form-row">

@@ -123,7 +123,13 @@ function Header(props) {
                       <Link to="/match/:id">Match</Link>
                     </li>
                     <li>
-                      <Link to="/register">register</Link>
+                      <Link to="/createLeague">league</Link>
+                    </li>
+                    <li>
+                      <Link to="/register">Register</Link>
+                    </li>
+                    <li>
+                      <Link to="/login">Login</Link>
                     </li>
                     <li>
                       <Link to="/" onClick={onClick}>
