@@ -1,3 +1,4 @@
+import { response } from "express";
 import axios from "./axios";
 import { saveToken, saveRefreshToken } from "./JWT";
 
@@ -15,8 +16,6 @@ export const signUpApi = async (UserCreateRequest) => {
     return err.response;
   }
 };
-
-// export default signUpApi;
 
 // 로그인 API
 export const loginApi = async (UserLoginRequestDto) => {
@@ -63,16 +62,10 @@ export const gameLogGet = async (gameSeq) => {
   try {
     console.log("기록 조회")
     const res = await axios.get(`/game-log/${gameSeq}`);
-    // const response = res.data;
-    // console.log(response);
-    // return response;
     console.log(res.data);
     return res.data;
     // return await axios.get(`/game-log/${gameSeq}`);
   } catch (err) {
     return err.response;
   }
-  // const res = await axios.get(`/game-log/${gameSeq}`)
-  //   .then(res => {return res})
-  //   .catch(res => {return err.response});
 }
