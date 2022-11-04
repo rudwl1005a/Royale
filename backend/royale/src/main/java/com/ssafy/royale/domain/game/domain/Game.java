@@ -50,4 +50,10 @@ public class Game {
         this.player1_seq = player1_seq;
         this.player2_seq = player2_seq;
     }
+
+    public void setScoreAndWinner(String player1Score, String player2Score, Long gameWinner){
+        this.player1_score = player1Score;
+        this.player2_score = player2Score;
+        this.gameWinner = gameWinner;
+    }
 }

@@ -4,9 +4,11 @@ import com.ssafy.royale.domain.game.dao.DivisionRepository;
 import com.ssafy.royale.domain.game.dao.GameRepository;
 import com.ssafy.royale.domain.game.domain.Division;
 import com.ssafy.royale.domain.game.domain.Game;
+import com.ssafy.royale.domain.game.dto.GameScoreRequestDto;
 import com.ssafy.royale.domain.game.dto.GamesResponseDto;
 import com.ssafy.royale.domain.game.dto.PlayerTree;
 import com.ssafy.royale.domain.game.exception.DivisionNotFoundException;
+import com.ssafy.royale.domain.game.exception.GameNotFoundException;
 import com.ssafy.royale.domain.league.dao.LeagueRepository;
 import com.ssafy.royale.domain.league.domain.League;
 import com.ssafy.royale.domain.league.exception.LeagueNotFoundException;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -99,19 +102,18 @@ public class GameServiceImpl implements GameService{
                 participantsDtoList.add(ParticipantsDto.builder().build());
             }else if(gameList.get(i).getPlayer1_seq() == null){
                 participantsDtoList.add(ParticipantsDto.builder().build());
-                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer2_seq(),gameList.get(i).getPlayer2_score()));
+                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer2_seq(),gameList.get(i).getPlayer2_score(), gameList.get(i)));
             }else if(gameList.get(i).getPlayer2_seq() == null){
-                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer1_seq(),gameList.get(i).getPlayer1_score()));
+                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer1_seq(),gameList.get(i).getPlayer1_score(), gameList.get(i)));
                 participantsDtoList.add(ParticipantsDto.builder().build());
             }
             else{
-                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer1_seq(),gameList.get(i).getPlayer1_score()));
-                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer2_seq(),gameList.get(i).getPlayer2_score()));
+                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer1_seq(),gameList.get(i).getPlayer1_score(), gameList.get(i)));
+                participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer2_seq(),gameList.get(i).getPlayer2_score(), gameList.get(i)));
             }
 
             //마지막 index는 null처리
             Integer nextMatchId = i == gameList.size()-1 ? null : gameList.get((i/2) + (gameList.size() / 2) + 1).getGame_seq().intValue();
-
             gamesResponseDto = GamesResponseDto.builder()
                     .id(gameList.get(i).getGame_seq().intValue())
                     .name(Integer.toString(gameList.get(i).getMatGameNum()))
@@ -128,6 +130,36 @@ public class GameServiceImpl implements GameService{
         return gamesResponseDtoList;
     }
 
+    @Override
+    public Game insertCurrentGameScore(GameScoreRequestDto dto) {
+        Game game = gameRepository.findById(dto.getGameSeq()).orElseThrow(GameNotFoundException::new);
+        game.setScoreAndWinner(Integer.toString(dto.getPlayer1Score()), Integer.toString(dto.getPlayer2Score()), dto.getGameWinner());
+        gameRepository.save(game);
+
+        insertNextGame(game);
+        //승자는 다음 게임으로 올려야함 다음게임 인덱스 찾기
+        return null;
+    }
+
+    public void insertNextGame(Game game){
+        int gameCount = gameRepository.countByLeagueAndDivision(game.getLeague(), game.getDivision());
+        Optional<Game> firstGame = gameRepository.findTop1ByLeagueAndDivisionAndTournamentRoundText(game.getLeague(), game.getDivision(), game.getTournamentRoundText());
+        Long nextGameId = 0L;
+        System.out.printf("현재 - 기존: %d%n" , (game.getGame_seq() - firstGame.get().getGame_seq()) /2);
+        System.out.printf("카운트 / 2 + 1 : %d%n" , (gameCount / 2 + 1) + game.getGame_seq());
+        System.out.println(nextGameId);
+        /*
+        다음게임 인덱스 찾는 공식
+        해당 깊이 첫 인덱스와 현재 인덱스가 같다면 = (현재인덱스/2) + (길이 * 2의 ^ 2-깊이) + (첫인덱스 + 1 / 2)
+        해당 깊이 첫 인덱스와 현재 인덱스가 다르다면 = (현재인덱스/2) + (길이 * 2의 ^ 2-깊이) + (첫인덱스 + 1 / 2) - 1
+         */
+
+        if(firstGame.get().getGame_seq() % 2 == 0){
+            nextGameId = (game.getGame_seq() - firstGame.get().getGame_seq()) /2 + (gameCount / 2 + 1) + game.getGame_seq();
+        }else{
+
+        }
+    }
     public void addApplicantDummyData(List<Apply> applies){
         int size = applies.size();
         if(size < 8){
@@ -144,33 +176,16 @@ public class GameServiceImpl implements GameService{
             }
     }
 
-    public ParticipantsDto insertParticipant(Apply apply, String score){
+    public ParticipantsDto insertParticipant(Apply apply, String score, Game game){
+        boolean winner = false;
+        if(game.getGameWinner() == apply.getApplySeq()) winner = true;
+
         return ParticipantsDto.builder()
                 .id(Long.toString(apply.getApplySeq()))
                 .name(apply.getUser().getUserName())
                 .resultText(score)
+                .isWinner(winner)
                 .status("NO_SHOW")
                 .build();
     }
-    public ParticipantsDto insertDummyUser(){
-        return ParticipantsDto.builder().build();
-    }
-    /*
-    autoMakeGame함수가 해야할 일
-    대전 마감 버튼 클릭
-    프론트에서 대회번호 전송
-    백에서 모든 division을 조회해서 division리스트를 만듬
-    디비전 리스트에서 요소 하나하나와 프론트에서 보낸 대회번호를 비교해서 같은 참가자리스트 생성
-    대회 번호를 기준으로 (4강인지 8강인지 16강인지... 8강인 경우 7개) null값으로 7개의 game을 생성
-    GameResponseDto도 game의 갯수인 7개만큼 생성
-    4개의 GameResponseDto에는 참가자 정보 삽입, 3개의 GameResponseDto에는 gameSeq와 nextGameSeq만 채우고 나머지 null로 해서 전송
-
-
-    다른 함수
-    스태프가 경기종료 버튼을 누를 시 승자를 체크하고 경기 id값, 승자 id값, 승자 점수, 패자 id값, 패자 점수, 리그 id를 백으로 보냄
-    백은 받은 경기 id로 경기를 조회하고 점수와 승리자를 등록함
-
-    스코어 보드의 점수를 백에서 계산해서 프론트로 넘겨줌
-
-     */
 }
