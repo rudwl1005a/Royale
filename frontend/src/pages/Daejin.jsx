@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { useParams,useNavigate } from "react-router-dom";
 import { SingleEliminationBracket, Match } from '@g-loot/react-tournament-brackets';
-import axios from "axios";
+import axios from "../api/axios";
 
 
 export default function Daejin(props){
@@ -16,7 +16,7 @@ export default function Daejin(props){
 
     //matches에는 해당 Division에 속한 경기들이 객체의 형태로 배열에 담겨서 들어옵니다.
     const [matches,setMatches] = useState('')
-    const URL = `http://localhost:8080/api/game/finish/${params.id}/`
+    const URL = `game/finish/${params.id}/`
     // const URL = `http://localhost:8080/api/game?leagueSeq=${params.leagueSeq}&divisionSeq=${params.divisionSeq}`
 
     //반복렌더링 연습
