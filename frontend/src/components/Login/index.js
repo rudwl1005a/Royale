@@ -16,23 +16,7 @@ function Login(props) {
   const [userEmail, setEmail] = useState("");
   const [userPassword, setPassword] = useState("");
 
-  // const loginApi = async (UserLoginRequestDto) => {
-  //   try {
-  //     const res = await axios.post("/users/login.do", UserLoginRequestDto);
-  //     const {
-  //       data: { accessToken, refreshToken },
-  //     } = res;
-  //     saveToken(accessToken);
-  //     saveRefreshToken(refreshToken);
-  //     console.log("로그인 성공");
-  //     return res;
-  //   } catch (err) {
-  //     return err.response; //err안에 response로 담겨있음
-  //   }
-  // };
-
   const handleSubmit = (event) => {
-    // alert({ userEmail });
     const UserLoginRequestDto = {
       userEmail,
       userPassword,

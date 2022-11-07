@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Optional;
 
 @Api(value = "대회 API", tags = {"League"})
 @RestController
@@ -36,7 +40,8 @@ public class LeagueController {
         // 모든 정보가 입력되지 않은 경우
         if (createLeagueRequestDto.getLeagueName().equals("") || createLeagueRequestDto.getLeaguePlace().equals("")
         || createLeagueRequestDto.getLeagueDate().equals("") || createLeagueRequestDto.getLeagueDeadline().equals("")
-        || createLeagueRequestDto.getLeaguePoster().equals("") || createLeagueRequestDto.getLeagueInfo().equals("") ) {
+        || createLeagueRequestDto.getLeagueInfo().equals("") ) {
+//        || createLeagueRequestDto.getLeaguePoster().equals("") || createLeagueRequestDto.getLeagueInfo().equals("") ) {
             return ResponseEntity.status(405).body("모든 내용을 입력해주세요");
         }
 
@@ -44,13 +49,41 @@ public class LeagueController {
 
         try {
             League league = leagueService.createLeague(createLeagueRequestDto);
-//            return ResponseEntity.status(200).body("대회 등록 성공");
-            return new ResponseEntity<>( "대회 등록 성공", HttpStatus.valueOf(200));
+            return ResponseEntity.status(200).body(league);
         } catch (Exception e) {
             return ResponseEntity.status(400).body("대회 등록 실패");
         }
     }
 
+    @PostMapping("/updatePoster/{leagueSeq}")
+    @ApiOperation(value = "대회 포스터 등록", notes = "S3와 DB에 대회 포스터 저장")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 401, message = "사진 리스트 없음"),
+            @ApiResponse(code = 404, message = "게임방 정보 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> tempUpload(@PathVariable @ApiParam(value = "리그 코드", required = true) String leagueSeq,
+                             @RequestPart @ApiParam(value = "대회 포스터", required = true) MultipartFile poster) throws IOException {
+
+        System.out.println("@@ leagueSeq >>> " + leagueSeq);
+        System.out.println("@@ MultipartFile >>> " + poster);
+        try {
+            League league = leagueService.findLeagueByLeagueSeq(Long.parseLong(leagueSeq));
+            String date = league.getLeagueDate().toString();
+
+            System.out.println("!! leagueSeq >>> " + leagueSeq);
+            System.out.println("!! MultipartFile >>> " + poster);
+            leagueService.updateLeaguePoster(Long.parseLong(leagueSeq), poster);
+//            photoService.saveTempPhoto(photo, date, roomSeq);
+//            String[] dateSplit = date.split(" ")[0].split("/");
+//            String dirDate = dateSplit[2] + "년" + dateSplit[0] + "월" + dateSplit[1] + "일";
+//            return "사진을 S3의 /temp/" + roomSeq + "-" + dirDate + " 폴더에 저장하였습니다.";
+            return ResponseEntity.status(200).body(league);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("존재하지 않는 리그입니다");
+        }
+    }
 
     @GetMapping("/{leagueSeq}")
     @ApiOperation(value = "대회 조회", notes = "leagueSeq를 통해 대회 조회")

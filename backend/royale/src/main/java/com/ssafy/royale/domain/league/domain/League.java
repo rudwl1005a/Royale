@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @Getter
+@Setter
 @ToString
 public class League {
     @Id
