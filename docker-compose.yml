@@ -15,7 +15,7 @@ services:
   
   db:
     image: mysql:8.0.29
-    # environment:
+    environment:
     #   MYSQL_USER: "${MYSQL_USER}"
     #   MYSQL_DATABASE: "${MYSQL_DATABASE}"
     #   MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
