@@ -16,7 +16,8 @@ export default function Daejin(props){
 
     //matches에는 해당 Division에 속한 경기들이 객체의 형태로 배열에 담겨서 들어옵니다.
     const [matches, setMatches] = useState('')
-    const URL = `http://localhost:8080/api/game?leagueSeq=${params.leagueSeq}&divisionSeq=${params.divisionSeq}`
+    // const URL = `http://localhost:8080/api/game?leagueSeq=${params.leagueSeq}&divisionSeq=${params.divisionSeq}`
+    const URL = `http://royale.kr/api/game?leagueSeq=${params.leagueSeq}&divisionSeq=${params.divisionSeq}`
 
     //반복렌더링 연습
     const [dom,setDom] = useState('')
@@ -70,7 +71,7 @@ export default function Daejin(props){
             {/* <div>{params.leagueSeq}경기 {params.divisionSeq}부문 대진표</div> */}
             {matches ? 
                 <div onClick={A}>
-                    <div>gdgd</div>
+                
                 <SingleEliminationBracket
                     matches={matches}
                     matchComponent={Match}
