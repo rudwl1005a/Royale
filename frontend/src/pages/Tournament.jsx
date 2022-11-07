@@ -69,7 +69,8 @@ export default function Daejin(props){
         <div >
             {/* <div>{params.leagueSeq}경기 {params.divisionSeq}부문 대진표</div> */}
             {matches ? 
-            <div onClick = {A}>
+                <div onClick={A}>
+                    <div>gdgd</div>
                 <SingleEliminationBracket
                     matches={matches}
                     matchComponent={Match}

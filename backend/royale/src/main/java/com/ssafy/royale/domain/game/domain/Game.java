@@ -26,9 +26,8 @@ public class Game {
     @JoinColumn(name = "league_seq")
     @JsonIgnore
     private League league;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "division_seq")
-    @JsonIgnore
     private Division division;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "player1_seq")

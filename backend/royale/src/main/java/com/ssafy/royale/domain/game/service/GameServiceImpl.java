@@ -4,8 +4,9 @@ import com.ssafy.royale.domain.game.dao.DivisionRepository;
 import com.ssafy.royale.domain.game.dao.GameRepository;
 import com.ssafy.royale.domain.game.domain.Division;
 import com.ssafy.royale.domain.game.domain.Game;
+import com.ssafy.royale.domain.game.dto.GameResponseDto;
 import com.ssafy.royale.domain.game.dto.GameScoreRequestDto;
-import com.ssafy.royale.domain.game.dto.GamesResponseDto;
+import com.ssafy.royale.domain.game.dto.TournamentResponseDto;
 import com.ssafy.royale.domain.game.dto.PlayerTree;
 import com.ssafy.royale.domain.game.exception.DivisionNotFoundException;
 import com.ssafy.royale.domain.game.exception.GameNotFoundException;
@@ -85,18 +86,18 @@ public class GameServiceImpl implements GameService{
     //전체 값을 list에 담아서 보내야하므로 game에 담긴 값을 다 꺼내서 뿌려야함
     //game이 null이지 않는 한 null값은 내가 넣지 않는다
     @Override
-    public List<GamesResponseDto> getTournament(Long leagueSeq, Long divisionSeq) {
+    public List<TournamentResponseDto> getTournament(Long leagueSeq, Long divisionSeq) {
         Division division = divisionRepository.findById(divisionSeq).orElseThrow(DivisionNotFoundException::new);
         League league = leagueRepository.findById(leagueSeq).orElseThrow(LeagueNotFoundException::new);
 
         //대회와 division정보를 바탕으로 만들어진 game을 조회
         List<Game> gameList = gameRepository.findAllByLeagueAndDivision(league, division);
-        List<GamesResponseDto> gamesResponseDtoList = new ArrayList<>();
+        List<TournamentResponseDto> tournamentResponseDtoList = new ArrayList<>();
         //gameList의 길이는 N-1개
         for (int i=0; i < gameList.size(); i++) {
             try{
             List<ParticipantsDto> participantsDtoList = new ArrayList<>();
-            GamesResponseDto gamesResponseDto;
+            TournamentResponseDto tournamentResponseDto;
             //회원이 비었다면, 아직 대진 결과가 안나온 상태라서 빈 객체값을 담아야함
             if(gameList.get(i).getPlayer1_seq() == null && gameList.get(i).getPlayer2_seq() == null){
                 participantsDtoList.add(ParticipantsDto.builder().build());
@@ -115,7 +116,7 @@ public class GameServiceImpl implements GameService{
 
             //마지막 index는 null처리
             Integer nextMatchId = i == gameList.size()-1 ? null : gameList.get((i/2) + (gameList.size() / 2) + 1).getGame_seq().intValue();
-            gamesResponseDto = GamesResponseDto.builder()
+            tournamentResponseDto = TournamentResponseDto.builder()
                     .id(gameList.get(i).getGame_seq().intValue())
                     .name(Integer.toString(gameList.get(i).getMatGameNum()))
                     .nextMatchId(nextMatchId)
@@ -123,12 +124,12 @@ public class GameServiceImpl implements GameService{
                     .startTime(Integer.toString(gameList.get(i).getGame_seq().intValue()))
                     .participants(participantsDtoList)
                     .build();
-            gamesResponseDtoList.add(gamesResponseDto);
+            tournamentResponseDtoList.add(tournamentResponseDto);
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
-        return gamesResponseDtoList;
+        return tournamentResponseDtoList;
     }
 
     @Override
@@ -138,6 +139,22 @@ public class GameServiceImpl implements GameService{
         gameRepository.save(game);
 
         return insertNextGame(game, dto);
+    }
+
+    @Override
+    public GameResponseDto getGameInfo(Long gameSeq) {
+        Game game = gameRepository.findById(gameSeq).orElseThrow(GameNotFoundException::new);
+        String player1 = game.getPlayer1_seq().getUser().getUserName();
+        String player2 = game.getPlayer2_seq().getUser().getUserName();
+        String player1Team = game.getPlayer1_seq().getTeam().getTeamName();
+        String player2Team = game.getPlayer2_seq().getTeam().getTeamName();
+        return GameResponseDto.builder()
+                        .player1Name(player1)
+                        .player2Name(player2)
+                        .player1Team(player1Team)
+                        .player2Team(player2Team)
+                        .game(game)
+                        .build();
     }
 
     /*

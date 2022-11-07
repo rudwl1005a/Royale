@@ -13,7 +13,7 @@ import java.util.List;
 @Builder
 @ToString
 @Getter
-public class GamesResponseDto {
+public class TournamentResponseDto {
     @ApiModelProperty(name = "game_seq값")
     private Integer id;
     @ApiModelProperty(name = "mat_game_num값, 매트별 경기번호")
@@ -29,7 +29,7 @@ public class GamesResponseDto {
     @ApiModelProperty(name = "참가자 명단")
     private List<ParticipantsDto> participants;
 
-    public static GamesResponseDto from(){
+    public static TournamentResponseDto from(){
         return null;
     }
 }
