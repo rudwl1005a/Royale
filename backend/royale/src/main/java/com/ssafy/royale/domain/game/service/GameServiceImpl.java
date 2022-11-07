@@ -15,6 +15,7 @@ import com.ssafy.royale.domain.league.exception.LeagueNotFoundException;
 import com.ssafy.royale.domain.user.dao.ApplyRepository;
 import com.ssafy.royale.domain.user.domain.Apply;
 import com.ssafy.royale.domain.user.dto.ParticipantsDto;
+import com.ssafy.royale.domain.user.exception.MemberNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -136,30 +137,36 @@ public class GameServiceImpl implements GameService{
         game.setScoreAndWinner(Integer.toString(dto.getPlayer1Score()), Integer.toString(dto.getPlayer2Score()), dto.getGameWinner());
         gameRepository.save(game);
 
-        insertNextGame(game);
-        //승자는 다음 게임으로 올려야함 다음게임 인덱스 찾기
+        return insertNextGame(game, dto);
+    }
+
+    /*
+    다음게임 인덱스 찾는 공식
+    해당 깊이 첫 인덱스가 짝수라면 = (현재인덱스/2) + (길이 * 2의 ^ 2-깊이) + (첫인덱스 + 1 / 2)
+    해당 깊이 첫 인덱스가 홀수고 내 인덱스가 짝수라면= (현재인덱스/2) + (길이 * 2의 ^ 2-깊이) + (첫인덱스 + 1 / 2) - 1
+    */
+    public Game insertNextGame(Game game, GameScoreRequestDto dto){
+        int gameCount = gameRepository.countByLeagueAndDivision(game.getLeague(), game.getDivision()) + 1;
+        Optional<Game> firstGame = gameRepository.findTop1ByLeagueAndDivisionAndTournamentRoundText(game.getLeague(), game.getDivision(), game.getTournamentRoundText());
+        Long nextGameId = 0L;
+        if(firstGame.get().getGame_seq() %2 == 0){
+            nextGameId = (game.getGame_seq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGame_seq() + 1) / 2);
+        }else{
+            if(game.getGame_seq() % 2 == 0){
+                nextGameId = (game.getGame_seq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGame_seq() + 1) / 2)-1;
+            }else{
+                nextGameId = (game.getGame_seq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGame_seq() + 1) / 2);
+            }
+        }
+        try {
+            Game nextGame = gameRepository.findById(nextGameId).orElseThrow(GameNotFoundException::new);
+            Apply winner = applyRepository.findById(dto.getGameWinner()).orElseThrow(MemberNotFoundException::new);
+            nextGame.setGameWinner(winner);
+            return gameRepository.save(nextGame);
+        }catch (Exception e) {e.printStackTrace();}
         return null;
     }
 
-    public void insertNextGame(Game game){
-        int gameCount = gameRepository.countByLeagueAndDivision(game.getLeague(), game.getDivision());
-        Optional<Game> firstGame = gameRepository.findTop1ByLeagueAndDivisionAndTournamentRoundText(game.getLeague(), game.getDivision(), game.getTournamentRoundText());
-        Long nextGameId = 0L;
-        System.out.printf("현재 - 기존: %d%n" , (game.getGame_seq() - firstGame.get().getGame_seq()) /2);
-        System.out.printf("카운트 / 2 + 1 : %d%n" , (gameCount / 2 + 1) + game.getGame_seq());
-        System.out.println(nextGameId);
-        /*
-        다음게임 인덱스 찾는 공식
-        해당 깊이 첫 인덱스와 현재 인덱스가 같다면 = (현재인덱스/2) + (길이 * 2의 ^ 2-깊이) + (첫인덱스 + 1 / 2)
-        해당 깊이 첫 인덱스와 현재 인덱스가 다르다면 = (현재인덱스/2) + (길이 * 2의 ^ 2-깊이) + (첫인덱스 + 1 / 2) - 1
-         */
-
-        if(firstGame.get().getGame_seq() % 2 == 0){
-            nextGameId = (game.getGame_seq() - firstGame.get().getGame_seq()) /2 + (gameCount / 2 + 1) + game.getGame_seq();
-        }else{
-
-        }
-    }
     public void addApplicantDummyData(List<Apply> applies){
         int size = applies.size();
         if(size < 8){

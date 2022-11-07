@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -35,7 +36,7 @@ public class GameController {
 
     @PostMapping("/score.do")
     @ApiOperation(value = "경기 종료 후 점수 삽입")
-    public ResponseEntity<Game> insertGameScore(@RequestBody GameScoreRequestDto dto){
+    public ResponseEntity<Game> insertGameScore(@RequestBody @Valid GameScoreRequestDto dto){
         System.out.println(dto);
         return new ResponseEntity<>(gameService.insertCurrentGameScore(dto), HttpStatus.OK);
     }
