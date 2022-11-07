@@ -16,10 +16,10 @@ services:
   db:
     image: mysql:8.0.29
     environment:
-    #   MYSQL_USER: "${MYSQL_USER}"
-    #   MYSQL_DATABASE: "${MYSQL_DATABASE}"
-    #   MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
-    #   MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       TZ: Asia/Seoul
     volumes:
       - "/home/ubuntu/db_data:/var/lib/mysql"
