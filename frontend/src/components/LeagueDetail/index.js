@@ -26,6 +26,7 @@ import LeagueMatch from "../LeagueMatch";
 import LeagueStatus from "../LeagueStatus";
 
 import "./style.css";
+import Daejin from "../Tournament/Tournament";
 
 function LeagueDetail(props) {
   // const [modal, setModal] = useState(false);
@@ -126,10 +127,11 @@ function LeagueDetail(props) {
                         </Col>
                       </Row>
                     </Tab>
-                    <Tab eventKey="matches" title="대회표">
+                    <Tab eventKey="matches" title="대진표">
                       <Row>
                         <Col md={12}>
-                          <LeagueMatch />
+                          {/* <LeagueMatch /> */}
+                          <Daejin />
                         </Col>
                       </Row>
                     </Tab>

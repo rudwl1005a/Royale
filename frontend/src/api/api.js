@@ -59,27 +59,3 @@ export const updateLeaguePosterApi = async (leagueSeq, leaguePoster) => {
     return err.response;
   }
 };
-
-// // 경기 로그 초기화 API
-// export const gameLogInit = async (gameSeq) => {
-//   try {
-//     console.log("기록 초기화")
-//     return await axios.post(`/game-log/${gameSeq}`);
-//   } catch (err) {
-//     return err.response;
-//   }
-// }
-
-// // 경기 로그 업데이트 API
-// export const gameLogUpdate = async (GameLogUpdateRequestDto) => {
-//   try {
-//     console.log("기록 업데이트")
-//     console.log(GameLogUpdateRequestDto);
-//     const res = await axios.patch('/game-log', GameLogUpdateRequestDto);
-//     console.log(res);
-//     return res;
-//     // return await axios.patch('/game-log', GameLogUpdateRequestDto);
-//   } catch (err) {
-//     return err.response;
-//   }
-// }
