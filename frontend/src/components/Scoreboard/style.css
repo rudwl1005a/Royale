@@ -8,6 +8,11 @@
     width: 100vw;
     height: 100vh;
     /* display: flex; */
+    /* 드래그 금지 */
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
 }
 
 .player {
@@ -43,6 +48,7 @@
     height: 8vh;
     font-size: 7vmin;
     font-weight: bold;
+    cursor: default;
 }
 
 .Small {
@@ -56,16 +62,7 @@
     height: 5vh;
     font-size: 3vmin;
     color: gray;
-}
-
-.playerName {
-    align-items: center;
-    /* border: solid white 1px; */
-    padding: 2vh 0 1vh 1vw;
-    height: 12vh;
-    height: 12vh;
-    display: flex;
-    font-size: 7vmin;
+    cursor: default;
 }
 
 .playerInfo-button {
@@ -100,7 +97,7 @@
     display: inline-flex;
     justify-content: right;
     vertical-align: center;
-    
+    cursor: default;
 }
 
 .playerScore-pa {
@@ -173,6 +170,7 @@
     height: 30vh;
     margin-right: 1vw;
     font-size: 25vmin;
+    cursor: pointer;
 }
 
 .gameInfo-matchInfo {
