@@ -32,6 +32,43 @@ export const loginApi = async (UserLoginRequestDto) => {
   }
 };
 
+// 경기 로그 초기화 API
+export const gameLogInit = async (gameSeq) => {
+  try {
+    console.log("기록 초기화")
+    return await axios.post(`/game-log/${gameSeq}`);
+  } catch (err) {
+    return err.response;
+  }
+}
+
+// 경기 로그 업데이트 API
+export const gameLogUpdate = async (GameLogUpdateRequestDto) => {
+  try {
+    console.log("기록 업데이트")
+    console.log(GameLogUpdateRequestDto);
+    const res = await axios.patch('/game-log', GameLogUpdateRequestDto);
+    console.log(res);
+    return res;
+    // return await axios.patch('/game-log', GameLogUpdateRequestDto);
+  } catch (err) {
+    return err.response;
+  }
+}
+
+// 경기 로그 조회 API
+export const gameLogGet = async (gameSeq) => {
+  try {
+    console.log("기록 조회")
+    const res = await axios.get(`/game-log/${gameSeq}`);
+    console.log(res.data);
+    return res.data;
+    // return await axios.get(`/game-log/${gameSeq}`);
+  } catch (err) {
+    return err.response;
+  }
+}
+
 // 리그 생성 API
 export const createLeagueApi = async (createLeagueRequestDto) => {
   try {
@@ -59,27 +96,3 @@ export const updateLeaguePosterApi = async (leagueSeq, leaguePoster) => {
     return err.response;
   }
 };
-
-// // 경기 로그 초기화 API
-// export const gameLogInit = async (gameSeq) => {
-//   try {
-//     console.log("기록 초기화")
-//     return await axios.post(`/game-log/${gameSeq}`);
-//   } catch (err) {
-//     return err.response;
-//   }
-// }
-
-// // 경기 로그 업데이트 API
-// export const gameLogUpdate = async (GameLogUpdateRequestDto) => {
-//   try {
-//     console.log("기록 업데이트")
-//     console.log(GameLogUpdateRequestDto);
-//     const res = await axios.patch('/game-log', GameLogUpdateRequestDto);
-//     console.log(res);
-//     return res;
-//     // return await axios.patch('/game-log', GameLogUpdateRequestDto);
-//   } catch (err) {
-//     return err.response;
-//   }
-// }
