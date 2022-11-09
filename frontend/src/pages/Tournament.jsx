@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   SingleEliminationBracket,
-  Match, create
+  Match, createTheme,
 } from "@g-loot/react-tournament-brackets";
 import { axios } from "../api/axios.js";
 
@@ -81,7 +81,7 @@ const WhiteTheme = createTheme({
       {/* <div>{params.leagueSeq}경기 {params.divisionSeq}부문 대진표</div> */}
       {matches ? (
         <div onClick={A}>
-          <SingleEliminationBracket matches={matches} matchComponent={Match} theme={ WhiteTheme} />
+          <SingleEliminationBracket matches={matches} matchComponent={Match} />
         </div>
       ) : (
         ""

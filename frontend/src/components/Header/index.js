@@ -120,7 +120,7 @@ function Header(props) {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/match/:id">Match</Link>
+                      <Link to="/searchApplicant">선수 검색</Link>
                     </li>
                     <li>
                       <Link to="/createLeague">league</Link>

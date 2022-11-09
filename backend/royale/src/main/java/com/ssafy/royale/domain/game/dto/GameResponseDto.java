@@ -15,6 +15,8 @@ public class GameResponseDto {
     private String player2Name;
     private String player1Team;
     private String player2Team;
+    private Long player1Seq;
+    private Long player2Seq;
     private Game game;
 
 }
