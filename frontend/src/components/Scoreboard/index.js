@@ -13,21 +13,29 @@ function Scoreboard(props) {
     e.preventDefault();
   };
 
-  const [playerOneName, setPlayerOneName] = useState("조찬홍")
-  const [playerOneTeam, setPlayerOneTeam] = useState("존 프랭클 주짓수랜드")
-  const [playerTwoName, setPlayerTwoName] = useState("Dave Yusun Kim")
-  const [playerTwoTeam, setPlayerTwoTeam] = useState("주짓수랜드HQ")
+  // 선수 변수
+  const [playerOneSeq, setPlayerOneSeq] = useState(1);
+  const [playerTwoSeq, setPlayerTwoSeq] = useState(2);
+  const [playerOneName, setPlayerOneName] = useState("이형석")
+  const [playerOneTeam, setPlayerOneTeam] = useState("존프랭클주짓수 버닝주짓수")
+  const [playerTwoName, setPlayerTwoName] = useState("데이브김")
+  const [playerTwoTeam, setPlayerTwoTeam] = useState("존프랭클 주짓수랜드")
+
+  // 경기 변수
+  const [matchRound, setMatchRound] = useState(8);
+  const [matchNum, setMatchNum] = useState(23);
   
+  // 스코어 변수
   const [playerOneScore, setPlayerOneScore] = useState(0);
   const [playerOneAdvantage, setPlayerOneAdvantage] = useState(0);
   const [playerOnePenalty, setPlayerOnePenalty] = useState(0);
-  
   const [playerTwoScore, setPlayerTwoScore] = useState(0);
   const [playerTwoAdvantage, setPlayerTwoAdvantage] = useState(0);
   const [playerTwoPenalty, setPlayerTwoPenalty] = useState(0);
+  const [playerDq, setPlayerDq] = useState(null);
+  const [playerSub, setPlayerSub] = useState(null);
   
   const [isStart, setIsStart] = useState(false);
-
   const [isStop, setIsStop] = useState(false);
 
   const [currentMinutes, setCurrentMinutes] = useState(5);
@@ -99,6 +107,12 @@ function Scoreboard(props) {
 
   const { start, stop } = useCounter(1000);
 
+  // 끝났을 때 타이머 초기화
+  const end = () => {
+    setCount(0);
+    stop();
+  }
+
   const timer = () => {
     const checkMinutes = Math.floor(count / 60);
     const minutes = checkMinutes % 60;
@@ -110,6 +124,8 @@ function Scoreboard(props) {
   useEffect(timer, [count]);
 
   const changeTime = (n) => {
+    if(isStart) return; // 시작되었으면 작동하지 않는다
+
     if (n === 60) {
       setCount(count + 60);
     } else if (n === -60) {
@@ -120,15 +136,15 @@ function Scoreboard(props) {
   }
 
   // 처음 랜더링 될 때 설정
-  // useEffect(() => {
-  //   const gameLogGetDto = gameLogGet(1);
-  //   setPlayerOneScore(gameLogGetDto.score1);
-  //   setPlayerTwoScore(gameLogGetDto.score2);
-  //   setPlayerOneAdvantage(gameLogGetDto.advantage1);
-  //   setPlayerTwoAdvantage(gameLogGetDto.advantage2);
-  //   setPlayerOnePenalty(gameLogGetDto.penalty1);
-  //   setPlayerTwoPenalty(gameLogGetDto.penalty2);
-  // }, [])
+  useEffect(() => {
+    const gameLogGetDto = gameLogGet(1);
+    setPlayerOneScore(gameLogGetDto.score1);
+    setPlayerTwoScore(gameLogGetDto.score2);
+    setPlayerOneAdvantage(gameLogGetDto.advantage1);
+    setPlayerTwoAdvantage(gameLogGetDto.advantage2);
+    setPlayerOnePenalty(gameLogGetDto.penalty1);
+    setPlayerTwoPenalty(gameLogGetDto.penalty2);
+  }, [])
   
   const plusOnePlayer = (n) => {
     if (n === 'A') {
@@ -291,7 +307,7 @@ function Scoreboard(props) {
                                   font-weight: bold;
                                   font-size: 4vmin;
                                   color: gray">
-                      <span Style="color: #ED8B08; margin-right: 0.5vw">8강</span> match 23 ( Men / Adult / Black / -100.5kg )
+                      <span Style="color: #ED8B08; margin-right: 0.5vw">16강</span> match 15 ( Men / Adult / Black / -88kg )
                     </span>
                   </td>
                 </tr>
@@ -312,7 +328,7 @@ function Scoreboard(props) {
                   <td><span Style="color: #ba353d" onClick={() => changeTime(-60)}>-60 SEC</span></td>
                   {isStart === false
                     ? <td colspan='2' onClick={() => { setIsStart(true); start(); }}><span>START GAME</span></td>
-                    : <td colspan='2' onClick={() => setIsStart(false)}><span>END GAME</span></td>}
+                    : <td colspan='2' onClick={() => { setIsStart(false); end(); }}><span>END GAME</span></td>}
                 </tr>
               </table>
             </span>
