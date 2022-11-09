@@ -81,6 +81,7 @@
     border:1px solid black;
     justify-content: center;
     vertical-align: center;
+    cursor: pointer;
 }
 
 .playerInfo-button td > span {
@@ -187,6 +188,7 @@
     border:1px solid black;
     justify-content: center;
     vertical-align: center;
+    cursor: pointer;
 }
 
 .gameInfo-button td > span {
