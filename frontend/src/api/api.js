@@ -59,3 +59,13 @@ export const updateLeaguePosterApi = async (leagueSeq, leaguePoster) => {
     return err.response;
   }
 };
+
+// 페이지별 리그 리스트 호출 API
+export const getLeagueListApi = async (page) => {
+  try {
+    const res = await axios.get(`/leagues/pages/${page}`);
+    return res;
+  } catch (err) {
+    return err.response;
+  }
+};

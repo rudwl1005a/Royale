@@ -88,8 +88,8 @@ public class LeagueController {
     /**
      * 페이지별 대회 정보 리스트 가져오기
      */
-    @GetMapping("/{page}")
-    @ApiOperation(value = "대회 조회", notes = "leagueSeq를 통해 대회 조회")
+    @GetMapping("/pages/{page}")
+    @ApiOperation(value = "페이지별 대회 조회", notes = "leagueSeq를 통해 대회 조회")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공"),
             @ApiResponse(code = 400, message = "잘못된 요청"),
@@ -101,23 +101,15 @@ public class LeagueController {
             @ApiParam(value = "대회 정보 검색", required = true) Long page) {
 
         try {
-            List<League> leagues = new ArrayList<League>();
-            // an = 1 + 6 * (n - 1) = 6 * n - 5 ~ 6 * n + 1
+            List<League> leagues = new ArrayList<>();
 
-            long idx = (6 * page) - 5;
-
-            for (int i = 0; i < 6; i++ ) {
-                League input = leagueService.findLeagueByLeagueSeq(idx++);
-                // 등록된 대회가 없을 경우
-                if ( input == null ) {
-                    return ResponseEntity.status(404).body("등록된 대회가 없습니다.");
-                }
+            long idx = (6*page)-5;
+            for (int i = 0; i < 6; i++) {
+                League input = leagueService.findLeagueByLeagueSeq(Long.valueOf(idx));
 
                 leagues.add(input);
-
-                System.out.println(">>>>> " + input.getLeagueSeq());
+                idx++;
             }
-
             return ResponseEntity.status(200).body(leagues);
         } catch (Exception e) {
             return ResponseEntity.status(400).body("대회 정보를 가져올 수 없습니다.");
