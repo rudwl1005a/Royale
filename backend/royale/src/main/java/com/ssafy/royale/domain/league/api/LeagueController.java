@@ -101,15 +101,18 @@ public class LeagueController {
             @ApiParam(value = "대회 정보 검색", required = true) Long page) {
 
         try {
+            System.out.println(">>> 1");
             List<League> leagues = new ArrayList<>();
-
+            System.out.println(">>> 2");
             long idx = (6*page)-5;
+            System.out.println(">>> 3");
             for (int i = 0; i < 6; i++) {
                 League input = leagueService.findLeagueByLeagueSeq(Long.valueOf(idx));
 
                 leagues.add(input);
                 idx++;
             }
+            System.out.println(">>> 4");
             return ResponseEntity.status(200).body(leagues);
         } catch (Exception e) {
             return ResponseEntity.status(400).body("대회 정보를 가져올 수 없습니다.");
