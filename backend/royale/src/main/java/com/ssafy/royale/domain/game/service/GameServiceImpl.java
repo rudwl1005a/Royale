@@ -144,6 +144,7 @@ public class GameServiceImpl implements GameService{
     @Override
     public GameResponseDto getGameInfo(Long gameSeq) {
         Game game = gameRepository.findById(gameSeq).orElseThrow(GameNotFoundException::new);
+
         String player1 = game.getPlayer1_seq().getUser().getUserName();
         String player2 = game.getPlayer2_seq().getUser().getUserName();
         String player1Team = game.getPlayer1_seq().getTeam().getTeamName();
@@ -153,6 +154,8 @@ public class GameServiceImpl implements GameService{
                         .player2Name(player2)
                         .player1Team(player1Team)
                         .player2Team(player2Team)
+                        .player1Seq(game.getPlayer1_seq().getApplySeq())
+                        .player2Seq(game.getPlayer2_seq().getApplySeq())
                         .game(game)
                         .build();
     }
