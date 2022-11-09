@@ -1,4 +1,4 @@
-import axios from "./axios";
+import { axios, MultipartFileAxios } from "./axios";
 import { saveToken, saveRefreshToken } from "./JWT";
 
 // 회원 가입 API
@@ -68,3 +68,31 @@ export const gameLogGet = async (gameSeq) => {
     return err.response;
   }
 }
+
+// 리그 생성 API
+export const createLeagueApi = async (createLeagueRequestDto) => {
+  try {
+    const res = await axios.post("/leagues", createLeagueRequestDto);
+    console.log(res);
+    return res;
+  } catch (err) {
+    return err.response;
+  }
+};
+
+// 리그 포스터 추가 API
+export const updateLeaguePosterApi = async (leagueSeq, leaguePoster) => {
+  const formData = new FormData();
+  formData.append("poster", leaguePoster);
+  try {
+    const res = await MultipartFileAxios.post(
+      `/leagues/updatePoster/${leagueSeq}`,
+      formData
+    );
+    // console.log("리그 포스터 추가");
+    console.warn(res);
+    return res;
+  } catch (err) {
+    return err.response;
+  }
+};

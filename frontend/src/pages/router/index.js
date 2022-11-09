@@ -12,6 +12,8 @@ import LeagueDetailPage from "../LeagueDetailPage";
 import PersonalRankPage from "../PersonalRankPage";
 import TeamRankPage from "../TeamRankPage";
 import ContactPage from "../ContactPage";
+import CreateLeaguePage from "../CreateLeaguePage";
+
 // 세영
 import Competition from "../Competition";
 import Match from "../Match";
@@ -32,6 +34,8 @@ const AllRoute = () => {
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/register" element={<RegisterPage />} />
 
+          {/* 대회 생성 페이지 */}
+          <Route exact path="/createLeague" element={<CreateLeaguePage />} />
           {/* 대회 소개 페이지 */}
           <Route exact path="/about" element={<AboutPage />} />
           {/* 대회 리스트 페이지 */}
@@ -62,7 +66,7 @@ const AllRoute = () => {
 
           {/* 대회 개별 경기 페이지 */}
           <Route path="/match/:id" element={<Match />}></Route>
-          
+
           {/* 스코어보드 페이지 */}
           <Route path="/scoreboard" element={<Scoreboard />}></Route>
 

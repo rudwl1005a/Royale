@@ -7,9 +7,9 @@ import { MdClose } from "react-icons/md";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import hero1 from "../../img/slider-1.jpg";
-import hero2 from "../../img/slider-2.jpg";
-import hero3 from "../../img/promo-bg.jpg";
+import hero1 from "../../img/DaveKim_1900x1200.gif";
+import hero2 from "../../img/DaveKim_1452x755.gif";
+import hero3 from "../../img/DB_RM_1900x900.gif";
 import "./style.css";
 
 function Hero(props) {

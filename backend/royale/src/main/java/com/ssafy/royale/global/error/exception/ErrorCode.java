@@ -13,7 +13,8 @@ public enum ErrorCode {
     TOKEN_NOT_FOUND(400, "U003", "해당하는 토큰을 찾을 수 없습니다."),
 
     LEAGUE_NOT_FOUND(404, "L001", "해당하는 대회를 찾을 수 없습니다."),
-    DIVISION_NOT_FOUND(404, "D001", "해당하는 Division을 찾을 수 없습니다.");
+    DIVISION_NOT_FOUND(404, "D001", "해당하는 Division을 찾을 수 없습니다."),
+    GAME_NOT_FOUND(404, "G001", "해당하는 경기를 찾을 수 없습니다.");
 
 
     private final int status;
