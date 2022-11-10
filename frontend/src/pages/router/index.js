@@ -77,7 +77,7 @@ const AllRoute = () => {
           <Route path="/match/:id" element={<Match />}></Route>
 
           {/* 스코어보드 페이지 */}
-          <Route path="/scoreboard" element={<Scoreboard />}></Route>
+          <Route path="/scoreboard/:id" element={<Scoreboard />}></Route>
 
           {/* 나머지 경로는 에러로 던짐 */}
           <Route path="*" element={<ErrorPage />} />
