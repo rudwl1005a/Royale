@@ -13,6 +13,7 @@ import PersonalRankPage from "../PersonalRankPage";
 import TeamRankPage from "../TeamRankPage";
 import ContactPage from "../ContactPage";
 import CreateLeaguePage from "../CreateLeaguePage";
+import SearchApplicatnPage from "../SearchApplicantPage";
 
 // 세영
 import Competition from "../Competition";
@@ -51,6 +52,8 @@ const AllRoute = () => {
 
           {/* Contact */}
           <Route exact path="/contact" element={<ContactPage />} />
+          {/* 선수 검색 */}
+          <Route exact path="/searchApplicant" element={<SearchApplicatnPage />} />
 
           {/* 세영 */}
           {/* 대회페이지 */}

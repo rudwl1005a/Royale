@@ -2,7 +2,7 @@ import { React, useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   SingleEliminationBracket,
-  Match,
+  Match, createTheme,
 } from "@g-loot/react-tournament-brackets";
 import { axios } from "../api/axios.js";
 
@@ -59,6 +59,23 @@ export default function Daejin(props) {
     }
   }
 
+const WhiteTheme = createTheme({
+  textColor: { main: '#000000', highlighted: '#07090D', dark: '#3E414D' },
+  matchBackground: { wonColor: '#daebf9', lostColor: '#96c6da' },
+  score: {
+    background: { wonColor: '#87b2c4', lostColor: '#87b2c4' },
+    text: { highlightedWonColor: '#7BF59D', highlightedLostColor: '#FB7E94' },
+  },
+  border: {
+    color: '#CED1F2',
+    highlightedColor: '#da96c6',
+  },
+  roundHeader: { backgroundColor: '#da96c6', fontColor: '#000' },
+  connectorColor: '#CED1F2',
+  connectorColorHighlight: '#da96c6',
+  svgBackground: '#FAFAFA',
+});
+  
   return (
     <div>
       {/* <div>{params.leagueSeq}경기 {params.divisionSeq}부문 대진표</div> */}

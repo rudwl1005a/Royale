@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Optional;
+import java.util.*;
 
 @Api(value = "대회 API", tags = {"League"})
 @RestController
@@ -82,6 +82,40 @@ public class LeagueController {
             return ResponseEntity.status(200).body(league);
         } catch (Exception e) {
             return ResponseEntity.status(400).body("존재하지 않는 리그입니다");
+        }
+    }
+
+    /**
+     * 페이지별 대회 정보 리스트 가져오기
+     */
+    @GetMapping("/pages/{page}")
+    @ApiOperation(value = "페이지별 대회 조회", notes = "leagueSeq를 통해 대회 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 400, message = "잘못된 요청"),
+            @ApiResponse(code = 404, message = "대회 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getLeagueList(
+            @PathVariable(value = "page")
+            @ApiParam(value = "대회 정보 검색", required = true) Long page) {
+
+        try {
+            System.out.println(">>> 1");
+            List<League> leagues = new ArrayList<>();
+            System.out.println(">>> 2");
+            long idx = (6*page)-5;
+            System.out.println(">>> 3");
+            for (int i = 0; i < 6; i++) {
+                League input = leagueService.findLeagueByLeagueSeq(Long.valueOf(idx));
+
+                leagues.add(input);
+                idx++;
+            }
+            System.out.println(">>> 4");
+            return ResponseEntity.status(200).body(leagues);
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("대회 정보를 가져올 수 없습니다.");
         }
     }
 
