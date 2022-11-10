@@ -1,10 +1,10 @@
 // import React, { useState } from "react";
-import React from "react";
+import { React, useEffect, useState } from "react";
 import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
 // import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 // import { FaPlay } from "react-icons/fa";
 // import { BiLoaderAlt } from "react-icons/bi";
 // import { MdClose } from "react-icons/md";
@@ -27,8 +27,22 @@ import LeagueStatus from "../LeagueStatus";
 
 import "./style.css";
 import Daejin from "../Tournament/Tournament";
+import { getLeagueApi } from "../../api/api";
 
 function LeagueDetail(props) {
+  let { leagueSeq } = useParams();
+
+  const [leagueData, setLeagueData] = useState(null);
+
+  useEffect(() => {
+    async function getData() {
+      const { data } = await getLeagueApi(leagueSeq);
+      console.warn(data);
+      setLeagueData(data);
+    }
+    getData();
+  }, []);
+
   // const [modal, setModal] = useState(false);
   // const [videoLoading, setVideoLoading] = useState(true);
 
@@ -44,56 +58,68 @@ function LeagueDetail(props) {
   // };
   return (
     <>
-      <section className="fag-breadcrumb-area">
-        <Container>
-          <Row>
-            <Col lg={12}>
-              <div className="games-details-banner">
-                <Row>
-                  <Col lg={3} sm={4}>
-                    <div className="details-banner-thumb">
-                      <img src={img} alt="games" />
-                    </div>
-                  </Col>
-                  <Col lg={6} sm={8}>
-                    <div className="details-banner-info">
-                      <h3>
-                        Hand of Gilgamech{" "}
-                        <span className="single_rating">
-                          <AiFillStar />
-                          4.5
-                        </span>
-                      </h3>
-                      <div className="single_game_meta">
-                        <p className="details-genre">Action | Desktop</p>
-                        <p className="details-time-left">
-                          <FaCalendarAlt />
-                          Release date: <span> 07.12.2015</span>
+      {leagueData ? (
+        <section className="fag-breadcrumb-area">
+          <Container>
+            <Row>
+              <Col lg={12}>
+                <div className="games-details-banner">
+                  <Row>
+                    <Col lg={3} sm={4}>
+                      <div className="details-banner-thumb">
+                        {/* <img src={img} alt="games" /> */}
+                        <img src={leagueData.leaguePoster} alt="games" />
+                      </div>
+                    </Col>
+                    <Col lg={6} sm={8}>
+                      <div className="details-banner-info">
+                        <h3>
+                          {leagueData.leagueName}
+                          <span className="single_rating">
+                            <AiFillStar />
+                            4.5
+                          </span>
+                        </h3>
+                        <div className="single_game_meta">
+                          <p className="details-genre">
+                            Place: {leagueData.leaguePlace}
+                          </p>
+                          <p className="details-time-left">
+                            <FaCalendarAlt />
+                            DATE:{" "}
+                            <span>
+                              {leagueData.leagueDate[0]}/
+                              {leagueData.leagueDate[1]}/
+                              {leagueData.leagueDate[2]}
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                    </Col>
+                    <Col lg={3}>
+                      <div className="game-price single_game_price">
+                        <h4>$28.99</h4>
+                        <p className="off">
+                          <del>$56.99</del>
+                          <span />
+                          50% OFF
                         </p>
                       </div>
-                    </div>
-                  </Col>
-                  <Col lg={3}>
-                    <div className="game-price single_game_price">
-                      <h4>$28.99</h4>
-                      <p className="off">
-                        <del>$56.99</del>
-                        <span />
-                        50% OFF
-                      </p>
-                    </div>
-                    <div className="details-banner-action">
-                      <Link to="/" className="fag-btn">
-                        Buy Now
-                      </Link>
-                    </div>
-                  </Col>
-                </Row>
-              </div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
+                      <div className="details-banner-action">
+                        <Link to="/" className="fag-btn">
+                          Buy Now
+                        </Link>
+                      </div>
+                    </Col>
+                  </Row>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+      ) : (
+        ""
+      )}
 
       <section className="fag-games-details-page section_100">
         <Container>

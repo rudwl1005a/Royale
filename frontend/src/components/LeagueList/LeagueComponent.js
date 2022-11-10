@@ -29,16 +29,19 @@ const LeagueComponent = ({ leagueData }) => {
               <Link to="/leaguedetail">{leagueData.leagueName}</Link>
             </h3>
             <p className="game-meta">
-              date:<span> 2022.11.05 ~ 2022.11.13 </span>
+              date:<span> {leagueData.leagueDate} </span>
             </p>
-            <p className="game-meta">palce: 부산, 서면, 인천</p>
+            <p className="game-meta">{leagueData.leaguePlace}</p>
             <div className="game-action">
               <div className="game-price">
-                <h4>₩50,000</h4>
+                <h4>₩50,000 ~ </h4>
                 <p className="free">Comming Soon</p>
               </div>
               <div className="game-buy">
-                <Link to="/leaguedetail" className="fag-btn-outline">
+                <Link
+                  to={`/leaguedetail/${leagueData.leagueSeq}`}
+                  className="fag-btn-outline"
+                >
                   Participate
                 </Link>
               </div>

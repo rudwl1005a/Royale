@@ -44,7 +44,11 @@ const AllRoute = () => {
           {/* 대회 리스트 페이지 */}
           <Route exact path="/leaguelist" element={<LeagueListPage />} />
           {/* 대회 정보 페이지 */}
-          <Route exact path="/leaguedetail" element={<LeagueDetailPage />} />
+          <Route
+            exact
+            path="/leaguedetail/:leagueSeq"
+            element={<LeagueDetailPage />}
+          />
           {/* 대회 규칙 페이지 */}
           <Route exact path="/rule" element={<RulePage />} />
 

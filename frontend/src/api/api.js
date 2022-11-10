@@ -109,10 +109,19 @@ export const getLeagueListApi = async (page) => {
   }
 };
 
+// 리그 정보 조회
+export const getLeagueApi = async (leagueSeq) => {
+  try {
+    const res = await axios.get(`/leagues/${leagueSeq}`);
+    console.log(res);
+    return res;
+  } catch (err) {}
+};
+
 // 게임 정보 조회
 export const gameGet = async (gameSeq) => {
   try {
-    console.log("게임 정보 조회")
+    console.log("게임 정보 조회");
     const res = await axios.get(`/game/${gameSeq}`);
     console.log(res.data);
     return res.data;
@@ -120,4 +129,4 @@ export const gameGet = async (gameSeq) => {
   } catch (err) {
     return err.response;
   }
-}
+};
