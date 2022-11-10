@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useBeforeunload } from "react-beforeunload";
 import io from 'socket.io-client'; // Client Socket
 import "./style.css";
-// import { gameLogInit, gameLogUpdate, gameLogGet } from "../../api/api";
 
 import { gameGet, gameLogGet, gameLogUpdate } from "../../api/api";
 import { Routes, Route, useParams } from 'react-router-dom';
@@ -43,15 +42,12 @@ function Scoreboard(props) {
       setMatchInfo(gameData);
     }
     
+    // 백엔드에서 데이터 가져오기
     getData();
-  }, [])
 
-  // socket.io
-  const socket = io('http://localhost:4000', {
-    cors: {
-      origin: "*",
-    }
-  });
+    // 웹소켓 연결
+    socketConnect();
+  }, [])
 
   const useCounter = (ms) => {
     const intervalRef = useRef(null);
@@ -110,14 +106,17 @@ function Scoreboard(props) {
       let result = matchLogInfo.advantage1 + 1;
       setMatchLogInfo({...matchLogInfo, "advantage1" : matchLogInfo.advantage1 + 1});
       gameLogUpdate({...matchLogInfo, "advantage1" : result});
+      socketInfoUpdate({...matchLogInfo, "advantage1" : result});
     } else if (n === 'P') {
       let result = matchLogInfo.penalty1 + 1;
       setMatchLogInfo({...matchLogInfo, "penalty1" : matchLogInfo.penalty1 + 1});
       gameLogUpdate({...matchLogInfo, "penalty1" : result});
+      socketInfoUpdate({...matchLogInfo, "penalty1" : result});
     } else {
       let result = matchLogInfo.score1 + n;
       setMatchLogInfo({...matchLogInfo, "score1" : matchLogInfo.score1 + n});
       gameLogUpdate({...matchLogInfo, "score1" : result});
+      socketInfoUpdate({...matchLogInfo, "score1" : result});
     }
   }
 
@@ -169,6 +168,36 @@ function Scoreboard(props) {
     }
   }
 
+  // socket.io
+  const [myWs, setMyWs] = useState(true);
+  const socket = io('http://localhost:4000', {
+    cors: {
+      origin: "*",
+    }
+  });
+
+  const socketConnect = () => {
+    socket.emit('matchJoin', id);
+  }
+
+  const socketInfoUpdate = (info) => {
+    // socket.emit('matchInfoUpdate', id, info);
+    socket.emit('update', id, info);
+    setMyWs(!myWs);
+    // socket.on('update2', (matchInfo) => {
+    //   console.log("info2 " + matchInfo.score1)
+    //   alert(matchInfo.score1);
+    // })
+  }
+
+  socket.on('update2', (matchInfo) => {
+    console.log("info2 " + matchInfo.score1);
+    // setMatchInfo(matchInfo);
+  })
+
+  // useEffect(() => {
+  //   socketInfoUpdateTake(matchLogInfo);
+  // }, [myWs])
 
   // 새로고침, 뒤로가기, 종료 방지
   // useBeforeunload((event) => event.preventDefault());

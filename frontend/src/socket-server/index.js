@@ -16,6 +16,23 @@ const socketServer = io(httpServer, {
 // socketServer.on('connect');
 socketServer.on('connect', (socket) => {
 	socket.on('test', (req) => {
-		console.log(req.num);
+		console.log(req);
 	});
+
+	socket.on('matchJoin', (gameSeq) => {
+		console.log("join " + gameSeq);
+		socket.join(gameSeq);
+	})
+
+	socket.on('matchInfoUpdate', (gameSeq, gameInfo) => {
+		console.log("seq " + gameSeq);
+		console.log("info " + gameInfo.score1);
+	})
+
+	socket.on('update',(gameSeq, matchInfo) => {
+		console.log("seq " + gameSeq);
+		console.log("info " + matchInfo.score1);
+		io(httpServer).to(gameSeq).emit('update2', matchInfo);
+	})
+
 });
