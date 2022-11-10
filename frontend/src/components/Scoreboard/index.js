@@ -21,7 +21,6 @@ function Scoreboard(props) {
   
   // 스코어 변수
   const [matchLogInfo, setMatchLogInfo] = useState(null);
-  const [matchLogApi, setMatchLogApi] = useState(null);
   
   const [isStart, setIsStart] = useState(false);
   const [isStop, setIsStop] = useState(false);
@@ -46,12 +45,6 @@ function Scoreboard(props) {
     
     getData();
   }, [])
-
-  // useEffect(() => {
-  //   console.warn(matchLogInfo);
-
-  //   gameLogUpdate({...matchLogInfo, ""});
-  // }, [matchLogInfo]);
 
   // socket.io
   const socket = io('http://localhost:4000', {
