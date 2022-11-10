@@ -52,8 +52,8 @@ export default function Daejin(props) {
   // },[matches]) //matches가 변경 될때 마다 실행
 
   function A(e) {
-    if (e.target.className === "sc-gswNZR bsxbPA") {
-      navigate(`../match/${e.target.innerText}`);
+    if (e.target.className === "sc-bwzfXH bZiVie") {
+      navigate(`../scoreboard/${e.target.innerText}`);
       console.log(e.target.innerText);
     } else if (e.target.className === "sc-eDvSVe") {
       console.log(e.target.innerText);

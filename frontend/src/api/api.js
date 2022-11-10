@@ -108,3 +108,16 @@ export const getLeagueListApi = async (page) => {
     return err.response;
   }
 };
+
+// 게임 정보 조회
+export const gameGet = async (gameSeq) => {
+  try {
+    console.log("게임 정보 조회")
+    const res = await axios.get(`/game/${gameSeq}`);
+    console.log(res.data);
+    return res.data;
+    // return await axios.get(`/game-log/${gameSeq}`);
+  } catch (err) {
+    return err.response;
+  }
+}

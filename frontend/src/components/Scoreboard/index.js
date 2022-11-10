@@ -5,35 +5,22 @@ import io from 'socket.io-client'; // Client Socket
 import "./style.css";
 // import { gameLogInit, gameLogUpdate, gameLogGet } from "../../api/api";
 
-import { gameLogGet, gameLogUpdate } from "../../api/api";
+import { gameGet, gameLogGet, gameLogUpdate } from "../../api/api";
+import { Routes, Route, useParams } from 'react-router-dom';
 
 function Scoreboard(props) {
+
+  let { id } = useParams();
 
   const onClick = (e) => {
     e.preventDefault();
   };
 
-  // 선수 변수
-  const [playerOneSeq, setPlayerOneSeq] = useState(1);
-  const [playerTwoSeq, setPlayerTwoSeq] = useState(2);
-  const [playerOneName, setPlayerOneName] = useState("이형석")
-  const [playerOneTeam, setPlayerOneTeam] = useState("존프랭클주짓수 버닝주짓수")
-  const [playerTwoName, setPlayerTwoName] = useState("데이브김")
-  const [playerTwoTeam, setPlayerTwoTeam] = useState("존프랭클 주짓수랜드")
-
-  // 경기 변수
-  const [matchRound, setMatchRound] = useState(8);
-  const [matchNum, setMatchNum] = useState(23);
+  // 경기 정보 변수
+  const [matchInfo, setMatchInfo] = useState(null);
   
   // 스코어 변수
-  const [playerOneScore, setPlayerOneScore] = useState(0);
-  const [playerOneAdvantage, setPlayerOneAdvantage] = useState(0);
-  const [playerOnePenalty, setPlayerOnePenalty] = useState(0);
-  const [playerTwoScore, setPlayerTwoScore] = useState(0);
-  const [playerTwoAdvantage, setPlayerTwoAdvantage] = useState(0);
-  const [playerTwoPenalty, setPlayerTwoPenalty] = useState(0);
-  const [playerDq, setPlayerDq] = useState(null);
-  const [playerSub, setPlayerSub] = useState(null);
+  const [matchLogInfo, setMatchLogInfo] = useState(null);
   
   const [isStart, setIsStart] = useState(false);
   const [isStop, setIsStop] = useState(false);
@@ -45,36 +32,19 @@ function Scoreboard(props) {
   // 처음 랜더링 될 때 설정
   useEffect(() => {
     async function getData() {
-      const data = await gameLogGet(1);
+      // 게임 로그 업데이트
+      const data = await gameLogGet(id);
       console.warn(data);
+      setMatchLogInfo(data);
 
-      setPlayerOneScore(data.score1);
-      setPlayerTwoScore(data.score2);
-      setPlayerOneAdvantage(data.advantage1);
-      setPlayerTwoAdvantage(data.advantage2);
-      setPlayerOnePenalty(data.penalty1);
-      setPlayerTwoPenalty(data.penalty2);
+      // 게임 정보 업데이트
+      const gameData = await gameGet(id);
+      console.warn(gameData)
+      setMatchInfo(gameData);
     }
-
+    
     getData();
-
   }, [])
-
-  useEffect(() => {
-    const gameData = {
-      gameSeq: 1,
-      score1: playerOneScore,
-      score2: playerTwoScore,
-      advantage1: playerOneAdvantage,
-      advantage2: playerTwoAdvantage,
-      penalty1: playerOnePenalty,
-      penalty2: playerTwoPenalty,
-      dq: "",
-      sub: ""
-    }
-
-    gameLogUpdate(gameData);
-  }, [playerOneScore, playerTwoScore, playerOneAdvantage, playerTwoAdvantage, playerOnePenalty, playerTwoPenalty]);
 
   // socket.io
   const socket = io('http://localhost:4000', {
@@ -91,7 +61,7 @@ function Scoreboard(props) {
       }
       setIsStop(false);
       intervalRef.current = setInterval(() => {
-        setCount(c => c - 1);
+        setCount(c => c - 1 > 0 ? c - 1 : 0);
       }, ms);
     }, []);
     const stop = useCallback(() => {
@@ -134,55 +104,68 @@ function Scoreboard(props) {
       setCount(count + n);
     }
   }
-
-  // 처음 랜더링 될 때 설정
-  useEffect(() => {
-    const gameLogGetDto = gameLogGet(1);
-    setPlayerOneScore(gameLogGetDto.score1);
-    setPlayerTwoScore(gameLogGetDto.score2);
-    setPlayerOneAdvantage(gameLogGetDto.advantage1);
-    setPlayerTwoAdvantage(gameLogGetDto.advantage2);
-    setPlayerOnePenalty(gameLogGetDto.penalty1);
-    setPlayerTwoPenalty(gameLogGetDto.penalty2);
-  }, [])
   
   const plusOnePlayer = (n) => {
     if (n === 'A') {
-      setPlayerOneAdvantage(playerOneAdvantage + 1);
+      let result = matchLogInfo.advantage1 + 1;
+      setMatchLogInfo({...matchLogInfo, "advantage1" : matchLogInfo.advantage1 + 1});
+      gameLogUpdate({...matchLogInfo, "advantage1" : result});
     } else if (n === 'P') {
-      setPlayerOnePenalty(playerOnePenalty + 1);
+      let result = matchLogInfo.penalty1 + 1;
+      setMatchLogInfo({...matchLogInfo, "penalty1" : matchLogInfo.penalty1 + 1});
+      gameLogUpdate({...matchLogInfo, "penalty1" : result});
     } else {
-      setPlayerOneScore(playerOneScore + n);
-    }
-  }
-
-  const minusOnePlayer = (n) => {
-    if (n === 'A') {
-      setPlayerOneAdvantage(playerOneAdvantage - 1);
-    } else if (n === 'P') {
-      setPlayerOnePenalty(playerOnePenalty - 1);
-    } else {
-      setPlayerOneScore(playerOneScore - n);
+      let result = matchLogInfo.score1 + n;
+      setMatchLogInfo({...matchLogInfo, "score1" : matchLogInfo.score1 + n});
+      gameLogUpdate({...matchLogInfo, "score1" : result});
     }
   }
 
   const plusTwoPlayer = (n) => {
     if (n === 'A') {
-      setPlayerTwoAdvantage(playerTwoAdvantage + 1);
+      let result = matchLogInfo.advantage2 + 1;
+      setMatchLogInfo({...matchLogInfo, "advantage2" : matchLogInfo.advantage2 + 1});
+      gameLogUpdate({...matchLogInfo, "advantage2" : result});
     } else if (n === 'P') {
-      setPlayerTwoPenalty(playerTwoPenalty + 1);
+      let result = matchLogInfo.penalty2 + 1;
+      setMatchLogInfo({...matchLogInfo, "penalty2" : matchLogInfo.penalty2 + 1});
+      gameLogUpdate({...matchLogInfo, "penalty2" : result});
     } else {
-      setPlayerTwoScore(playerTwoScore + n);
+      let result = matchLogInfo.score2 + n;
+      setMatchLogInfo({...matchLogInfo, "score2" : matchLogInfo.score2 + n});
+      gameLogUpdate({...matchLogInfo, "score2" : result});
+    }
+  }
+
+  const minusOnePlayer = (n) => {
+    if (n === 'A') {
+      let result = matchLogInfo.advantage1 - 1;
+      setMatchLogInfo({...matchLogInfo, "advantage1" : matchLogInfo.advantage1 - 1});
+      gameLogUpdate({...matchLogInfo, "advantage1" : result});
+    } else if (n === 'P') {
+      let result = matchLogInfo.penalty1 - 1;
+      setMatchLogInfo({...matchLogInfo, "penalty1" : matchLogInfo.penalty1 - 1});
+      gameLogUpdate({...matchLogInfo, "penalty1" : result});
+    } else {
+      let result = matchLogInfo.score1 - n;
+      setMatchLogInfo({...matchLogInfo, "score1" : matchLogInfo.score1 - n});
+      gameLogUpdate({...matchLogInfo, "score1" : result});
     }
   }
 
   const minusTwoPlayer = (n) => {
     if (n === 'A') {
-      setPlayerTwoAdvantage(playerTwoAdvantage - 1);
+      let result = matchLogInfo.advantage2 - 1;
+      setMatchLogInfo({...matchLogInfo, "advantage2" : matchLogInfo.advantage2 - 1});
+      gameLogUpdate({...matchLogInfo, "advantage2" : result});
     } else if (n === 'P') {
-      setPlayerTwoPenalty(playerTwoPenalty - 1);
+      let result = matchLogInfo.penalty2 - 1;
+      setMatchLogInfo({...matchLogInfo, "penalty2" : matchLogInfo.penalty2 - 1});
+      gameLogUpdate({...matchLogInfo, "penalty2" : result});
     } else {
-      setPlayerTwoScore(playerTwoScore - n);
+      let result = matchLogInfo.score2 - n;
+      setMatchLogInfo({...matchLogInfo, "score2" : matchLogInfo.score2 - n});
+      gameLogUpdate({...matchLogInfo, "score2" : result});
     }
   }
 
@@ -192,12 +175,13 @@ function Scoreboard(props) {
 
   return (
     <>
+      {matchInfo && matchLogInfo ? 
       <div className="scoreboard-block" Style="padding-left: 5vmin; background-color: black">
         <Row className="player">
           <Col xs={7} sm={7}>
             <Row className="playerInfo">
-              <span className={`playerInfo-name ${playerOneName.length > 8 ? "Small" : ""}`}>{playerOneName}</span>
-              <span className="playerInfo-team">{playerOneTeam}</span>
+              <span className={`playerInfo-name ${matchInfo.player1Name.length > 8 ? "Small" : ""}`}>{matchInfo.player1Name}</span>
+              <span className="playerInfo-team">{matchInfo.player1Team}</span>
             </Row>
             <Row className="playerInfo-button">
               <table Style="width: 25vw; height: 80%; margin-left: 2vw; background-color: #0D0E1B">
@@ -225,7 +209,7 @@ function Scoreboard(props) {
                   PENALTY
                 </span>
                 <span className="playerScore-info" Style="color: #ba353d">
-                  {playerOnePenalty}
+                  {matchLogInfo.penalty1}
                 </span>
               </span>
               <span>
@@ -233,12 +217,12 @@ function Scoreboard(props) {
                   ADVANTAGE
                 </span>
                 <span className="playerScore-info" Style="color: #3b973b">
-                  {playerOneAdvantage}
+                  {matchLogInfo.advantage1}
                 </span>
               </span>
             </span>
             <span className="playerScore-score playerOne">
-              {playerOneScore}
+              {matchLogInfo.score1}
             </span>
           </Col>
         </Row>
@@ -246,8 +230,8 @@ function Scoreboard(props) {
         <Row className="player">
           <Col xs={7} sm={7}>
             <Row className="playerInfo">
-              <span className={`playerInfo-name ${playerTwoName.length > 8 ? "Small" : ""}`}>{playerTwoName}</span>
-              <span className="playerInfo-team">{playerTwoTeam}</span>
+              <span className={`playerInfo-name ${matchInfo.player2Name.length > 8 ? "Small" : ""}`}>{matchInfo.player2Name}</span>
+              <span className="playerInfo-team">{matchInfo.player2Team}</span>
             </Row>
             <Row className="playerInfo-button">
               <table Style="width: 25vw; height: 80%; margin-left: 2vw; background-color: #0D0E1B">
@@ -275,7 +259,7 @@ function Scoreboard(props) {
                   PENALTY
                 </span>
                 <span className="playerScore-info" Style="color: #ba353d">
-                  {playerTwoPenalty}
+                  {matchLogInfo.penalty2}
                 </span>
               </span>
               <span>
@@ -283,12 +267,12 @@ function Scoreboard(props) {
                   ADVANTAGE
                 </span>
                 <span className="playerScore-info" Style="color: #3b973b">
-                  {playerTwoAdvantage}
+                  {matchLogInfo.advantage2}
                 </span>
               </span>
             </span>
             <span className="playerScore-score playerTwo">
-              {playerTwoScore}
+              {matchLogInfo.score2}
             </span>
           </Col>
         </Row>
@@ -305,9 +289,15 @@ function Scoreboard(props) {
                                   justify-content: flex-start;
                                   display: flex;
                                   font-weight: bold;
-                                  font-size: 4vmin;
-                                  color: gray">
-                      <span Style="color: #ED8B08; margin-right: 0.5vw">16강</span> match 15 ( Men / Adult / Black / -88kg )
+                                  font-size: 3.5vmin;
+                                  color: gray;
+                                  cursor: default">
+                      <span Style="color: #ED8B08; margin-right: 0.5vw">match{matchInfo.game.matGameNum} </span>
+                      - {matchInfo.game.division.divisionGender} / 
+                      {matchInfo.game.division.divisionAge} / 
+                      {matchInfo.game.division.divisionBelt} / 
+                      {matchInfo.game.division.divisionWeight} / 
+                      {matchInfo.game.division.divisionType}
                     </span>
                   </td>
                 </tr>
@@ -317,7 +307,7 @@ function Scoreboard(props) {
                   <td><span Style="color: #3b973b" onClick={() => changeTime(60)}>+60 SEC</span></td>
                   {isStart === false
                     ? <td colspan='2'><span>SWITCH SIDES</span></td>
-                    : <td><span>dp</span></td>}
+                    : <td><span>dq</span></td>}
                   {isStart === false
                     ? ''
                     : <td><span>sub</span></td>}
@@ -339,6 +329,7 @@ function Scoreboard(props) {
           </span>
         </Row>
       </div>
+      : null}
     </>
   );
 }

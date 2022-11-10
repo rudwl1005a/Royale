@@ -37,8 +37,8 @@ public class GameLog {
     @Column(name = "penalty2", unique = false, nullable = true)
     private int penalty2;
 
-    @Column(name = "dp", unique = false, nullable = true)
-    private Long dp;
+    @Column(name = "dq", unique = false, nullable = true)
+    private Long dq;
     @Column(name = "sub", unique = false, nullable = true)
     private Long sub;
 
@@ -56,7 +56,7 @@ public class GameLog {
         this.advantage2 = gameLogUpdateRequestDto.getAdvantage2();
         this.penalty1 = gameLogUpdateRequestDto.getPenalty1();
         this.penalty2 = gameLogUpdateRequestDto.getPenalty2();
-        this.dp = gameLogUpdateRequestDto.getDq();
+        this.dq = gameLogUpdateRequestDto.getDq();
         this.sub = gameLogUpdateRequestDto.getSub();
     }
 }
