@@ -21,13 +21,13 @@ import "./style.css";
 function GamesPage(props) {
   const [page, setpage] = useState(1);
 
-  const [leagueSeq, setleagueSeq] = useState("");
-  const [leagueName, setleagueName] = useState("");
-  const [leaguePlace, setleaguePlace] = useState("");
-  const [leagueDate, setleagueDate] = useState("");
-  const [leagueDeadline, setleagueDeadline] = useState("");
-  const [leaguePoster, setleaguePoster] = useState("");
-  const [leagueInfo, setleagueInfo] = useState("");
+  // const [leagueSeq, setleagueSeq] = useState("");
+  // const [leagueName, setleagueName] = useState("");
+  // const [leaguePlace, setleaguePlace] = useState("");
+  // const [leagueDate, setleagueDate] = useState("");
+  // const [leagueDeadline, setleagueDeadline] = useState("");
+  // const [leaguePoster, setleaguePoster] = useState("");
+  // const [leagueInfo, setleagueInfo] = useState("");
 
   const [leagueListData, setleagueListData] = useState(null);
 

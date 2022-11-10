@@ -41,7 +41,6 @@ public class LeagueController {
         if (createLeagueRequestDto.getLeagueName().equals("") || createLeagueRequestDto.getLeaguePlace().equals("")
         || createLeagueRequestDto.getLeagueDate().equals("") || createLeagueRequestDto.getLeagueDeadline().equals("")
         || createLeagueRequestDto.getLeagueInfo().equals("") ) {
-//        || createLeagueRequestDto.getLeaguePoster().equals("") || createLeagueRequestDto.getLeagueInfo().equals("") ) {
             return ResponseEntity.status(405).body("모든 내용을 입력해주세요");
         }
 
@@ -65,15 +64,10 @@ public class LeagueController {
     })
     public ResponseEntity<?> tempUpload(@PathVariable @ApiParam(value = "리그 코드", required = true) String leagueSeq,
                              @RequestPart @ApiParam(value = "대회 포스터", required = true) MultipartFile poster) throws IOException {
-
-        System.out.println("@@ leagueSeq >>> " + leagueSeq);
-        System.out.println("@@ MultipartFile >>> " + poster);
         try {
             League league = leagueService.findLeagueByLeagueSeq(Long.parseLong(leagueSeq));
             String date = league.getLeagueDate().toString();
 
-            System.out.println("!! leagueSeq >>> " + leagueSeq);
-            System.out.println("!! MultipartFile >>> " + poster);
             leagueService.updateLeaguePoster(Long.parseLong(leagueSeq), poster);
 //            photoService.saveTempPhoto(photo, date, roomSeq);
 //            String[] dateSplit = date.split(" ")[0].split("/");
@@ -101,18 +95,13 @@ public class LeagueController {
             @ApiParam(value = "대회 정보 검색", required = true) Long page) {
 
         try {
-            System.out.println(">>> 1");
             List<League> leagues = new ArrayList<>();
-            System.out.println(">>> 2");
             long idx = (6*page)-5;
-            System.out.println(">>> 3");
             for (int i = 0; i < 6; i++) {
                 League input = leagueService.findLeagueByLeagueSeq(Long.valueOf(idx));
-
                 leagues.add(input);
                 idx++;
             }
-            System.out.println(">>> 4");
             return ResponseEntity.status(200).body(leagues);
         } catch (Exception e) {
             return ResponseEntity.status(400).body("대회 정보를 가져올 수 없습니다.");

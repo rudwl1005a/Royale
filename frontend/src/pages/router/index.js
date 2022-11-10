@@ -21,11 +21,13 @@ import Match from "../Match";
 import Daejin from "../Daejin";
 import Tournament from "../Tournament";
 import Scoreboard from "../ScoreboardPage";
+import ScrollTop from "../../components/ScrollTop";
 
 const AllRoute = () => {
   return (
     <div>
       <Router>
+        <ScrollTop />
         <Routes>
           {/* 메인 페이지 */}
           <Route exact path="/" element={<Homepage />} />
@@ -53,7 +55,11 @@ const AllRoute = () => {
           {/* Contact */}
           <Route exact path="/contact" element={<ContactPage />} />
           {/* 선수 검색 */}
-          <Route exact path="/searchApplicant" element={<SearchApplicatnPage />} />
+          <Route
+            exact
+            path="/searchApplicant"
+            element={<SearchApplicatnPage />}
+          />
 
           {/* 세영 */}
           {/* 대회페이지 */}
