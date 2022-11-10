@@ -23,16 +23,13 @@ import React from "react";
 
 import "./style.css";
 
-function LeagueInfo(props) {
+const LeagueInfo = ({ leagueInfo }) => {
+  console.log(leagueInfo);
   return (
     <>
-      <div className="tab-body">
-        <p>대회 소개 페이지 입니다.</p>
-        <p>대회 소개 페이지 입니다.</p>
-        <p>대회 소개 페이지 입니다.</p>
-      </div>
+      <div className="tab-body">{leagueInfo}</div>
     </>
   );
-}
+};
 
 export default LeagueInfo;

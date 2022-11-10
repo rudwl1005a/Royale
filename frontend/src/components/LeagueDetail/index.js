@@ -142,7 +142,11 @@ function LeagueDetail(props) {
                     <Tab eventKey="info" title="대회 소개">
                       <Row>
                         <Col md={12}>
-                          <LeagueInfo />
+                          {leagueData ? (
+                            <LeagueInfo leagueInfo={leagueData.leagueInfo} />
+                          ) : (
+                            ""
+                          )}
                         </Col>
                       </Row>
                     </Tab>
