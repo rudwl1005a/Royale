@@ -3,7 +3,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useBeforeunload } from "react-beforeunload";
 import io from 'socket.io-client'; // Client Socket
 import "./style.css";
-// import { gameLogInit, gameLogUpdate, gameLogGet } from "../../api/api";
 
 import { gameGet, gameLogGet, gameLogUpdate } from "../../api/api";
 import { Routes, Route, useParams } from 'react-router-dom';
@@ -43,15 +42,12 @@ function Scoreboard(props) {
       setMatchInfo(gameData);
     }
     
+    // 백엔드에서 데이터 가져오기
     getData();
-  }, [])
 
-  // socket.io
-  const socket = io('http://localhost:4000', {
-    cors: {
-      origin: "*",
-    }
-  });
+    // 웹소켓 연결
+    // socketConnect();
+  }, [])
 
   const useCounter = (ms) => {
     const intervalRef = useRef(null);
@@ -108,67 +104,95 @@ function Scoreboard(props) {
   const plusOnePlayer = (n) => {
     if (n === 'A') {
       let result = matchLogInfo.advantage1 + 1;
-      setMatchLogInfo({...matchLogInfo, "advantage1" : matchLogInfo.advantage1 + 1});
+      // setMatchLogInfo({...matchLogInfo, "advantage1" : matchLogInfo.advantage1 + 1});
       gameLogUpdate({...matchLogInfo, "advantage1" : result});
+      socketInfoUpdate({...matchLogInfo, "advantage1" : result});
     } else if (n === 'P') {
       let result = matchLogInfo.penalty1 + 1;
-      setMatchLogInfo({...matchLogInfo, "penalty1" : matchLogInfo.penalty1 + 1});
+      // setMatchLogInfo({...matchLogInfo, "penalty1" : matchLogInfo.penalty1 + 1});
       gameLogUpdate({...matchLogInfo, "penalty1" : result});
+      socketInfoUpdate({...matchLogInfo, "penalty1" : result});
     } else {
       let result = matchLogInfo.score1 + n;
-      setMatchLogInfo({...matchLogInfo, "score1" : matchLogInfo.score1 + n});
+      // setMatchLogInfo({...matchLogInfo, "score1" : matchLogInfo.score1 + n});
       gameLogUpdate({...matchLogInfo, "score1" : result});
+      socketInfoUpdate({...matchLogInfo, "score1" : result});
     }
   }
 
   const plusTwoPlayer = (n) => {
     if (n === 'A') {
       let result = matchLogInfo.advantage2 + 1;
-      setMatchLogInfo({...matchLogInfo, "advantage2" : matchLogInfo.advantage2 + 1});
+      // setMatchLogInfo({...matchLogInfo, "advantage2" : matchLogInfo.advantage2 + 1});
       gameLogUpdate({...matchLogInfo, "advantage2" : result});
+      socketInfoUpdate({...matchLogInfo, "advantage2" : result});
     } else if (n === 'P') {
       let result = matchLogInfo.penalty2 + 1;
-      setMatchLogInfo({...matchLogInfo, "penalty2" : matchLogInfo.penalty2 + 1});
+      // setMatchLogInfo({...matchLogInfo, "penalty2" : matchLogInfo.penalty2 + 1});
       gameLogUpdate({...matchLogInfo, "penalty2" : result});
+      socketInfoUpdate({...matchLogInfo, "penalty2" : result});
     } else {
       let result = matchLogInfo.score2 + n;
-      setMatchLogInfo({...matchLogInfo, "score2" : matchLogInfo.score2 + n});
+      // setMatchLogInfo({...matchLogInfo, "score2" : matchLogInfo.score2 + n});
       gameLogUpdate({...matchLogInfo, "score2" : result});
+      socketInfoUpdate({...matchLogInfo, "score2" : result});
     }
   }
 
   const minusOnePlayer = (n) => {
     if (n === 'A') {
       let result = matchLogInfo.advantage1 - 1;
-      setMatchLogInfo({...matchLogInfo, "advantage1" : matchLogInfo.advantage1 - 1});
+      // setMatchLogInfo({...matchLogInfo, "advantage1" : matchLogInfo.advantage1 - 1});
       gameLogUpdate({...matchLogInfo, "advantage1" : result});
+      socketInfoUpdate({...matchLogInfo, "advantage1" : result});
     } else if (n === 'P') {
       let result = matchLogInfo.penalty1 - 1;
-      setMatchLogInfo({...matchLogInfo, "penalty1" : matchLogInfo.penalty1 - 1});
+      // setMatchLogInfo({...matchLogInfo, "penalty1" : matchLogInfo.penalty1 - 1});
       gameLogUpdate({...matchLogInfo, "penalty1" : result});
+      socketInfoUpdate({...matchLogInfo, "penalty1" : result});
     } else {
       let result = matchLogInfo.score1 - n;
-      setMatchLogInfo({...matchLogInfo, "score1" : matchLogInfo.score1 - n});
+      // setMatchLogInfo({...matchLogInfo, "score1" : matchLogInfo.score1 - n});
       gameLogUpdate({...matchLogInfo, "score1" : result});
+      socketInfoUpdate({...matchLogInfo, "score1" : result});
     }
   }
 
   const minusTwoPlayer = (n) => {
     if (n === 'A') {
       let result = matchLogInfo.advantage2 - 1;
-      setMatchLogInfo({...matchLogInfo, "advantage2" : matchLogInfo.advantage2 - 1});
+      // setMatchLogInfo({...matchLogInfo, "advantage2" : matchLogInfo.advantage2 - 1});
       gameLogUpdate({...matchLogInfo, "advantage2" : result});
+      socketInfoUpdate({...matchLogInfo, "advantage2" : result});
     } else if (n === 'P') {
       let result = matchLogInfo.penalty2 - 1;
-      setMatchLogInfo({...matchLogInfo, "penalty2" : matchLogInfo.penalty2 - 1});
+      // setMatchLogInfo({...matchLogInfo, "penalty2" : matchLogInfo.penalty2 - 1});
       gameLogUpdate({...matchLogInfo, "penalty2" : result});
+      socketInfoUpdate({...matchLogInfo, "penalty2" : result});
     } else {
       let result = matchLogInfo.score2 - n;
-      setMatchLogInfo({...matchLogInfo, "score2" : matchLogInfo.score2 - n});
+      // setMatchLogInfo({...matchLogInfo, "score2" : matchLogInfo.score2 - n});
       gameLogUpdate({...matchLogInfo, "score2" : result});
+      socketInfoUpdate({...matchLogInfo, "score2" : result});
     }
   }
 
+  // socket.io
+  const socket = io('http://localhost:4000');
+
+  // const socketConnect = () => {
+    socket.connect();
+    socket.emit('matchJoin', id);
+  // }
+
+  const socketInfoUpdate = (info) => {
+    // socket.emit('matchInfoUpdate', id, info);
+    socket.emit('update', id, info);
+  }
+  
+  socket.on('update2', (matchInfo) => {
+    setMatchLogInfo(matchInfo);
+  })
 
   // 새로고침, 뒤로가기, 종료 방지
   // useBeforeunload((event) => event.preventDefault());

@@ -29,6 +29,14 @@ public class GameLogServiceImpl implements GameLogService {
         // 해당 경기가 있으면 로그 생성
         GameLog gameLog = GameLog.builder()
                 .game(gameRepository.findById(gameSeq).get())
+                .score1(0)
+                .score2(0)
+                .advantage1(0)
+                .advantage2(0)
+                .penalty1(0)
+                .penalty2(0)
+                .dq((long)(-1))
+                .sub((long)(-1))
                 .build();
         gameLogRepository.save(gameLog);
         return true;
