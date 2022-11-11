@@ -1,7 +1,7 @@
 // import React, { useState } from "react";
 import { React, useEffect, useState } from "react";
 import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
-import { FaCalendarAlt } from "react-icons/fa";
+import { FaPlaceOfWorship, FaCalendarAlt } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
 // import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link, useParams } from "react-router-dom";
@@ -22,7 +22,6 @@ import author2 from "../../img/5.jpg";
 
 import LeagueInfo from "../LeagueInfo";
 import LeagueApply from "../LeagueApply";
-import LeagueMatch from "../LeagueMatch";
 import LeagueStatus from "../LeagueStatus";
 
 import "./style.css";
@@ -82,7 +81,7 @@ function LeagueDetail(props) {
                         </h3>
                         <div className="single_game_meta">
                           <p className="details-genre">
-                            Place: {leagueData.leaguePlace}
+                            <FaPlaceOfWorship /> PLACE: {leagueData.leaguePlace}
                           </p>
                           <p className="details-time-left">
                             <FaCalendarAlt />
@@ -98,7 +97,7 @@ function LeagueDetail(props) {
                     </Col>
                     <Col lg={3}>
                       <div className="game-price single_game_price">
-                        <h4>$28.99</h4>
+                        <h4>₩ 50,000 ~ </h4>
                         <p className="off">
                           <del>$56.99</del>
                           <span />
