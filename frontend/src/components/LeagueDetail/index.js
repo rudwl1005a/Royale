@@ -23,6 +23,7 @@ import author2 from "../../img/5.jpg";
 import LeagueInfo from "../LeagueInfo";
 import LeagueApply from "../LeagueApply";
 import LeagueStatus from "../LeagueStatus";
+import SelectDivision from "../SelectDivision";
 
 import "./style.css";
 import Daejin from "../Tournament/Tournament";
@@ -123,8 +124,9 @@ function LeagueDetail(props) {
       <section className="fag-games-details-page section_100">
         <Container>
           <Row className="justify-content-end">
-            <Col lg={9}>
+            <Col lg={12}>
               <div className="games-details-page-box">
+                <br />
                 {/* <ul>
                   <li>Biltong corned beef tongue </li>
                   <li>Beef short ribs leberkas cupim Drumstick </li>
@@ -159,7 +161,9 @@ function LeagueDetail(props) {
                     <Tab eventKey="matches" title="대진표">
                       <Row>
                         <Col md={12}>
-                          {/* <LeagueMatch /> */}
+                          <SelectDivision />
+                          <br />
+                          <br />
                           <Daejin />
                         </Col>
                       </Row>
