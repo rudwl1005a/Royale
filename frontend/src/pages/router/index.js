@@ -19,7 +19,6 @@ import SearchApplicatnPage from "../SearchApplicantPage";
 import Competition from "../Competition";
 import Match from "../Match";
 import Daejin from "../Daejin";
-import Tournament from "../Tournament";
 import Scoreboard from "../ScoreboardPage";
 import ScrollTop from "../../components/ScrollTop";
 
@@ -71,11 +70,6 @@ const AllRoute = () => {
           <Route path="/competition/:id" element={<Competition />}></Route>
           {/* 대회 마감 후 게임 삽입 */}
           <Route path="/match/finish/:id" element={<Daejin />}></Route>
-          {/* 대회 분야별 대진표 */}
-          <Route
-            path="/tournament/:leagueSeq/:divisionSeq"
-            element={<Tournament />}
-          ></Route>
 
           {/* 대회 개별 경기 페이지 */}
           <Route path="/match/:id" element={<Match />}></Route>

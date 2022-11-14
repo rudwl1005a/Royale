@@ -5,6 +5,7 @@ import {
   Match,
 } from "@g-loot/react-tournament-brackets";
 import { axios } from "../../api/axios.js";
+import { gameLogGet, gameLogInit } from "../../api/api";
 
 export default function Daejin(props) {
   //대진표입니다 개별 경기의 왼쪽 위 값을 누르면 해당 경기의 상세페이지로 이동합니다
@@ -51,10 +52,20 @@ export default function Daejin(props) {
   //         }
   // },[matches]) //matches가 변경 될때 마다 실행
 
-  function A(e) {
-    if (e.target.className === "sc-bwzfXH bZiVie") {
-      navigate(`../scoreboard/${e.target.innerText}`);
-      console.log(e.target.innerText);
+  async function init(gameSeq) {
+    const data = await gameLogGet(gameSeq);
+    if(data === '') {
+      await gameLogInit(gameSeq);
+    }
+  }
+
+  async function A(e) {
+    console.log(e.target);
+    if (e.target.className === "sc-bZQynM lkaPJs") {
+      // 게임 로그 있는지 확인 후 없으면 생성 있으면 생성x
+      await init(e.target.innerText);
+      navigate(`../../scoreboard/${e.target.innerText}`);
+      // console.log(e.target.innerText);
     } else if (e.target.className === "sc-eDvSVe") {
       console.log(e.target.innerText);
     }

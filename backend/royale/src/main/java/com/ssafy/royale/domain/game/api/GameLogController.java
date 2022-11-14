@@ -33,6 +33,7 @@ public class GameLogController {
         if (gameLogService.init(gameSeq)) {
             return ResponseEntity.status(200).body("성공");
         } else {
+            System.out.println("여기");
             return ResponseEntity.status(400).body("잘못된 요청");
         }
 
@@ -61,7 +62,7 @@ public class GameLogController {
         if (gameLogService.select(gameSeq) != null) {
             return ResponseEntity.status(200).body(GameLogDto.from(gameLogService.select(gameSeq)));
         } else {
-            return ResponseEntity.status(400).body("잘못된 요청");
+            return ResponseEntity.status(200).body(null);
         }
 
     }
