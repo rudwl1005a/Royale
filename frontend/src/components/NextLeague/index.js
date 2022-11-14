@@ -8,7 +8,7 @@ import vs from "../../img/poster20221203.jpg";
 import "./style.css";
 
 function NextLeague(props) {
-  const [countdownDate] = useState(new Date("12/03/2022").getTime());
+  const [countdownDate] = useState(new Date("12/04/2022").getTime());
   const [state, setState] = useState({
     days: 0,
     hours: 0,
@@ -107,7 +107,7 @@ function NextLeague(props) {
                 </div>
                 <div className="match-action">
                   {/* <Link to="/leagueinfo" onClick={onClick} className="fag-btn"> */}
-                  <Link to="/leagueinfo" className="fag-btn">
+                  <Link to="/leaguedetail/1" className="fag-btn">
                     Participate
                   </Link>
                 </div>
