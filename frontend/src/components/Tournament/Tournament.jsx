@@ -60,10 +60,11 @@ export default function Daejin(props) {
   }
 
   async function A(e) {
-    if (e.target.className === "sc-bwzfXH bZiVie") {
+    console.log(e.target);
+    if (e.target.className === "sc-bZQynM lkaPJs") {
       // 게임 로그 있는지 확인 후 없으면 생성 있으면 생성x
       await init(e.target.innerText);
-      navigate(`../scoreboard/${e.target.innerText}`);
+      navigate(`../../scoreboard/${e.target.innerText}`);
       // console.log(e.target.innerText);
     } else if (e.target.className === "sc-eDvSVe") {
       console.log(e.target.innerText);
