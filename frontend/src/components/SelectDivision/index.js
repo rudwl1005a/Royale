@@ -18,6 +18,7 @@ function SelectDivision(props) {
     const data = await getDivisionSeqAPI(getLeagueSeqDto);
 
     setDivisionSeq(data.data);
+    console.log(divisionSeq);
   }
 
   const handleSubmit = (event) => {
@@ -37,6 +38,8 @@ function SelectDivision(props) {
   function selectBelt() {
     if (divisionAge === "HighSchool" || divisionAge === "Adult") {
       return <BeltSelectBox />;
+    } else if (divisionAge === "Elementary" || divisionAge === "MiddleSchool") {
+      return <ElementaryMiddleSchoolBeltSelectBox />;
     } else {
       return <NoBeginnerBeltSelectBox />;
     }
@@ -154,6 +157,24 @@ function SelectDivision(props) {
         <option value="Purple">Purple</option>
         <option value="Brown">Brown</option>
         <option value="Black">Black</option>
+      </Select>
+    );
+  };
+
+  // 벨트 선택
+  const ElementaryMiddleSchoolBeltSelectBox = () => {
+    return (
+      <Select
+        onChange={(e) => {
+          setDivisionBelt(e.target.value);
+        }}
+        value={divisionBelt}
+      >
+        <option value="" hidden>
+          Belt
+        </option>
+        <option value="White">White</option>
+        <option value="Blue">Blue</option>
       </Select>
     );
   };
@@ -311,21 +332,14 @@ export const Label = styled.label`
   font-size: 10px;
 `;
 
-const StyledButton = styled.button`
-  color: ${(props) => props.color || "white"};
-  background: ${(props) => props.background || "orange"};
-  font-size: 2rem;
-  border-top-right-radius: 30px;
-  border-bottom-left-radius: 30px;
-  cursor: pointer;
-  font-divisionweight: bold;
-`;
 export const Select = styled.select`
-  font-size: 1.5rem;
   line-height: 1.5;
   background: black;
   color: white;
   border: 2px solid;
+
+  width: 12vw;
+  text-indent: 0.5vw;
 
   option {
     color: white;
@@ -333,19 +347,4 @@ export const Select = styled.select`
     padding-top: 10px;
     padding-bottom: 10px;
   }
-`;
-const DropDownBox = styled.ul`
-  font-size: 1.5rem;
-  color: #ffffff;
-  background-color: #251414;
-  padding: 16 16px;
-`;
-
-const DropDownItem = styled.li`
-  padding: 16 16px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 20px;
 `;
