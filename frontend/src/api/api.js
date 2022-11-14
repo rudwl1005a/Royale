@@ -106,3 +106,13 @@ export const getLeagueListApi = async (page) => {
     return err.response;
   }
 };
+
+// 선수 검색 API
+export const getSearchResultApi = async (keyword) => {
+  try {
+    const res = await axios.get(`/applies/${keyword}`)
+    return res;
+  } catch (err) {
+    return err.response;
+  }
+}

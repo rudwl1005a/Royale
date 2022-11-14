@@ -10,4 +10,5 @@ import java.util.List;
 public interface ApplyRepository extends JpaRepository<Apply, Long> {
 
     List<Apply> findAllByLeagueAndDivision(League league, Division division);
+
 }
