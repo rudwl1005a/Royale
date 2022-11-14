@@ -1,31 +1,93 @@
-import React, { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./style.css";
 import styled from "styled-components";
 
-function SelectDivision(props) {
-  const [gender, setGender] = useState("");
-  const [age, setAge] = useState("");
-  const [belt, setBelt] = useState("");
-  const [type, setType] = useState("");
-  const [weight, setWeight] = useState("");
+import { getDivisionSeqAPI } from "../../api/api";
 
-  //Select는 styledcomponents로 정의, 선택한 값이 바뀔 때마다 상단의 기본값들을 변경하라
+function SelectDivision(props) {
+  const [divisionSeq, setDivisionSeq] = useState("");
+  const [divisionAge, setDivisionAge] = useState("");
+  const [divisionBelt, setDivisionBelt] = useState("");
+  const [divisionGender, setDivisionGender] = useState("");
+  const [divisionType, setDivisionType] = useState("");
+  const [divisionWeight, setDivisionWeight] = useState("");
+
+  async function getData(getLeagueSeqDto) {
+    console.warn(getLeagueSeqDto);
+    const data = await getDivisionSeqAPI(getLeagueSeqDto);
+
+    setDivisionSeq(data.data);
+  }
+
+  const handleSubmit = (event) => {
+    const getLeagueSeqDto = {
+      divisionAge,
+      divisionBelt,
+      divisionGender,
+      divisionType,
+      divisionWeight,
+    };
+
+    getData(getLeagueSeqDto);
+    event.preventDefault();
+  };
+
+  // 벨트 선택 함수
+  function selectBelt() {
+    if (divisionAge === "HighSchool" || divisionAge === "Adult") {
+      return <BeltSelectBox />;
+    } else {
+      return <NoBeginnerBeltSelectBox />;
+    }
+  }
+
+  // 종목 선택 함수
+  function selectType() {
+    if (
+      divisionBelt === "Beginner" ||
+      divisionAge === "Beginner" ||
+      divisionAge === "MiddleSchool"
+    ) {
+      return <NoAbsolTypeSelectBox />;
+    } else {
+      return <TypeSelectBox />;
+    }
+  }
+
+  // 체중 선택 함수
+  function selectWeight() {
+    if (divisionType === "Gi-absol" || divisionType === "Nogi-absol") {
+      // 앱솔
+      return <AbsolWeightSelectBox />;
+    } else if (divisionAge === "Elementary") {
+      // 초등부
+      return <ElemantaryWeightSelectBox />;
+    } else if (
+      setDivisionGender === "F" || // 여성부
+      divisionAge === "MiddleSchool" || // 중등부
+      divisionAge === "HighSchool" // 고등부
+    ) {
+      return <FemaleMiddleHighWeightSelectBox />;
+    } else {
+      return <AdultMasterWeightSelectBox />; // 성인부
+    }
+  }
 
   // 성별 선택
   const GenderSelectBox = () => {
     return (
       <Select
         onChange={(e) => {
-          setGender(e.target.value);
+          setDivisionGender(e.target.value);
         }}
-        value={gender}
+        value={divisionGender}
       >
         <option value="" hidden>
           Gender
         </option>
-        <option value="male">남성부 (Male)</option>
-        <option value="female">여성부 (Female)</option>
+        <option value="M">남성부 (Male)</option>
+        <option value="F">여성부 (Female)</option>
       </Select>
     );
   };
@@ -35,20 +97,20 @@ function SelectDivision(props) {
     return (
       <Select
         onChange={(e) => {
-          setAge(e.target.value);
+          setDivisionAge(e.target.value);
         }}
-        value={age}
+        value={divisionAge}
       >
         <option value="" hidden>
           Age
         </option>
-        <option value="초등부">초등부 (Elementary)</option>
-        <option value="중등부">중등부 (Middle School)</option>
-        <option value="고등부">고등부 (High School)</option>
-        <option value="adult">Adult</option>
-        <option value="master1">Master 1 (만 30세부터)</option>
-        <option value="master2">Master 2 (만 35세부터)</option>
-        <option value="master3">Master 3 (만 40세부터)</option>
+        <option value="Elementary">초등부 (Elementary)</option>
+        <option value="MiddleSchool">중등부 (Middle School)</option>
+        <option value="HighSchool">고등부 (High School)</option>
+        <option value="Adult">Adult</option>
+        <option value="Master1">Master 1 (만 30세부터)</option>
+        <option value="Master2">Master 2 (만 35세부터)</option>
+        <option value="Master3">Master 3 (만 40세부터)</option>
       </Select>
     );
   };
@@ -58,19 +120,40 @@ function SelectDivision(props) {
     return (
       <Select
         onChange={(e) => {
-          setBelt(e.target.value);
+          setDivisionBelt(e.target.value);
         }}
-        value={belt}
+        value={divisionBelt}
       >
         <option value="" hidden>
           Belt
         </option>
-        <option value="white beginner">White 비기너</option>
-        <option value="white">White</option>
-        <option value="blue">Blue</option>
-        <option value="purple">Purple</option>
-        <option value="brown">Brown</option>
-        <option value="black">Black</option>
+        <option value="Beginner">White 비기너</option>
+        <option value="White">White</option>
+        <option value="Blue">Blue</option>
+        <option value="Purple">Purple</option>
+        <option value="Brown">Brown</option>
+        <option value="Black">Black</option>
+      </Select>
+    );
+  };
+
+  // 벨트 선택
+  const NoBeginnerBeltSelectBox = () => {
+    return (
+      <Select
+        onChange={(e) => {
+          setDivisionBelt(e.target.value);
+        }}
+        value={divisionBelt}
+      >
+        <option value="" hidden>
+          Belt
+        </option>
+        <option value="White">White</option>
+        <option value="Blue">Blue</option>
+        <option value="Purple">Purple</option>
+        <option value="Brown">Brown</option>
+        <option value="Black">Black</option>
       </Select>
     );
   };
@@ -80,59 +163,66 @@ function SelectDivision(props) {
     return (
       <Select
         onChange={(e) => {
-          setType(e.target.value);
+          setDivisionType(e.target.value);
         }}
-        value={type}
+        value={divisionType}
       >
         <option value="" hidden>
           Type
         </option>
-        <option value="adlut">기 (gi)</option>
-        <option value="master1">기 앱솔 (gi-absol)</option>
-        <option value="master2">노기 (nogi)</option>
-        <option value="master3">노기 앱솔 (nogi-absol)</option>
-      </Select>
-    );
-  };
-  const BeginnerTypeSelectBox = () => {
-    return (
-      <Select
-        onChange={(e) => {
-          setType(e.target.value);
-        }}
-        value={type}
-      >
-        <option value="">선택하여 주세요</option>
-        <option value="adlut">기 (gi)</option>
-        <option value="master2">노기 (nogi)</option>
+        <option value="Gi">기 (gi)</option>
+        <option value="Gi-absol">기 앱솔 (gi-absol)</option>
+        <option value="Nogi">노기 (nogi)</option>
+        <option value="Nogi-absol">노기 앱솔 (nogi-absol)</option>
       </Select>
     );
   };
 
-  const BeginnerAgeSelectBox = () => {
+  const NoAbsolTypeSelectBox = () => {
     return (
       <Select
         onChange={(e) => {
-          setAge(e.target.value);
+          setDivisionType(e.target.value);
         }}
-        value={age}
+        value={divisionType}
       >
-        <option value="">선택하여 주세요</option>
-        <option value="adult">Adult</option>
-        <option value="고등부">고등부 (High School)</option>
+        <option value="" hidden>
+          Type
+        </option>
+        <option value="Gi">기 (gi)</option>
+        <option value="Nogi">노기 (nogi)</option>
       </Select>
     );
   };
 
-  const AdultMasterSelectBox = () => {
+  const AbsolWeightSelectBox = () => {
     return (
       <Select
         onChange={(e) => {
-          setWeight(e.target.value);
+          setDivisionWeight(e.target.value);
         }}
-        value={weight}
+        value={divisionWeight}
       >
-        <option value="">선택하여 주세요</option>
+        <option value="" hidden>
+          Weight
+        </option>
+        <option value="-absol">-absol</option>
+        <option value="+absol">+absol</option>
+      </Select>
+    );
+  };
+
+  const AdultMasterWeightSelectBox = () => {
+    return (
+      <Select
+        onChange={(e) => {
+          setDivisionWeight(e.target.value);
+        }}
+        value={divisionWeight}
+      >
+        <option value="" hidden>
+          Weight
+        </option>
         <option value="-57.5kg">-57.5kg</option>
         <option value="-64kg">-64kg</option>
         <option value="-70kg">-70kg</option>
@@ -145,15 +235,17 @@ function SelectDivision(props) {
     );
   };
 
-  const FemaleMiddleHighSelectBox = () => {
+  const FemaleMiddleHighWeightSelectBox = () => {
     return (
       <Select
         onChange={(e) => {
-          setWeight(e.target.value);
+          setDivisionWeight(e.target.value);
         }}
-        value={weight}
+        value={divisionWeight}
       >
-        <option value="">선택하여 주세요</option>
+        <option value="" hidden>
+          Weight
+        </option>
         <option value="-47.5kg">-47.5kg</option>
         <option value="-53.5kg">-53.5kg</option>
         <option value="-58.5kg">-58.5kg</option>
@@ -165,16 +257,17 @@ function SelectDivision(props) {
       </Select>
     );
   };
-  const ElemantarySelectBox = () => {
+  const ElemantaryWeightSelectBox = () => {
     return (
       <Select
         onChange={(e) => {
-          setWeight(e.target.value);
+          setDivisionWeight(e.target.value);
         }}
-        value={weight}
+        value={divisionWeight}
       >
-        <option value="">선택하여 주세요</option>
-
+        <option value="" hidden>
+          Weight
+        </option>
         <option value="-30kg">-30kg</option>
         <option value="-35kg">-35kg</option>
         <option value="-40kg">-40kg</option>
@@ -185,39 +278,10 @@ function SelectDivision(props) {
       </Select>
     );
   };
-  // ----------------------------------------------------------------
-
-  // 버튼을 누르면 이하를 실행
-  // const message = function () {
-  //   // 이 요소들에 전부 값이 있다면
-  //   if (
-  //     payee &&
-  //     association &&
-  //     gymName &&
-  //     belt &&
-  //     gender &&
-  //     age &&
-  //     type &&
-  //     weight
-  //   ) {
-  //     // 상단의 요소에 전부 값이 있고 동의체크를 전부 눌렀다면
-  //     if (agreeOne && agreeTwo && agreeThree) {
-  //       // pass
-  //       {
-  //         alert("pass");
-  //       }
-  //     } else {
-  //       alert("전부 동의해주세요");
-  //     }
-  //   } else {
-  //     alert("입력하지 않은 부분이 있습니다.");
-  //   }
-  // };
-  // // ---------------
 
   return (
     <>
-      <section className="checkout-page-area">
+      <section className="checkout-pdivisionAge-area">
         <br />
         <br />
         <Container>
@@ -228,17 +292,11 @@ function SelectDivision(props) {
             <Col lg={2}>
               <AgeSelectBox />
             </Col>
+            <Col lg={2}>{selectBelt()}</Col>
+            <Col lg={2}>{selectType()}</Col>
+            <Col lg={2}>{selectWeight()}</Col>
             <Col lg={2}>
-              <BeltSelectBox />
-            </Col>
-            <Col lg={2}>
-              <TypeSelectBox />
-            </Col>
-            <Col lg={2}>
-              <TypeSelectBox />
-            </Col>
-            <Col lg={2}>
-              <button> Search </button>
+              <button onClick={handleSubmit}> Search </button>
             </Col>
           </Row>
         </Container>
@@ -260,7 +318,7 @@ const StyledButton = styled.button`
   border-top-right-radius: 30px;
   border-bottom-left-radius: 30px;
   cursor: pointer;
-  font-weight: bold;
+  font-divisionweight: bold;
 `;
 export const Select = styled.select`
   font-size: 1.5rem;

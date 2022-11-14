@@ -125,7 +125,17 @@ export const gameGet = async (gameSeq) => {
     const res = await axios.get(`/game/${gameSeq}`);
     console.log(res.data);
     return res.data;
-    // return await axios.get(`/game-log/${gameSeq}`);
+  } catch (err) {
+    return err.response;
+  }
+};
+
+// Division 조회 API
+export const getDivisionSeqAPI = async (divisionRequestDto) => {
+  try {
+    const res = await axios.post("/division", divisionRequestDto);
+    console.log(res);
+    return res;
   } catch (err) {
     return err.response;
   }
