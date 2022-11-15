@@ -205,6 +205,7 @@ public class GameServiceImpl implements GameService{
 
     public ParticipantsDto insertParticipant(Apply apply, String score, Game game){
         boolean winner = false;
+        String status = apply.isWeightCheck() == true ? "DONE" : "NO_SHOW";
         if(game.getGameWinner() == apply.getApplySeq()) winner = true;
 
         return ParticipantsDto.builder()
@@ -212,7 +213,7 @@ public class GameServiceImpl implements GameService{
                 .name(apply.getUser().getUserName())
                 .resultText(score)
                 .isWinner(winner)
-                .status("NO_SHOW")
+                .status(status)
                 .build();
     }
 }

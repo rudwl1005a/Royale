@@ -32,6 +32,17 @@ export const loginApi = async (UserLoginRequestDto) => {
   }
 };
 
+// 이메일 중복 체크
+export const emailCheck = async (userEmail) => {
+  try {
+    const res = await axios.get(`/users/email-check.do/${userEmail}`);
+    // console.log(res);
+    return res;
+  } catch (err) {
+    return err.response; //err안에 response로 담겨있음
+  }
+};
+
 // 경기 로그 초기화 API
 export const gameLogInit = async (gameSeq) => {
   try {
@@ -140,3 +151,22 @@ export const getDivisionSeqAPI = async (divisionRequestDto) => {
     return err.response;
   }
 };
+
+// 선수 검색 API
+export const getSearchResultApi = async (keyword) => {
+  try {
+    const res = await axios.get(`/applies/${keyword}`)
+    return res;
+  } catch (err) {
+    return err.response;
+  }
+}
+
+export const changeWeightCheck = async (userSeq) => {
+  try {
+    const res = await axios.patch(`/applies/${userSeq}`)
+    
+  } catch (err) {
+    return err.response;
+  }
+}
