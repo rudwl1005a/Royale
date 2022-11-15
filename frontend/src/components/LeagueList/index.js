@@ -99,7 +99,8 @@ function GamesPage(props) {
             </div>
             {/* <LeagueComponent /> */}
           </div>
-          <div className="pagination-box-row">
+          {/* 페이지네이션 */}
+          {/* <div className="pagination-box-row">
             <p>Page 1 of 6</p>
             <ul className="paginations">
               <li className="active">
@@ -129,7 +130,7 @@ function GamesPage(props) {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
         </Container>
       </section>
       {modal ? (
