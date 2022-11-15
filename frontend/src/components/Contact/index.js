@@ -4,7 +4,6 @@ import { Container, Tabs, Tab } from "react-bootstrap";
 import "./style.css";
 import styled from "styled-components";
 
-
 // 11월 5일 이후 디비전별로 검색 기능 구현 시 필요한 드롭박스
 // 드롭박스는 style.css에서 디자인하기 힘들어 styled-component사용
 // export const Select = styled.select`
@@ -136,7 +135,7 @@ function Contact(props) {
   const [searchInput, setSearchInput] = useState("");
   // ---------------
 
-  // 검색창 onChange하면 실행되는 함수. 
+  // 검색창 onChange하면 실행되는 함수.
   const filtered = SearchResult.filter((itemList) => {
     return itemList.name.toUpperCase().includes(searchInput.toUpperCase());
   });
@@ -151,7 +150,7 @@ function Contact(props) {
   const message = function () {
     // 이 요소들에 전부 값이 있다면
     if (title && startDate && deadlineDate && place) {
-        alert("pass");
+      alert("pass");
     } else {
       alert("대회명, 대회일, 신청마감일, 대회장소는 필수 입력사항입니다.");
     }
@@ -159,7 +158,6 @@ function Contact(props) {
   // ---------------
 
   return (
-    
     <>
       {/* Contact Area Start */}
       {/* section과 container와 div 중에 무엇을 쓰면 더 구조적으로 합리적인지... */}
@@ -177,7 +175,7 @@ function Contact(props) {
               <Container className="container-style">
                 {/* Container도 react 패키지의 Component를 물려받는 컴포넌트의 일종인데 Container는 앱의 상태를 담당한다. */}
                 <input
-                  placeholder='검색하고자 하는 참가자의 이름을 입력하시오'
+                  placeholder="검색하고자 하는 참가자의 이름을 입력하시오"
                   className="input-style"
                   onChange={(e) => {
                     setSearchInput(e.target.value);
@@ -196,62 +194,59 @@ function Contact(props) {
                     <th className="th-subject-style">체급 (BodyScale)</th>
                     <th className="th-subject-style">종목 (Type)</th>
                     <th className="th-subject-style">연락처 (Phone Number)</th>
-                    <th className="th-subject-style">계체 여부 (Body Measurements)</th>
+                    <th className="th-subject-style">
+                      계체 여부 (Body Measurements)
+                    </th>
                   </tr>
                   {/* searchInput이 True일때 이하를 보여줘 */}
-                  {searchInput && filtered.map((key) => (
-                    <tr className="th-style">
-                      <th className="th-style">{key.name}</th>
-                      <th className="th-style">{key.mail}</th>
-                      <th className="th-style">{key.belt}</th>
-                      <th className="th-style">{key.bodyscale}</th>
-                      <th className="th-style">{key.kind}</th>
-                      <th className="th-style">{key.phonenumber}</th>
-                      {/* 검색 결과에서 계체 통과 여부 상태를 알 수 있음 */}
-                      <th className="th-style">
-                        <div>
-                          {key.pass === "통과" ? (
-                            // 버튼을 누르면 각 선수의 key.pass 값 즉 계체 통과 여부가 바뀌고, 위에 정의해 놓은 강제렌더링용 함수인 Rerendering을 사용해 재렌더링
-                            <p>
-                              <button
-                                className="button-style-second"
-                                onClick={() => (
-                                  (key.pass = "비통과"),
-                                  Rerendering()
-                                )}
-                              >
-                                계체 통과
-                              </button>
-                            </p>
-                          ) : (
-                            <p>
-                              <button
-                                className="button-style-third"
-                                onClick={() => (
-                                  (key.pass = "통과"),
-                                  Rerendering()
-                                )}
-                              >
-                                계체 비통과
-                              </button>
-                            </p>
-                          )}
-                        </div>
-                      </th>
-                    </tr>
-                  ))}
+                  {searchInput &&
+                    filtered.map((key) => (
+                      <tr className="th-style">
+                        <th className="th-style">{key.name}</th>
+                        <th className="th-style">{key.mail}</th>
+                        <th className="th-style">{key.belt}</th>
+                        <th className="th-style">{key.bodyscale}</th>
+                        <th className="th-style">{key.kind}</th>
+                        <th className="th-style">{key.phonenumber}</th>
+                        {/* 검색 결과에서 계체 통과 여부 상태를 알 수 있음 */}
+                        <th className="th-style">
+                          <div>
+                            {key.pass === "통과" ? (
+                              // 버튼을 누르면 각 선수의 key.pass 값 즉 계체 통과 여부가 바뀌고, 위에 정의해 놓은 강제렌더링용 함수인 Rerendering을 사용해 재렌더링
+                              <p>
+                                <button
+                                  className="button-style-second"
+                                  onClick={() => (
+                                    (key.pass = "비통과"), Rerendering()
+                                  )}
+                                >
+                                  계체 통과
+                                </button>
+                              </p>
+                            ) : (
+                              <p>
+                                <button
+                                  className="button-style-third"
+                                  onClick={() => (
+                                    (key.pass = "통과"), Rerendering()
+                                  )}
+                                >
+                                  계체 비통과
+                                </button>
+                              </p>
+                            )}
+                          </div>
+                        </th>
+                      </tr>
+                    ))}
                 </table>
               </section>
             </Tab>
-            <Tab
-              eventKey="edit"
-              title={<h1>EDIT</h1>}
-            ></Tab>
+            <Tab eventKey="edit" title={<h1>EDIT</h1>}></Tab>
             <Tab
               eventKey="administration"
               title={<h1>ADMINISTRATION</h1>}
             ></Tab>
-
           </Tabs>
         </div>
       </section>
@@ -260,4 +255,3 @@ function Contact(props) {
 }
 
 export default Contact;
-

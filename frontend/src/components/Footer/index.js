@@ -9,9 +9,8 @@ import {
   FaFacebookF,
   FaInstagram,
   FaYoutube,
-  FaTwitter,
 } from "react-icons/fa";
-import logo from "../../img/logo.png";
+import logo from "../../img/Logo_LeagueRoyale_black.png";
 
 import "./style.css";
 
@@ -163,32 +162,36 @@ function Footer(props) {
                   <div className="footer-social">
                     <ul>
                       <li>
-                        <Link to="/" onClick={onClick}>
+                        <a
+                          href="https://ko-kr.facebook.com/leagueroyale/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <FaFacebookF />
-                        </Link>
+                        </a>
                       </li>
                       <li>
-                        <Link to="/" onClick={onClick}>
+                        <a
+                          href="https://www.instagram.com/jiujitsuroyale/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <FaInstagram />
-                        </Link>
+                        </a>
                       </li>
                       <li>
-                        <Link to="/" onClick={onClick}>
+                        <a
+                          href="https://www.youtube.com/channel/UCeSQZrz7nc-ABi9W7xqSpnA"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <FaYoutube />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaTwitter />
-                        </Link>
+                        </a>
                       </li>
                     </ul>
                   </div>
                   <div className="copyright">
-                    <p>
-                      &copy; Copyrights {new Date().getFullYear()} FAF - All
-                      Rights Reserved
-                    </p>
+                    <p>&copy; Copyrights Royale - All Rights Reserved</p>
                   </div>
                 </div>
               </Col>

@@ -57,7 +57,7 @@ function Header(props) {
                           <Link to="/about">About Us</Link>
                         </li>
                         <li>
-                          <Link to="/leaguelist">schedule</Link>
+                          <Link to="/leaguelist">Leagues</Link>
                         </li>
                         <li>
                           <Link to="/rule">Rule</Link>
@@ -70,10 +70,10 @@ function Header(props) {
                       </Link>
                       <ul>
                         <li>
-                          <Link to="/personalRank">개인 랭킹</Link>
+                          <Link to="/personalRank">Personal</Link>
                         </li>
                         <li>
-                          <Link to="/teamRank">팀별 랭킹</Link>
+                          <Link to="/teamRank">Team</Link>
                         </li>
                       </ul>
                     </li>

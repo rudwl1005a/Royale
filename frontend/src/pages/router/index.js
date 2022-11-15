@@ -19,13 +19,14 @@ import SearchApplicatnPage from "../SearchApplicantPage";
 import Competition from "../Competition";
 import Match from "../Match";
 import Daejin from "../Daejin";
-import Tournament from "../Tournament";
 import Scoreboard from "../ScoreboardPage";
+import ScrollTop from "../../components/ScrollTop";
 
 const AllRoute = () => {
   return (
     <div>
       <Router>
+        <ScrollTop />
         <Routes>
           {/* 메인 페이지 */}
           <Route exact path="/" element={<Homepage />} />
@@ -42,7 +43,11 @@ const AllRoute = () => {
           {/* 대회 리스트 페이지 */}
           <Route exact path="/leaguelist" element={<LeagueListPage />} />
           {/* 대회 정보 페이지 */}
-          <Route exact path="/leaguedetail" element={<LeagueDetailPage />} />
+          <Route
+            exact
+            path="/leaguedetail/:leagueSeq"
+            element={<LeagueDetailPage />}
+          />
           {/* 대회 규칙 페이지 */}
           <Route exact path="/rule" element={<RulePage />} />
 
@@ -53,7 +58,11 @@ const AllRoute = () => {
           {/* Contact */}
           <Route exact path="/contact" element={<ContactPage />} />
           {/* 선수 검색 */}
-          <Route exact path="/searchApplicant" element={<SearchApplicatnPage />} />
+          <Route
+            exact
+            path="/searchApplicant"
+            element={<SearchApplicatnPage />}
+          />
 
           {/* 세영 */}
           {/* 대회페이지 */}
@@ -61,17 +70,12 @@ const AllRoute = () => {
           <Route path="/competition/:id" element={<Competition />}></Route>
           {/* 대회 마감 후 게임 삽입 */}
           <Route path="/match/finish/:id" element={<Daejin />}></Route>
-          {/* 대회 분야별 대진표 */}
-          <Route
-            path="/tournament/:leagueSeq/:divisionSeq"
-            element={<Tournament />}
-          ></Route>
 
           {/* 대회 개별 경기 페이지 */}
           <Route path="/match/:id" element={<Match />}></Route>
 
           {/* 스코어보드 페이지 */}
-          <Route path="/scoreboard" element={<Scoreboard />}></Route>
+          <Route path="/scoreboard/:id" element={<Scoreboard />}></Route>
 
           {/* 나머지 경로는 에러로 던짐 */}
           <Route path="*" element={<ErrorPage />} />

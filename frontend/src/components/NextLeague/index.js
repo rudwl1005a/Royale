@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 // import img1 from "../../img/gamer-8.png";
-import vs from "../../img/poster20111105.jpg";
+import vs from "../../img/poster20221203.jpg";
 // import img2 from "../../img/gamer-5.png";
 
 import "./style.css";
 
 function NextLeague(props) {
-  const [countdownDate] = useState(new Date("12/25/2022").getTime());
+  const [countdownDate] = useState(new Date("12/04/2022").getTime());
   const [state, setState] = useState({
     days: 0,
     hours: 0,
@@ -65,11 +65,14 @@ function NextLeague(props) {
                 <h2 className="heading_animation">
                   next <span>League</span>
                 </h2>
-                <p>
-                  blanditiis praesentium voluptatum deleniti atque
-                  corrupti.accusamus et iusto odio corrupti.accusamus et iusto
-                  odioiusto odio dignissimos ducimus qui blanditiis
-                </p>
+                <h6>
+                  ❗중요❗ 리그로얄 서울 KBS88체육관 12월4일 일요일로
+                  변경되었습니다❕
+                </h6>
+                <h6>
+                  The League Royal has been changed to Sunday, December 4th at
+                  KBS 88 Gym in Seoul!
+                </h6>
               </div>
             </Col>
           </Row>
@@ -104,7 +107,7 @@ function NextLeague(props) {
                 </div>
                 <div className="match-action">
                   {/* <Link to="/leagueinfo" onClick={onClick} className="fag-btn"> */}
-                  <Link to="/leagueinfo" className="fag-btn">
+                  <Link to="/leaguedetail/1" className="fag-btn">
                     Participate
                   </Link>
                 </div>

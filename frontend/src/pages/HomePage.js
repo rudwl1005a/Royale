@@ -19,7 +19,7 @@ const HomePage = () => {
       {/* <Video /> */}
       <NextLeague />
       <PreOrder />
-      <Games />
+      {/* <Games /> */}
       {/* <Promo /> */}
       <Sponsor />
       {/* <LatestNews /> */}

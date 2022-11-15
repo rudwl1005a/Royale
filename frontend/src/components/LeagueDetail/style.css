@@ -7,7 +7,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  border-radius: 5px
+  border-radius: 5px;
 }
 
 .details-banner-action {
@@ -54,9 +54,13 @@
   margin-top: 5px;
 }
 
+.details-genre svg {
+  color: #ec7532;
+}
+
 .details-time-left {
-  color: #eee;
-  letter-spacing: .5px;
+  color: rgb(238, 238, 238);
+  letter-spacing: 0.5px;
 }
 
 .details-time-left svg {
@@ -85,15 +89,15 @@
 }
 
 .tab-body p {
-  margin: 0 0 10px
+  margin: 0 0 10px;
 }
 
 .tab-body p:last-child {
-  margin: 0
+  margin: 0;
 }
 
 .tablet-action {
-  display: none
+  display: none;
 }
 
 .tab-movies-details {
@@ -146,7 +150,7 @@
 }
 
 .cast-slider .owl-nav.disabled > button:last-child {
-  margin-right: 0
+  margin-right: 0;
 }
 
 .single-reviews {
@@ -178,7 +182,7 @@
   font-weight: 400;
   margin-bottom: 5px;
   width: 100% !important;
-  text-transform: capitalize
+  text-transform: capitalize;
 }
 
 .reviews-date {
@@ -290,14 +294,14 @@
 .review_rating > input:checked ~ label,
 .review_rating:not(:checked) > label:hover,
 .review_rating:not(:checked) > label:hover ~ label {
-  color: #FFD700;
+  color: #ffd700;
 }
 
 .review_rating > input:checked + label:hover,
 .review_rating > input:checked ~ label:hover,
 .review_rating > label:hover ~ input:checked ~ label,
 .review_rating > input:checked ~ label:hover ~ label {
-  color: #FFED85;
+  color: #ffed85;
 }
 
 .single_rating {
@@ -308,7 +312,7 @@
   color: #fff;
   text-align: center;
   border: medium none;
-  background: #E48632;
+  background: #e48632;
 }
 
 .details-banner-action a.fag-btn {
@@ -317,11 +321,11 @@
 }
 
 .details-banner-action a.fag-btn:hover {
-  background: #ff7a21 none repeat scroll 0 0
+  background: #ff7a21 none repeat scroll 0 0;
 }
 
 .single_game_price {
-  text-align: right
+  text-align: right;
 }
 
 .single_game_price h4 {
@@ -339,7 +343,7 @@
 }
 
 .single_game_meta {
-  margin-top: 15px
+  margin-top: 15px;
 }
 
 .games-details-page-box > ul > li {
@@ -358,7 +362,7 @@
   background: #ff7a21;
   border-radius: 50%;
   -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  transform: translate(0, -50%);
 }
 
 .tab-body {
@@ -367,7 +371,7 @@
 .tv-panel-list {
   margin-top: 30px;
 }
-.tv-tab .nav-link{
+.tv-tab .nav-link {
   background: transparent;
   border: none !important;
   padding: 0 0 2px 0;
@@ -386,9 +390,9 @@
   display: block;
   width: 0;
   height: 2px;
-  content: '';
-  -webkit-transition: all .25s ease-in-out;
-  transition: all .25s ease-in-out;
+  content: "";
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
   background: #ff7a21;
 }
 .tv-tab .nav-link.active:after {
@@ -400,15 +404,15 @@
   width: 100%;
   color: #ff7a21;
   height: 2px;
-  content: '';
-  -webkit-transition: all .25s ease-in-out;
-  transition: all .25s ease-in-out;
+  content: "";
+  -webkit-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
   background: #ff7a21;
 }
 .tv-tab .nav-item {
   margin-right: 15px;
 }
-.tv-tab{
+.tv-tab {
   border-bottom: 1px solid #333 !important;
 }
 .tv-tab .nav-link.active {
@@ -416,7 +420,7 @@
   background: transparent !important;
   position: relative;
 }
-.tv-tab .nav-link:hover{
+.tv-tab .nav-link:hover {
   color: #fff !important;
 }
 .features-game {
@@ -447,7 +451,7 @@
 }
 
 .single-comment-box:last-child {
-  margin-bottom: 0
+  margin-bottom: 0;
 }
 
 .single-comment-box.comment_reply {
@@ -478,11 +482,11 @@
   padding: 20px;
   background: #080811 none repeat scroll 0 0;
   border-radius: 30px;
-  position: relative
+  position: relative;
 }
 
 .comment-info:after {
-  content: '';
+  content: "";
   height: 0;
   width: 0;
   position: absolute;
@@ -541,7 +545,7 @@
   background: #0d0e1b;
   -webkit-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
-  color: #fff
+  color: #fff;
 }
 
 .fag-leave-comment form textarea {
@@ -554,7 +558,7 @@
   background: #0d0e1b;
   -webkit-transition: all 0.4s ease 0s;
   transition: all 0.4s ease 0s;
-  color: #fff
+  color: #fff;
 }
 
 .fag-leave-comment form textarea:-moz-placeholder {
@@ -593,7 +597,7 @@
   margin-top: 15px;
   position: relative;
   top: 0;
-  width: auto
+  width: auto;
 }
 
 .comment-field {

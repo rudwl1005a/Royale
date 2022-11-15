@@ -52,8 +52,8 @@ function Hero(props) {
                     <Row>
                       <Col sm={12}>
                         <div className="slider-text">
-                          <h3>Drive Fast</h3>
-                          <h2>Speedy Race</h2>
+                          <h3>There is no losing in jiujitsu</h3>
+                          <h2>You either win or you learn</h2>
                           <Link
                             to="/"
                             onClick={openModal}
@@ -62,7 +62,7 @@ function Hero(props) {
                             <span>
                               <FaPlay />
                             </span>
-                            Watch Trailer
+                            Watch Highlight
                           </Link>
                         </div>
                       </Col>
@@ -83,8 +83,8 @@ function Hero(props) {
                     <Row>
                       <Col sm={12}>
                         <div className="slider-text">
-                          <h3>Extreme Warrior</h3>
-                          <h2>Realistic battles</h2>
+                          <h3>Dave Kim</h3>
+                          <h2>1% better every single day</h2>
                           <Link
                             to="/"
                             onClick={openModal}
@@ -114,8 +114,8 @@ function Hero(props) {
                     <Row>
                       <Col sm={12}>
                         <div className="slider-text">
-                          <h3>action Games</h3>
-                          <h2>Realistic battles</h2>
+                          <h3>oss!</h3>
+                          <h2>Let's roll!!</h2>
                           <Link
                             to="/"
                             onClick={openModal}
@@ -155,7 +155,7 @@ function Hero(props) {
                   loading="lazy"
                   width="800"
                   height="500"
-                  src="https://www.youtube.com/embed/3SAuuHCOkyI"
+                  src="https://www.youtube.com/embed/DH8CwiSW2aU"
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

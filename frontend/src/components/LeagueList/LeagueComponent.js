@@ -1,51 +1,47 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import games2 from "../../img/poster_reda_seminar.jpg";
 
-function LeagueCard(props) {
-  const [leagueSeq, setleagueSeq] = useState("");
-  const [leagueName, setleagueName] = useState("");
-  const [leaguePlace, setleaguePlace] = useState("");
-  const [leagueDate, setleagueDate] = useState("");
-  const [leagueDeadline, setleagueDeadline] = useState("");
-  const [leaguePoster, setleaguePoster] = useState("");
-  const [leagueInfo, setleagueInfo] = useState("");
-
+const LeagueComponent = ({ leagueData }) => {
   return (
     <>
+      {/* <div> {leagueData.leagueSeq} </div> */}
       <Col lg={4} sm={6}>
         <div className="games-single-item img-contain-isotope">
           <div className="games-thumb">
             <div className="games-thumb-image">
               <Link to="/leaguedetail">
-                <img src={games2} alt="games" />
+                <img src={leagueData.leaguePoster} alt="games" />
               </Link>
             </div>
             <div className="game-overlay">
               {/* <div onClick={openModal} className="popup-youtube">
-                <span>
-                  <FaPlay />
-                </span>
-              </div> */}
+              <span>
+                <FaPlay />
+              </span>
+            </div> */}
             </div>
           </div>
           <div className="games-desc">
             <h3>
-              <Link to="/leaguedetail">Reda Mebtouche Seminar</Link>
+              <Link to="/leaguedetail">{leagueData.leagueName}</Link>
             </h3>
             <p className="game-meta">
-              date:<span> 2022.11.05 ~ 2022.11.13 </span>
+              date:<span> {leagueData.leagueDate} </span>
             </p>
-            <p className="game-meta">palce: 부산, 서면, 인천</p>
+            <p className="game-meta">{leagueData.leaguePlace}</p>
             <div className="game-action">
               <div className="game-price">
-                <h4>₩50,000</h4>
+                <h4>₩50,000 ~ </h4>
                 <p className="free">Comming Soon</p>
               </div>
               <div className="game-buy">
-                <Link to="/leaguedetail" className="fag-btn-outline">
+                <Link
+                  to={`/leaguedetail/${leagueData.leagueSeq}`}
+                  className="fag-btn-outline"
+                >
                   Participate
                 </Link>
               </div>
@@ -55,6 +51,6 @@ function LeagueCard(props) {
       </Col>
     </>
   );
-}
+};
 
-export default LeagueCard;
+export default LeagueComponent;
