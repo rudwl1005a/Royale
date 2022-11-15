@@ -31,6 +31,8 @@ public class User {
     private String userPhone;
     @Column(name = "user_token", unique = false, nullable = true)
     private String userToken;
+    @Column(name = "user_role", unique = false, nullable = true)
+    private String userRole;
 
     @CreationTimestamp
     @Column(name = "REG_DTM", nullable = false)
