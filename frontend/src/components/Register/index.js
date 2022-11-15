@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./style.css";
 
-import { signUpApi } from "../../api/api";
+import { signUpApi, emailCheck } from "../../api/api";
 
 function Register(props) {
+
+  const navigate = useNavigate();
+
   const [userEmail, setEmail] = useState("");
   const [userName, setName] = useState("");
   const [userPassword, setPassword] = useState("");
   const [userPhone, setPhone] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     // alert({ userEmail });
     const UserCreateRequest = {
       userEmail,
@@ -18,46 +22,67 @@ function Register(props) {
       userPassword,
       userPhone,
     };
-    signUpApi(UserCreateRequest);
-    console.log(UserCreateRequest);
+    // event.preventDefault();
+
     event.preventDefault();
+    try {
+      const can = await emailCheck(userEmail);
+      
+      console.log(can.data);
+      if(can.data === true) {
+        alert('중복된 이메일 입니다');
+      } else {
+        try {
+            await signUpApi(UserCreateRequest);
+            console.log(UserCreateRequest);
+            event.preventDefault(); 
+      
+            alert('회원가입 성공! 로그인 해 주세요');
+            navigate(`../login`);
+          } catch {
+            alert('회원가입 실패');
+          }
+      }
+    } catch {
+      console.error("에러!!");
+    }
   };
 
   return (
     <>
-      <div className="page-404 section--full-bg">
+      <div className="page-405 section--full-bg" Style="back">
         <Container>
           <Row>
             <Col lg={12}>
-              <div className="page-404__wrap">
+              <div className="page-404__wrap" Style="background">
                 <div className="login-wrapper">
                   <h3>Create Account</h3>
                   <form onSubmit={handleSubmit}>
                     <div className="form-row">
                       <input
                         type="email"
-                        placeholder="UserEmail"
+                        placeholder="Email"
                         onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                     <div className="form-row">
                       <input
                         type="text"
-                        placeholder="UserName"
+                        placeholder="Name"
                         onChange={(e) => setName(e.target.value)}
                       />
                     </div>
                     <div className="form-row">
                       <input
                         type="password"
-                        placeholder="userPassword"
+                        placeholder="Password"
                         onChange={(e) => setPassword(e.target.value)}
                       />
                     </div>
                     <div className="form-row">
                       <input
                         type="tel"
-                        placeholder="userTel"
+                        placeholder="PhoneNumber"
                         onChange={(e) => setPhone(e.target.value)}
                       />
                     </div>

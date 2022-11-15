@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { FaFacebookF, FaTwitch, FaTwitter, FaYoutube } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import avatar from "../../img/login-avatar.png";
@@ -13,28 +14,46 @@ function Login(props) {
     e.preventDefault();
   };
 
+  const navigate = useNavigate();
+
   const [userEmail, setEmail] = useState("");
   const [userPassword, setPassword] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     const UserLoginRequestDto = {
       userEmail,
       userPassword,
     };
-    loginApi(UserLoginRequestDto);
-    console.log(UserLoginRequestDto);
-    event.preventDefault();
+
+    try {
+      const { data } = await loginApi(UserLoginRequestDto);
+      console.log(data);
+  
+      sessionStorage.setItem("token", data.user.userToken);
+      sessionStorage.setItem("userEmail", data.user.userEmail);
+      sessionStorage.setItem("userName", data.user.userName);
+      sessionStorage.setItem("userPhone", data.user.userPhone);
+      sessionStorage.setItem("userSeq", data.user.userSeq);
+      sessionStorage.setItem("userRole", data.user.userRole);
+      event.preventDefault();
+  
+      navigate(`../`);
+    } catch {
+      alert('로그인 실패!');
+    }
   };
 
   return (
     <>
-      <div className="page-404 section--full-bg">
+      <div className="page-405 section--full-bg">
         <Container>
           <Row>
             <Col lg={12}>
               <div className="page-404__wrap">
                 <div className="login-wrapper">
-                  <img className="login_user" src={avatar} alt="login user" />
+                  {/* <img className="login_user" src={avatar} alt="login user" /> */}
                   <h3>Account Login</h3>
                   <form onSubmit={handleSubmit}>
                     <div className="form-row">
@@ -58,7 +77,7 @@ function Login(props) {
                       </button>
                     </div>
                   </form>
-                  <div className="socials-wrapper">
+                  {/* <div className="socials-wrapper">
                     <p>Login with your Social Account</p>
                     <ul>
                       <li>
@@ -82,7 +101,7 @@ function Login(props) {
                         </Link>
                       </li>
                     </ul>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </Col>
