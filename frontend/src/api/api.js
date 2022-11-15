@@ -116,3 +116,12 @@ export const getSearchResultApi = async (keyword) => {
     return err.response;
   }
 }
+
+export const changeWeightCheck = async (userSeq) => {
+  try {
+    const res = await axios.patch(`/applies/${userSeq}`)
+    
+  } catch (err) {
+    return err.response;
+  }
+}

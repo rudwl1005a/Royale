@@ -9,6 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ApplyResponseDto {
     private Long applySeq;
+    private Long userSeq;
     private String name;
     private String phoneNumber;
     private boolean isBodyMeasurements;

@@ -6,10 +6,7 @@ import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +20,11 @@ public class ApplyController {
     @GetMapping("/{name}")
     public ResponseEntity<List<ApplyResponseDto>> getApplyList(@PathVariable String name){
         return new ResponseEntity<>(applyService.getApplyList(name), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{userSeq}")
+    public ResponseEntity<Void> weightCheck(@PathVariable Long userSeq){
+        applyService.weightCheck(userSeq);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

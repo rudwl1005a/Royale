@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import "./style.css";
 import styled from "styled-components";
-import { getSearchResultApi } from "../../api/api"
+import { getSearchResultApi } from "../../api/api";
+import { changeWeightCheck } from "../../api/api";
 import SearchIcon from '@mui/icons-material/Search'
 
 
@@ -61,15 +62,34 @@ function Index() {
 
     const [keyword, setKeyword] = useState('');
     const [result, setResult] = useState('');
+    const [yesOrNo, setYesOrNo] = useState([]);
+    const [renderingCheck, setRenderingCheck] = useState(false);
+    const Rerendering = (idx) => { 
+        console.log(idx)
+        console.log(yesOrNo[0])
+        let temp = yesOrNo;
+        temp[idx] = !temp[idx]
+        setYesOrNo(temp);
+};
 
 
     const searchClick = async () => {
         const result  = await getSearchResultApi(keyword);
         setResult(result.data);
-        console.log(result.data);
+        let temp = []
+        for (let i = 0; i < result.data.length; i++) {
+            temp.push(result.data[i].bodyMeasurements)
+        }
+        setYesOrNo(temp)
     }
 
-    
+    const weightCheck = async (userSeq) => {
+        await changeWeightCheck(userSeq);
+    }
+
+    useEffect(() => {
+        if (keyword) searchClick()
+    }, [])
     return (
         <Container className="fag-contact-details-area">
             <div className="button-area">
@@ -99,14 +119,22 @@ function Index() {
                         <th className="th-subject-style">계체 여부</th>
                     </tr>
                     {/* searchInput이 True일때 이하를 보여줘 */}
-                    {result && result.map((key) => (
-                        <tr className="th-style">
+                    {result && result.map((key, idx) => (
+                        <tr key={idx} className="th-style">
                             <th className="th-style">{key.applySeq}</th>
                             <th className="th-style">{key.name}</th>
                             <th className="th-style">{key.phoneNumber}</th>
                             <th className="th-style">
-                                {key.bodyMeasurements ? <button className="button-style-second"> 계체 통과</button>
-                                    : <button className="button-style-third"> 계체 비통과</button>}
+                                {yesOrNo[idx] ===true ? <button className="button-style-second" onClick={() => {
+                                    weightCheck(key.userSeq)
+                                    Rerendering(idx);
+                                    setRenderingCheck(!renderingCheck)
+                                }} value={yesOrNo[idx]}> 계체 통과</button>
+                                    : <button className="button-style-third" onClick={() => {
+                                        weightCheck(key.userSeq)
+                                        Rerendering(idx);
+                                        setRenderingCheck(!renderingCheck)
+                                    }} value={yesOrNo[idx]}> 계체 비통과</button>}
                             </th>
                             {/* 검색 결과에서 계체 통과 여부 상태를 알 수 있음 */}
                               

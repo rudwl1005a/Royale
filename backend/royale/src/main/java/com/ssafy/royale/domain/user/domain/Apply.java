@@ -51,4 +51,7 @@ public class Apply {
     @Column(name = "MOD_DTM", nullable = true)
     private LocalDateTime MOD_DTM;
 
+    public void changeWeightCheck(){
+        this.weightCheck = !this.isWeightCheck();
+    }
 }
