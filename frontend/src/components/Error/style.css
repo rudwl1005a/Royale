@@ -7,6 +7,25 @@
     z-index: 1
 }
 
+.page-405 {
+    display: block;
+    position: relative;
+    background: url(../../img/register.jpg) no-repeat scroll 0 0/cover;
+    z-index: 1
+}
+
+.page-405:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(8, 3, 37, .8);
+    opacity: 1;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    z-index: -1;
+}
+
 .page-404:after {
     position: absolute;
     content: "";
