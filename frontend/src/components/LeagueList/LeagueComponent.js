@@ -2,12 +2,9 @@ import { React, useState, useEffect } from "react";
 import { Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-import games2 from "../../img/poster_reda_seminar.jpg";
-
 const LeagueComponent = ({ leagueData }) => {
   function checkDate() {
     const currentTime = new Date();
-
     if (
       currentTime.getFullYear() * 10000 +
         (currentTime.getMonth() + 1) * 100 +
@@ -16,24 +13,11 @@ const LeagueComponent = ({ leagueData }) => {
         leagueData.leagueDate[1] * 100 +
         leagueData.leagueDate[2]
     ) {
-      console.log("11111");
-      <p className="free">Comming Soon</p>;
+      return <p className="free">Comming Soon</p>;
     } else {
-      console.log("22222");
-      <p className="off">END</p>;
+      return <p className="off">END</p>;
     }
   }
-
-  // // 벨트 선택 함수
-  // function selectBelt() {
-  //   if (divisionAge === "HighSchool" || divisionAge === "Adult") {
-  //     return <BeltSelectBox />;
-  //   } else if (divisionAge === "Elementary" || divisionAge === "MiddleSchool") {
-  //     return <ElementaryMiddleSchoolBeltSelectBox />;
-  //   } else {
-  //     return <NoBeginnerBeltSelectBox />;
-  //   }
-  // }
 
   return (
     <>
