@@ -6,6 +6,7 @@ import {
 } from "@g-loot/react-tournament-brackets";
 import { axios } from "../../api/axios.js";
 import { gameLogGet, gameLogInit } from "../../api/api";
+import { leagueStore } from "../../store";
 
 export default function Daejin(props) {
   //대진표입니다 개별 경기의 왼쪽 위 값을 누르면 해당 경기의 상세페이지로 이동합니다
@@ -15,6 +16,7 @@ export default function Daejin(props) {
 
   const params = useParams();
   const navigate = useNavigate();
+  const { leagueSeq } = leagueStore();
 
   //matches에는 해당 Division에 속한 경기들이 객체의 형태로 배열에 담겨서 들어옵니다.
   const [matches, setMatches] = useState("");
@@ -29,6 +31,7 @@ export default function Daejin(props) {
     axios.get(URL).then((res) => {
       setMatches(res.data);
       console.log(res.data);
+      console.log("leagueSeq: " + leagueSeq);
     });
   }, []);
 
