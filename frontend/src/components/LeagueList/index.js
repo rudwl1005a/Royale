@@ -35,7 +35,6 @@ function GamesPage(props) {
     async function getData() {
       const data = await getLeagueListApi(page);
       // console.warn(data);
-
       setleagueListData(data);
       // console.log("data", leagueListData);
       // <div>

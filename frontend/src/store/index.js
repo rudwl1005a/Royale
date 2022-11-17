@@ -1,20 +1,20 @@
 import create from "zustand";
 
-// export const useStore = create((set) => ({
-//     leagueSeq1: 0,
-//     setLeagueSeq1() {
-//         set((state) => ({ leagueSeq1: state }))},
-// }));
+export const useStore = create((set) => ({
+    leagueSeq: 0,
+    setLeagueSeq() {
+        set((state) => ({ leagueSeq: state }))},
+}));
 export const leagueStore = create(
     ((set) => ({
-        leagueSeq: 0,
-        setLeagueSeq: (input) => set({ leagueSeq: input }),
+        leagueSeq1: 0,
+        setLeagueSeq: (input) => set({ leagueSeq1: input }),
     }))
 );
 
 export const divisionStore = create(
     ((set) => ({
-        divisionSeq: 0,
-        setDevisionSeq: (input) => set({ divisionSeq: input }),
+        divisionSeq: 277,
+        setDivisionSeq: (input) => set({ divisionSeq: input }),
     }))
 );

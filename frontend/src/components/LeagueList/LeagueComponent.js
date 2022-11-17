@@ -1,9 +1,10 @@
 import { React, useState, useEffect } from "react";
 import { Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useStore } from "../../store";
+import { leagueStore } from "../../store";
 
 import games2 from "../../img/poster_reda_seminar.jpg";
+
 
 const LeagueComponent = ({ leagueData }) => {
 

@@ -21,28 +21,25 @@ import SelectDivision from "../SelectDivision";
 import "./style.css";
 import Daejin from "../Tournament/Tournament";
 import { getLeagueApi } from "../../api/api";
-import { leagueStore } from "../../store";
+
 
 function LeagueDetail(props) {
   let { leagueSeq } = useParams();
 
   const [leagueData, setLeagueData] = useState(null);
-  const {setLeagueSeq } = leagueStore();
-
+  // const divisionFunction = (value) => {
+  //   console.log("divisionFunction: ",value);
+  // }
   useEffect(() => {
     async function getData() {
       const { data } = await getLeagueApi(leagueSeq);
       console.warn(data);
       setLeagueData(data);
-      setLeagueSeq(leagueSeq);
-      
     }
     getData();
   }, []);
 
-  useEffect(() => {
-    
-  }, [leagueSeq])
+
 
   // const [modal, setModal] = useState(false);
   // const [videoLoading, setVideoLoading] = useState(true);
@@ -128,13 +125,6 @@ function LeagueDetail(props) {
             <Col lg={12}>
               <div className="games-details-page-box">
                 <br />
-                {/* <ul>
-                  <li>Biltong corned beef tongue </li>
-                  <li>Beef short ribs leberkas cupim Drumstick </li>
-                  <li>Fatback bacon picanha leberkas pork </li>
-                  <li>Burgdoggen bresaola shankle </li>
-                  <li>Beef short ribs leberkas cupim Drumstick </li>
-                </ul> */}
                 <div className="tv-panel-list">
                   <Tabs
                     defaultActiveKey="info"
@@ -165,7 +155,7 @@ function LeagueDetail(props) {
                           <SelectDivision/>
                           <br />
                           <br />
-                          <Daejin />
+                          <Daejin leagueSeq={leagueSeq} />
                         </Col>
                       </Row>
                     </Tab>

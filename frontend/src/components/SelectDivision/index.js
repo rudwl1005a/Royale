@@ -2,26 +2,36 @@ import { React, useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./style.css";
 import styled from "styled-components";
+import { divisionStore } from "../../store"
 
 import { getDivisionSeqAPI } from "../../api/api";
 
-function SelectDivision(props) {
-  const [divisionSeq, setDivisionSeq] = useState("");
+function SelectDivision() {
+  const { divisionSeq, setDivisionSeq } = divisionStore();
   const [divisionAge, setDivisionAge] = useState("");
   const [divisionBelt, setDivisionBelt] = useState("");
   const [divisionGender, setDivisionGender] = useState("");
   const [divisionType, setDivisionType] = useState("");
   const [divisionWeight, setDivisionWeight] = useState("");
 
+  useEffect(() => {
+    console.log("useEffect divisionSeq: ", divisionSeq);
+  }, [divisionSeq]);
+
   async function getData(getLeagueSeqDto) {
     console.warn(getLeagueSeqDto);
     const data = await getDivisionSeqAPI(getLeagueSeqDto);
-
     setDivisionSeq(data.data);
-    console.log(divisionSeq);
+    // setDivisionSeqState(data.data);
+    // console.log("divisionSeq: ", divisionSeq, "divisionState: ", divisionSeqState);
+    // divisionFunction(divisionSeqState);
   }
 
-  const handleSubmit = (event) => {
+  // useEffect(() => {
+  //   console.log("console: " + divisionSeq);
+  // }, [divisionSeq])
+
+  const handleSubmit = async (event) => {
     const getLeagueSeqDto = {
       divisionAge,
       divisionBelt,
@@ -30,7 +40,7 @@ function SelectDivision(props) {
       divisionWeight,
     };
 
-    getData(getLeagueSeqDto);
+    await getData(getLeagueSeqDto);
     event.preventDefault();
   };
 
