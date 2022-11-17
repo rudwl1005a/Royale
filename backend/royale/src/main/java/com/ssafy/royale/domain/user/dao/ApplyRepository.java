@@ -7,10 +7,11 @@ import com.ssafy.royale.domain.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Set;
 
 public interface ApplyRepository extends JpaRepository<Apply, Long> {
 
     List<Apply> findAllByLeagueAndDivision(League league, Division division);
     List<Apply> findAllByUser(User user);
-
+    Set<Apply> findAllByLeague(League league);
 }

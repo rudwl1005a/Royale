@@ -6,8 +6,8 @@ import com.ssafy.royale.domain.game.domain.Division;
 import com.ssafy.royale.domain.game.domain.Game;
 import com.ssafy.royale.domain.game.dto.GameResponseDto;
 import com.ssafy.royale.domain.game.dto.GameScoreRequestDto;
-import com.ssafy.royale.domain.game.dto.TournamentResponseDto;
 import com.ssafy.royale.domain.game.dto.PlayerTree;
+import com.ssafy.royale.domain.game.dto.TournamentResponseDto;
 import com.ssafy.royale.domain.game.exception.DivisionNotFoundException;
 import com.ssafy.royale.domain.game.exception.GameNotFoundException;
 import com.ssafy.royale.domain.league.dao.LeagueRepository;
@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -33,14 +34,14 @@ public class GameServiceImpl implements GameService{
     private final LeagueRepository leagueRepository;
     private final GameRepository gameRepository;
 
-    private final String NOSHOW = "NO_SHOW";
-
     @Override
     public Boolean autoMakeGame(Long seq) {
-        List<Division> divisions = divisionRepository.findAll();
+        List<Division> divisions = new ArrayList<>();
         League league = leagueRepository.findById(seq).orElseThrow(LeagueNotFoundException::new);
-
+        Set<Apply> applySet = applyRepository.findAllByLeague(league);
+        applySet.forEach(apply -> divisions.add(apply.getDivision()));
         for (Division division: divisions) {
+
             List<Apply> applies = applyRepository.findAllByLeagueAndDivision(league, division);
             applies.sort((e1, e2) -> (int) (e1.getTeam().getTeamSeq() - e2.getTeam().getTeamSeq()));
 
