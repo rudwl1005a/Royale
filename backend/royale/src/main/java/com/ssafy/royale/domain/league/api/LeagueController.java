@@ -4,6 +4,7 @@ import com.ssafy.royale.domain.league.domain.League;
 import com.ssafy.royale.domain.league.dto.CreateLeagueRequestDto;
 import com.ssafy.royale.domain.league.dto.UpdateLeagueRequestDto;
 import com.ssafy.royale.domain.league.service.LeagueService;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,9 +49,10 @@ public class LeagueController {
 
         try {
             League league = leagueService.createLeague(createLeagueRequestDto);
+
             return ResponseEntity.status(200).body(league);
         } catch (Exception e) {
-            return ResponseEntity.status(400).body("대회 등록 실패");
+            return ResponseEntity.status(400).body("대회 등록에 문제가 발생하였습니다.");
         }
     }
 
@@ -66,7 +68,7 @@ public class LeagueController {
                              @RequestPart @ApiParam(value = "대회 포스터", required = true) MultipartFile poster) throws IOException {
         try {
             League league = leagueService.findLeagueByLeagueSeq(Long.parseLong(leagueSeq));
-            String date = league.getLeagueDate().toString();
+//            String date = league.getLeagueDate().toString();
 
             leagueService.updateLeaguePoster(Long.parseLong(leagueSeq), poster);
 //            photoService.saveTempPhoto(photo, date, roomSeq);
@@ -75,7 +77,7 @@ public class LeagueController {
 //            return "사진을 S3의 /temp/" + roomSeq + "-" + dirDate + " 폴더에 저장하였습니다.";
             return ResponseEntity.status(200).body(league);
         } catch (Exception e) {
-            return ResponseEntity.status(400).body("존재하지 않는 리그입니다");
+            return ResponseEntity.status(400).body("사진 저장에 문제가 발생하였습니다.");
         }
     }
 
@@ -150,13 +152,10 @@ public class LeagueController {
         /**
          * 권한 확인 필요!!
          */
-        int in = 5;
-        Long l = new Long(in);
-
         // 등록된 대회가 없을 경우
-        if ( leagueService.findLeagueByLeagueSeq(l) == null ) {
-            return ResponseEntity.status(404).body("등록된 대회가 없습니다.");
-        }
+//        if ( leagueService.findLeagueByLeagueSeq(l) == null ) {
+//            return ResponseEntity.status(404).body("등록된 대회가 없습니다.");
+//        }
 
         System.out.println(updateLeagueRequestDto);
 
@@ -172,6 +171,37 @@ public class LeagueController {
             return ResponseEntity.status(200).body(league);
         } catch (Exception e) {
             return ResponseEntity.status(400).body("대회 정보 수정 실패");
+        }
+    }
+
+    @PatchMapping("close/{leagueSeq}")
+    @ApiOperation(value = "대회 신청 마감", notes = "대회 신청 마감")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 400, message = "잘못된 요청"),
+            @ApiResponse(code = 404, message = "대회 없음"),
+            @ApiResponse(code = 405, message = "입력 오류"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> closeLeague(
+            @PathVariable(value = "leagueSeq")
+            @ApiParam(value = "대회 신청 마감", required = true) Long leagueSeq) {
+
+        // 등록된 대회가 없을 경우
+        if ( leagueService.findLeagueByLeagueSeq(leagueSeq) == null ) {
+            return ResponseEntity.status(404).body("등록된 대회가 없습니다.");
+        }
+
+        try {
+            Boolean leagueClose = leagueService.closeLeague(leagueSeq);
+
+            if (leagueClose) {
+                return ResponseEntity.status(200).body("대회 신청이 마감되었습니다.");
+            } else {
+                return ResponseEntity.status(405).body("대회 신청이 마감에 실패하였습니다.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("대회 신청 마감에 문제가 발생하였습니다.");
         }
     }
 

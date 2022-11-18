@@ -18,5 +18,7 @@ public interface LeagueService {
 
     void deleteLeague(League league);
 
+    Boolean closeLeague(long leagueSeq);
+
 
 }

@@ -30,7 +30,7 @@ function Login(props) {
     try {
       const { data } = await loginApi(UserLoginRequestDto);
       console.log(data);
-  
+
       sessionStorage.setItem("token", data.user.userToken);
       sessionStorage.setItem("userEmail", data.user.userEmail);
       sessionStorage.setItem("userName", data.user.userName);
@@ -38,10 +38,10 @@ function Login(props) {
       sessionStorage.setItem("userSeq", data.user.userSeq);
       sessionStorage.setItem("userRole", data.user.userRole);
       event.preventDefault();
-  
+
       navigate(`../`);
     } catch {
-      alert('로그인 실패!');
+      alert("로그인 실패!");
     }
   };
 

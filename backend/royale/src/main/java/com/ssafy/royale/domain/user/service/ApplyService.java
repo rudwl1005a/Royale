@@ -61,16 +61,6 @@ public class ApplyService {
     }
 
     public Apply createApply(CreateApplyRequestDto createApplyRequestDto) {
-        System.out.println("********** User >> " + userRepository.findByUserSeq(createApplyRequestDto.getUserSeq()).get());
-        System.out.println("****************************** Team >> " + createApplyRequestDto.getTeamSeq());
-        System.out.println("****************************** League >> " + createApplyRequestDto.getLeagueSeq());
-        System.out.println("****************************** Division >> " + createApplyRequestDto.getDivisionSeq());
-        System.out.println("********** Team >> " + teamRepository.findByTeamSeq(createApplyRequestDto.getTeamSeq()).get());
-        System.out.println("********** League >> " + leagueRepository.findByLeagueSeq(createApplyRequestDto.getLeagueSeq()).get());
-        System.out.println("********** Division >> " + divisionRepository.findByDivisionSeq(createApplyRequestDto.getDivisionSeq()).get());
-
-
-
 
         Apply apply = Apply.builder()
                 .user(userRepository.findByUserSeq(createApplyRequestDto.getUserSeq()).get())
@@ -78,9 +68,7 @@ public class ApplyService {
                 .league(leagueRepository.findByLeagueSeq(createApplyRequestDto.getLeagueSeq()).get())
                 .division(divisionRepository.findByDivisionSeq(createApplyRequestDto.getDivisionSeq()).get())
                 .build();
-
         applyRepository.save(apply);
-
         return apply;
     }
 }
