@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
-// 대회 신청
 @Getter
 @Setter
 @ApiModel("CreateApplyRequestDto")
@@ -23,3 +22,4 @@ public class CreateApplyRequestDto {
     @ApiModelProperty(name = "리그 정보", example = "0")
     long leagueSeq;
 }
+
