@@ -12,5 +12,5 @@ public interface ApplyRepository extends JpaRepository<Apply, Long> {
 
     List<Apply> findAllByLeagueAndDivision(League league, Division division);
     List<Apply> findAllByUser(User user);
-
+    List<Apply> findAllByLeague(League league);
 }

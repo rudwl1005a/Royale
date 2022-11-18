@@ -145,7 +145,6 @@ export const gameGet = async (gameSeq) => {
 export const getDivisionSeqAPI = async (divisionRequestDto) => {
   try {
     const res = await axios.post("/division", divisionRequestDto);
-    console.log(res);
     return res;
   } catch (err) {
     return err.response;
@@ -161,11 +160,20 @@ export const getSearchResultApi = async (keyword) => {
     return err.response;
   }
 }
-
+// 선수 개체 통과 버튼
 export const changeWeightCheck = async (userSeq) => {
   try {
     const res = await axios.patch(`/applies/${userSeq}`)
     
+  } catch (err) {
+    return err.response;
+  }
+}
+//토너먼트 데이터 조회
+export const getTournament = async (leagueSeq, divisionSeq) => {
+  try {
+    const res = await axios.get(`game?leagueSeq=${leagueSeq}&divisionSeq=${divisionSeq}`);
+    return res;
   } catch (err) {
     return err.response;
   }

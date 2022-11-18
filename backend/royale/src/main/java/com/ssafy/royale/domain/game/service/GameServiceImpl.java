@@ -6,8 +6,8 @@ import com.ssafy.royale.domain.game.domain.Division;
 import com.ssafy.royale.domain.game.domain.Game;
 import com.ssafy.royale.domain.game.dto.GameResponseDto;
 import com.ssafy.royale.domain.game.dto.GameScoreRequestDto;
-import com.ssafy.royale.domain.game.dto.TournamentResponseDto;
 import com.ssafy.royale.domain.game.dto.PlayerTree;
+import com.ssafy.royale.domain.game.dto.TournamentResponseDto;
 import com.ssafy.royale.domain.game.exception.DivisionNotFoundException;
 import com.ssafy.royale.domain.game.exception.GameNotFoundException;
 import com.ssafy.royale.domain.league.dao.LeagueRepository;
@@ -15,14 +15,13 @@ import com.ssafy.royale.domain.league.domain.League;
 import com.ssafy.royale.domain.league.exception.LeagueNotFoundException;
 import com.ssafy.royale.domain.user.dao.ApplyRepository;
 import com.ssafy.royale.domain.user.domain.Apply;
+import com.ssafy.royale.domain.user.domain.User;
 import com.ssafy.royale.domain.user.dto.ParticipantsDto;
 import com.ssafy.royale.domain.user.exception.MemberNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -33,14 +32,15 @@ public class GameServiceImpl implements GameService{
     private final LeagueRepository leagueRepository;
     private final GameRepository gameRepository;
 
-    private final String NOSHOW = "NO_SHOW";
-
     @Override
     public Boolean autoMakeGame(Long seq) {
-        List<Division> divisions = divisionRepository.findAll();
+        Set<Division> divisions = new HashSet<>();
         League league = leagueRepository.findById(seq).orElseThrow(LeagueNotFoundException::new);
+        List<Apply> applyList = applyRepository.findAllByLeague(league);
 
+        applyList.forEach(apply -> divisions.add(apply.getDivision()));
         for (Division division: divisions) {
+
             List<Apply> applies = applyRepository.findAllByLeagueAndDivision(league, division);
             applies.sort((e1, e2) -> (int) (e1.getTeam().getTeamSeq() - e2.getTeam().getTeamSeq()));
 
@@ -97,13 +97,15 @@ public class GameServiceImpl implements GameService{
         for (int i=0; i < gameList.size(); i++) {
             try{
             List<ParticipantsDto> participantsDtoList = new ArrayList<>();
-            TournamentResponseDto tournamentResponseDto;
             //회원이 비었다면, 아직 대진 결과가 안나온 상태라서 빈 객체값을 담아야함
             if(gameList.get(i).getPlayer1_seq() == null && gameList.get(i).getPlayer2_seq() == null){
                 participantsDtoList.add(ParticipantsDto.builder().build());
                 participantsDtoList.add(ParticipantsDto.builder().build());
             }else if(gameList.get(i).getPlayer1_seq() == null){
                 participantsDtoList.add(ParticipantsDto.builder().build());
+                System.out.println(gameList.get(i).getPlayer2_seq().getUser().getUserName());
+                Apply aa = gameList.get(i).getPlayer2_seq();
+                User user = aa.getUser();
                 participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer2_seq(),gameList.get(i).getPlayer2_score(), gameList.get(i)));
             }else if(gameList.get(i).getPlayer2_seq() == null){
                 participantsDtoList.add(insertParticipant(gameList.get(i).getPlayer1_seq(),gameList.get(i).getPlayer1_score(), gameList.get(i)));
@@ -116,7 +118,7 @@ public class GameServiceImpl implements GameService{
 
             //마지막 index는 null처리
             Integer nextMatchId = i == gameList.size()-1 ? null : gameList.get((i/2) + (gameList.size() / 2) + 1).getGame_seq().intValue();
-            tournamentResponseDto = TournamentResponseDto.builder()
+            TournamentResponseDto tournamentResponseDto = TournamentResponseDto.builder()
                     .id(gameList.get(i).getGame_seq().intValue())
                     .name(Integer.toString(gameList.get(i).getMatGameNum()))
                     .nextMatchId(nextMatchId)

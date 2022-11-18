@@ -5,14 +5,7 @@ import { FaPlaceOfWorship, FaCalendarAlt } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
 // import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import { Link, useParams } from "react-router-dom";
-// import { FaPlay } from "react-icons/fa";
-// import { BiLoaderAlt } from "react-icons/bi";
-// import { MdClose } from "react-icons/md";
 import img from "../../img/game-4.jpg";
-// import game1 from "../../img/games-1.jpg";
-// import game2 from "../../img/game-2.jpg";
-// import game3 from "../../img/game-3.jpg";
-// import game4 from "../../img/game-4.jpg";
 import feature1 from "../../img/feature-1.png";
 import feature2 from "../../img/feature-2.png";
 import feature3 from "../../img/feature-3.png";
@@ -29,11 +22,14 @@ import "./style.css";
 import Daejin from "../Tournament/Tournament";
 import { getLeagueApi } from "../../api/api";
 
+
 function LeagueDetail(props) {
   let { leagueSeq } = useParams();
 
   const [leagueData, setLeagueData] = useState(null);
-
+  // const divisionFunction = (value) => {
+  //   console.log("divisionFunction: ",value);
+  // }
   useEffect(() => {
     async function getData() {
       const { data } = await getLeagueApi(leagueSeq);
@@ -42,6 +38,8 @@ function LeagueDetail(props) {
     }
     getData();
   }, []);
+
+
 
   // const [modal, setModal] = useState(false);
   // const [videoLoading, setVideoLoading] = useState(true);
@@ -127,13 +125,6 @@ function LeagueDetail(props) {
             <Col lg={12}>
               <div className="games-details-page-box">
                 <br />
-                {/* <ul>
-                  <li>Biltong corned beef tongue </li>
-                  <li>Beef short ribs leberkas cupim Drumstick </li>
-                  <li>Fatback bacon picanha leberkas pork </li>
-                  <li>Burgdoggen bresaola shankle </li>
-                  <li>Beef short ribs leberkas cupim Drumstick </li>
-                </ul> */}
                 <div className="tv-panel-list">
                   <Tabs
                     defaultActiveKey="info"
@@ -161,10 +152,10 @@ function LeagueDetail(props) {
                     <Tab eventKey="matches" title="대진표">
                       <Row>
                         <Col md={12}>
-                          <SelectDivision />
+                          <SelectDivision/>
                           <br />
                           <br />
-                          <Daejin />
+                          <Daejin leagueSeq={leagueSeq} />
                         </Col>
                       </Row>
                     </Tab>
