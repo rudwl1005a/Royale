@@ -31,12 +31,12 @@ function Login(props) {
       const { data } = await loginApi(UserLoginRequestDto);
       console.log(data);
   
-      sessionStorage.setItem("token", data.user.userToken);
-      sessionStorage.setItem("userEmail", data.user.userEmail);
-      sessionStorage.setItem("userName", data.user.userName);
-      sessionStorage.setItem("userPhone", data.user.userPhone);
-      sessionStorage.setItem("userSeq", data.user.userSeq);
-      sessionStorage.setItem("userRole", data.user.userRole);
+      sessionStorage.setItem("token", data.userToken);
+      sessionStorage.setItem("userEmail", data.userEmail);
+      sessionStorage.setItem("userName", data.userName);
+      sessionStorage.setItem("userPhone", data.userPhone);
+      sessionStorage.setItem("userSeq", data.userSeq);
+      sessionStorage.setItem("userRole", data.userRole);
       event.preventDefault();
   
       navigate(`../`);

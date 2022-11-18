@@ -170,3 +170,16 @@ export const changeWeightCheck = async (userSeq) => {
     return err.response;
   }
 }
+
+// 끝난 게임 정보 저장
+export const endGameApi = async (gameScoreRequestDto) => {
+  try {
+    console.log("끝난 게임 정보 저장");
+    console.log(gameScoreRequestDto);
+    const res = await axios.post("/game/score.do", gameScoreRequestDto);
+    console.log(res);
+    return res;
+  } catch (err) {
+    return err.response;
+  }
+};
