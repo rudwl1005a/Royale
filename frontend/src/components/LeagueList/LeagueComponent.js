@@ -8,6 +8,36 @@ import games2 from "../../img/poster_reda_seminar.jpg";
 
 const LeagueComponent = ({ leagueData }) => {
 
+  function checkDate() {
+    const currentTime = new Date();
+
+    if (
+      currentTime.getFullYear() * 10000 +
+        (currentTime.getMonth() + 1) * 100 +
+        currentTime.getDate() <
+      leagueData.leagueDate[0] * 10000 +
+        leagueData.leagueDate[1] * 100 +
+        leagueData.leagueDate[2]
+    ) {
+      console.log("11111");
+      <p className="free">Comming Soon</p>;
+    } else {
+      console.log("22222");
+      <p className="off">END</p>;
+    }
+  }
+
+  // // 벨트 선택 함수
+  // function selectBelt() {
+  //   if (divisionAge === "HighSchool" || divisionAge === "Adult") {
+  //     return <BeltSelectBox />;
+  //   } else if (divisionAge === "Elementary" || divisionAge === "MiddleSchool") {
+  //     return <ElementaryMiddleSchoolBeltSelectBox />;
+  //   } else {
+  //     return <NoBeginnerBeltSelectBox />;
+  //   }
+  // }
+
   return (
     <>
       <Col Col lg={4} sm={6}>
@@ -25,27 +55,29 @@ const LeagueComponent = ({ leagueData }) => {
               </span>
             </div> */}
           </div>
-        </div>
-        <div className="games-desc">
-          <h3>
-            <Link to="/leaguedetail">{leagueData.leagueName}</Link>
-          </h3>
-          <p className="game-meta">
-            date:<span> {leagueData.leagueDate} </span>
-          </p>
-          <p className="game-meta">{leagueData.leaguePlace}</p>
-          <div className="game-action">
-            <div className="game-price">
-              <h4>₩50,000 ~ </h4>
-              <p className="free">Comming Soon</p>
-            </div>
-            <div className="game-buy">
-              <Link
-                to={`/leaguedetail/${leagueData.leagueSeq}`}
-                className="fag-btn-outline"
-              >
-                Participate
-              </Link>
+          <div className="games-desc">
+            <h3>
+              <Link to="/leaguedetail">{leagueData.leagueName}</Link>
+            </h3>
+            <p className="game-meta">
+              date:<span> {leagueData.leagueDate} </span>
+            </p>
+            <p className="game-meta">{leagueData.leaguePlace}</p>
+            <div className="game-action">
+              <div className="game-price">
+                <h4>₩50,000 ~ </h4>
+                {checkDate()}
+                {/* <p className="free">Comming Soon</p> */}
+                {/* <p className="off">Comming Soon</p> */}
+              </div>
+              <div className="game-buy">
+                <Link
+                  to={`/leaguedetail/${leagueData.leagueSeq}`}
+                  className="fag-btn-outline"
+                >
+                  Participate
+                </Link>
+              </div>
             </div>
           </div>
         </div>
