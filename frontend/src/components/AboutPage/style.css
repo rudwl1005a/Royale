@@ -27,7 +27,7 @@
 
 .fag-counter-area {
   position: relative;
-  background: url(../../img/footer_bg.jpg) no-repeat fixed center center/cover;
+  background: url(../../img/footer_bg.png) no-repeat fixed center center/cover;
   z-index: 1;
   padding-top: 70px
 }

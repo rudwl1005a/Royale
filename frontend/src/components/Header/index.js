@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { React, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MobileMenu from "../MobileMenu";
-// import logo from "../../img/Logo_LeagueRoyale_black.png";
 import logo from "../../img/Logo_Royale_black.png";
 import admin from "../../img/royale.png";
 import { useNavigate } from "react-router-dom";
@@ -10,11 +9,6 @@ import { useNavigate } from "react-router-dom";
 import "./style.css";
 
 function Header(props) {
-  // const [show, setShow] = useState(false);
-
-  // const SubmitHandler = (e) => {
-  //   e.preventDefault();
-  // };
 
   const navigate = useNavigate();
 
@@ -62,8 +56,6 @@ function Header(props) {
                       <Link to="/">Home</Link>
                     </li>
                     <li>
-                      {" "}
-                      {/* <li className="has-sub"> */}
                       <Link to="/" onClick={onClick}>
                         League
                       </Link>
@@ -79,7 +71,7 @@ function Header(props) {
                         </li>
                       </ul>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link to="/" onClick={onClick}>
                         Rank
                       </Link>
@@ -91,7 +83,7 @@ function Header(props) {
                           <Link to="/teamRank">Team</Link>
                         </li>
                       </ul>
-                    </li>
+                    </li> */}
                     <li>
                       <a
                         href="http://jiujitsuroyale.com/"
@@ -129,22 +121,11 @@ function Header(props) {
                     </Link>
                   }
                   <ul className="user_menu">
-                    {/* <li>
-                      <Link to="/competition/:id">Competition</Link>
-                    </li>
-                    <li>
-                      <Link to="/match/finish/:id">Daejin</Link>
-                    </li>
-                    <li>
-                      <Link to="/tournament/:leagueSeq/:divisionSeq">
-                        Tournament
-                      </Link>
-                    </li> */}
                     {userRole === "admin" && 
                       <div>
-                        <li>
+                        {/* <li>
                       <Link to="/searchApplicant">Search</Link>
-                    </li>
+                    </li> */}
                     <li>
                       <Link to="/createLeague">league</Link>
                     </li>

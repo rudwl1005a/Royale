@@ -9,8 +9,8 @@ import AboutPage from "../AboutPage";
 import RulePage from "../RulePage";
 import LeagueListPage from "../LeagueListPage";
 import LeagueDetailPage from "../LeagueDetailPage";
-import PersonalRankPage from "../PersonalRankPage";
-import TeamRankPage from "../TeamRankPage";
+// import PersonalRankPage from "../PersonalRankPage";
+// import TeamRankPage from "../TeamRankPage";
 import ContactPage from "../ContactPage";
 import CreateLeaguePage from "../CreateLeaguePage";
 import SearchApplicatnPage from "../SearchApplicantPage";
@@ -52,8 +52,8 @@ const AllRoute = () => {
           <Route exact path="/rule" element={<RulePage />} />
 
           {/* 랭킹 */}
-          <Route exact path="/personalRank" element={<PersonalRankPage />} />
-          <Route exact path="/teamRank" element={<TeamRankPage />} />
+          {/* <Route exact path="/personalRank" element={<PersonalRankPage />} /> */}
+          {/* <Route exact path="/teamRank" element={<TeamRankPage />} /> */}
 
           {/* Contact */}
           <Route exact path="/contact" element={<ContactPage />} />
