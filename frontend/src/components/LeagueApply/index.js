@@ -92,7 +92,7 @@ function LeagueApply(props) {
                         type="text"
                         /> */}
                       <div className="input-box">
-                        <SearchTeam/>
+                        {/* <SearchTeam/> */}
                       </div>
                     </Col>
                   </Row>
