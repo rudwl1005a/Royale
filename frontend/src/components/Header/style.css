@@ -424,7 +424,7 @@
     }
     .site-logo {
         width: 115px;
-        border: 3px red solid;
+        border: 3px;
     }
 
     .header-cart{
