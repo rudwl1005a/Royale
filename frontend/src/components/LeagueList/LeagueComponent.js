@@ -1,10 +1,40 @@
 import { React, useState, useEffect } from "react";
 import { Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { leagueStore } from "../../store";
 
 import games2 from "../../img/poster_reda_seminar.jpg";
 
 const LeagueComponent = ({ leagueData }) => {
+
+  function checkDate() {
+    const currentTime = new Date();
+
+    if (
+      currentTime.getFullYear() * 10000 +
+        (currentTime.getMonth() + 1) * 100 +
+        currentTime.getDate() <
+      leagueData.leagueDate[0] * 10000 +
+        leagueData.leagueDate[1] * 100 +
+        leagueData.leagueDate[2]
+    ) {
+      return <p className="free">Comming Soon</p>;
+    } else {
+      return <p className="off">END</p>;
+    }
+  }
+
+  // // 벨트 선택 함수
+  // function selectBelt() {
+  //   if (divisionAge === "HighSchool" || divisionAge === "Adult") {
+  //     return <BeltSelectBox />;
+  //   } else if (divisionAge === "Elementary" || divisionAge === "MiddleSchool") {
+  //     return <ElementaryMiddleSchoolBeltSelectBox />;
+  //   } else {
+  //     return <NoBeginnerBeltSelectBox />;
+  //   }
+  // }
+
   return (
     <>
       {/* <div> {leagueData.leagueSeq} </div> */}
@@ -35,7 +65,9 @@ const LeagueComponent = ({ leagueData }) => {
             <div className="game-action">
               <div className="game-price">
                 <h4>₩50,000 ~ </h4>
-                <p className="free">Comming Soon</p>
+                {checkDate()}
+                {/* <p className="free">Comming Soon</p> */}
+                {/* <p className="off">Comming Soon</p> */}
               </div>
               <div className="game-buy">
                 <Link

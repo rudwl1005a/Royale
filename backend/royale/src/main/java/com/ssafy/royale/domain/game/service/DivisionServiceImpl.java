@@ -21,7 +21,7 @@ public class DivisionServiceImpl implements DivisionService{
                 divisionRequestDto.getDivisionAge(), divisionRequestDto.getDivisionBelt(),
                 divisionRequestDto.getDivisionGender(), divisionRequestDto.getDivisionType(),
                 divisionRequestDto.getDivisionWeight()
-        );
+        ).get();
 
         return division;
     }

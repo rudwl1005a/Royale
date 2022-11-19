@@ -93,7 +93,7 @@ function Hero(props) {
                             <span>
                               <FaPlay />
                             </span>
-                            Watch Trailer
+                            Watch Highlight
                           </Link>
                         </div>
                       </Col>
@@ -124,7 +124,7 @@ function Hero(props) {
                             <span>
                               <FaPlay />
                             </span>
-                            Watch Trailer
+                            Watch Highlight
                           </Link>
                         </div>
                       </Col>

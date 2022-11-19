@@ -3,15 +3,15 @@ package com.ssafy.royale.domain.game.dto;
 import com.ssafy.royale.domain.user.dto.ParticipantsDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
 @ApiModel(value = "GameResponseDto", description = "대진표")
 @Builder
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class TournamentResponseDto {
     @ApiModelProperty(name = "game_seq값")

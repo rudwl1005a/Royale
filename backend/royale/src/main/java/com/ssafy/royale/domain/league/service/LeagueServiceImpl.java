@@ -5,6 +5,7 @@ import com.ssafy.royale.domain.league.domain.League;
 import com.ssafy.royale.domain.league.dto.CreateLeagueRequestDto;
 import com.ssafy.royale.domain.league.dto.UpdateLeagueRequestDto;
 import com.ssafy.royale.global.util.S3Uploader;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,8 +36,8 @@ public class LeagueServiceImpl implements LeagueService{
                 .leaguePlace(createLeagueRequestDto.getLeaguePlace())
                 .leagueDate(createLeagueRequestDto.getLeagueDate())
                 .leagueDeadline(createLeagueRequestDto.getLeagueDeadline())
-//                .leaguePoster(createLeagueRequestDto.getLeaguePoster())
                 .leagueInfo(createLeagueRequestDto.getLeagueInfo())
+                .leagueClose(false)
                 .build();
 
         return leagueRepository.save(league);
@@ -91,5 +92,17 @@ public class LeagueServiceImpl implements LeagueService{
         leagueRepository.delete(league);
     }
 
+    /**
+     * 대회 신청 마감
+     */
+    @Override
+    public Boolean closeLeague(long leagueSeq) {
 
+        League updateLeague = leagueRepository.findByLeagueSeq(leagueSeq).get();
+        updateLeague.setLeagueClose(true);
+
+        leagueRepository.save(updateLeague);
+
+        return updateLeague.getLeagueClose();
+    }
 }

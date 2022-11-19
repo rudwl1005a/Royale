@@ -38,10 +38,10 @@ function Login(props) {
       sessionStorage.setItem("userSeq", data.userSeq);
       sessionStorage.setItem("userRole", data.userRole);
       event.preventDefault();
-  
+
       navigate(`../`);
     } catch {
-      alert('로그인 실패!');
+      alert("로그인 실패!");
     }
   };
 
