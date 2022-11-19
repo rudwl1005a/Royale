@@ -259,7 +259,7 @@ function Scoreboard(props) {
   }
 
   // socket.io
-  const socket = io('http://royale.kr:4000');
+  const socket = io('https://royale.kr:4000');
 
   // const socketConnect = () => {
     socket.connect();
