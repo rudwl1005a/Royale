@@ -4,8 +4,9 @@ import { useBeforeunload } from "react-beforeunload";
 import io from 'socket.io-client'; // Client Socket
 import "./style.css";
 
-import { gameGet, gameLogGet, gameLogUpdate } from "../../api/api";
-import { Routes, Route, useParams } from 'react-router-dom';
+import { gameGet, gameLogGet, gameLogUpdate, endGameApi } from "../../api/api";
+import { Routes, Route, useParams, useNavigate } from 'react-router-dom';
+
 
 function Scoreboard(props) {
 
@@ -14,6 +15,12 @@ function Scoreboard(props) {
   const onClick = (e) => {
     e.preventDefault();
   };
+
+  const navigate = useNavigate();
+
+  // 로그인 변수
+  // const isLogin = sessionStorage.getItem("userEmail") === null ? false : true;
+  const userRole = sessionStorage.getItem("userRole");
 
   // 경기 정보 변수
   const [matchInfo, setMatchInfo] = useState(null);
@@ -27,6 +34,10 @@ function Scoreboard(props) {
   const [currentMinutes, setCurrentMinutes] = useState(5);
   const [currentSeconds, setCurrentSeconds] = useState(0);
   const [count, setCount] = useState(5*60);
+
+  // 모달창 변수
+  const [dqModal, setDqModal] = useState(false);
+  const [subModal, setSubModal] = useState(false);
 
   // 처음 랜더링 될 때 설정
   useEffect(() => {
@@ -177,8 +188,78 @@ function Scoreboard(props) {
     }
   }
 
+  const setDq = () => {
+    setDqModal(!dqModal);
+  }
+
+  const setSub = () => {
+    setSubModal(!subModal);
+  }
+  
+  const setOtherScore = async (n) => {
+    if(n === '1s') {
+      await gameLogUpdate({...matchLogInfo, "sub" : 1});
+      setSub();
+    } else if(n === '1d') {
+      await gameLogUpdate({...matchLogInfo, "dq" : 1});
+      setDq();
+    } else if(n === '2s') {
+      await gameLogUpdate({...matchLogInfo, "sub" : 2});
+      setSub();
+    } else if(n === '2d') {
+      await gameLogUpdate({...matchLogInfo, "dq" : 2});
+      setDq();
+    }
+    setCount(0);
+    stop();
+  }
+
+  const endGame = async () => {
+    end();
+    // 경기 정보 저장하고 보내주기
+
+    const gameScoreRequestDto = {
+      "gameSeq": Number(id),
+      "gameWinner": 0,
+      "player1Score": matchLogInfo.score1,
+      "player2Score": matchLogInfo.score2
+    }
+
+    console.warn(matchLogInfo);
+
+    // dq, sub가 있을 경우는 변경
+    if(matchLogInfo.dq !== -1) {
+      if(matchLogInfo.dq === 1) {
+        gameScoreRequestDto.player1Score = "DQ";
+        gameScoreRequestDto.gameWinner = matchInfo.player2Seq;
+      } else if(matchLogInfo.dq === 2) {
+        gameScoreRequestDto.player2Score = "DQ";
+        gameScoreRequestDto.gameWinner = matchInfo.player1Seq;
+      }
+    } else if(matchLogInfo.sub !== -1) {
+      if(matchLogInfo.sub === 1) {
+        gameScoreRequestDto.player1Score = "SUB";
+        gameScoreRequestDto.gameWinner = matchInfo.player1Seq;
+      } else if(matchLogInfo.sub === 2) {
+        gameScoreRequestDto.player2Score = "SUB";
+        gameScoreRequestDto.gameWinner = matchInfo.player2Seq;
+      }
+    } else {
+      if(matchLogInfo.score1 === matchLogInfo.score2) { // 같으면 판정승 해야함
+        alert("같아!");
+      } else if (matchLogInfo.score1 > matchLogInfo.score2) {
+        gameScoreRequestDto.gameWinner = matchInfo.player1Seq;
+      } else if (matchLogInfo.score1 < matchLogInfo.score2) {
+        gameScoreRequestDto.gameWinner = matchInfo.player2Seq;
+      }
+    }
+
+    console.log(gameScoreRequestDto);
+    endGameApi(gameScoreRequestDto);
+  }
+
   // socket.io
-  const socket = io('http://localhost:4000');
+  const socket = io('http://royale.kr:4000');
 
   // const socketConnect = () => {
     socket.connect();
@@ -207,24 +288,28 @@ function Scoreboard(props) {
               <span className={`playerInfo-name ${matchInfo.player1Name.length > 8 ? "Small" : ""}`}>{matchInfo.player1Name}</span>
               <span className="playerInfo-team">{matchInfo.player1Team}</span>
             </Row>
-            <Row className="playerInfo-button">
-              <table Style="width: 25vw; height: 80%; margin-left: 2vw; background-color: #0D0E1B">
-                <tr Style="color: #3b973b; width: 3vw;">
-                  <td onClick={() => { plusOnePlayer(1) }}><span>+1</span></td>
-                  <td onClick={() => { plusOnePlayer(2) }}><span>+2</span></td>
-                  <td onClick={() => { plusOnePlayer(3) }}><span>+3</span></td>
-                  <td onClick={() => { plusOnePlayer('A') }}><span>+A</span></td>
-                  <td onClick={() => { plusOnePlayer('P') }}><span>+P</span></td>
-                </tr>
-                <tr Style="color: #ba353d; width: 3vw;">
-                  <td onClick={() => { minusOnePlayer(1) }}><span>-1</span></td>
-                  <td onClick={() => { minusOnePlayer(2) }}><span>-2</span></td>
-                  <td onClick={() => { minusOnePlayer(3) }}><span>-3</span></td>
-                  <td onClick={() => { minusOnePlayer('A') }}><span>-A</span></td>
-                  <td onClick={() => { minusOnePlayer('P') }}><span>-P</span></td>
-                </tr>
-              </table>
-            </Row>
+            {userRole === "admin" &&
+              <Row className="playerInfo-button">
+                <table Style="width: 30vw; height: 80%; margin-left: 2vw; background-color: #0D0E1B">
+                  <tr Style="color: #3b973b; width: 3vw;">
+                    <td onClick={() => { plusOnePlayer(1) }}><span>+1</span></td>
+                    <td onClick={() => { plusOnePlayer(2) }}><span>+2</span></td>
+                    <td onClick={() => { plusOnePlayer(3) }}><span>+3</span></td>
+                    <td onClick={() => { plusOnePlayer('A') }}><span>+A</span></td>
+                    <td onClick={() => { plusOnePlayer('P') }}><span>+P</span></td>
+                    {subModal && <td onClick={() => { setOtherScore('1s') }}><span>SUP</span></td>}
+                  </tr>
+                  <tr Style="color: #ba353d; width: 3vw;">
+                    <td onClick={() => { minusOnePlayer(1) }}><span>-1</span></td>
+                    <td onClick={() => { minusOnePlayer(2) }}><span>-2</span></td>
+                    <td onClick={() => { minusOnePlayer(3) }}><span>-3</span></td>
+                    <td onClick={() => { minusOnePlayer('A') }}><span>-A</span></td>
+                    <td onClick={() => { minusOnePlayer('P') }}><span>-P</span></td>
+                    {dqModal && <td onClick={() => { setOtherScore('1d') }}><span>DQ</span></td>}
+                  </tr>
+                </table>
+              </Row>
+            }
           </Col>
           <Col xs={5} sm={5} className="playerScore">
             <span className="playerScore-pa">
@@ -257,24 +342,28 @@ function Scoreboard(props) {
               <span className={`playerInfo-name ${matchInfo.player2Name.length > 8 ? "Small" : ""}`}>{matchInfo.player2Name}</span>
               <span className="playerInfo-team">{matchInfo.player2Team}</span>
             </Row>
-            <Row className="playerInfo-button">
-              <table Style="width: 25vw; height: 80%; margin-left: 2vw; background-color: #0D0E1B">
-                <tr Style="color: #3b973b; width: 3vw;">
-                  <td onClick={() => { plusTwoPlayer(1) }}><span>+1</span></td>
-                  <td onClick={() => { plusTwoPlayer(2) }}><span>+2</span></td>
-                  <td onClick={() => { plusTwoPlayer(3) }}><span>+3</span></td>
-                  <td onClick={() => { plusTwoPlayer('A') }}><span>+A</span></td>
-                  <td onClick={() => { plusTwoPlayer('P') }}><span>+P</span></td>
-                </tr>
-                <tr Style="color: #ba353d; width: 3vw;">
-                  <td onClick={() => { minusTwoPlayer(1) }}><span>-1</span></td>
-                  <td onClick={() => { minusTwoPlayer(2) }}><span>-2</span></td>
-                  <td onClick={() => { minusTwoPlayer(3) }}><span>-3</span></td>
-                  <td onClick={() => { minusTwoPlayer('A') }}><span>-A</span></td>
-                  <td onClick={() => { minusTwoPlayer('P') }}><span>-P</span></td>
-                </tr>
-              </table>
-            </Row>
+            {userRole === "admin" && 
+              <Row className="playerInfo-button">
+                <table Style="width: 30vw; height: 80%; margin-left: 2vw; background-color: #0D0E1B">
+                  <tr Style="color: #3b973b; width: 3vw;">
+                    <td onClick={() => { plusTwoPlayer(1) }}><span>+1</span></td>
+                    <td onClick={() => { plusTwoPlayer(2) }}><span>+2</span></td>
+                    <td onClick={() => { plusTwoPlayer(3) }}><span>+3</span></td>
+                    <td onClick={() => { plusTwoPlayer('A') }}><span>+A</span></td>
+                    <td onClick={() => { plusTwoPlayer('P') }}><span>+P</span></td>
+                    {subModal && <td onClick={() => { setOtherScore('2s') }}><span>SUP</span></td>}
+                  </tr>
+                  <tr Style="color: #ba353d; width: 3vw;">
+                    <td onClick={() => { minusTwoPlayer(1) }}><span>-1</span></td>
+                    <td onClick={() => { minusTwoPlayer(2) }}><span>-2</span></td>
+                    <td onClick={() => { minusTwoPlayer(3) }}><span>-3</span></td>
+                    <td onClick={() => { minusTwoPlayer('A') }}><span>-A</span></td>
+                    <td onClick={() => { minusTwoPlayer('P') }}><span>-P</span></td>
+                    {dqModal && <td onClick={() => { setOtherScore('2d') }}><span>DQ</span></td>}
+                  </tr>
+                </table>
+              </Row>
+            }
           </Col>
           <Col className="playerScore">
             <span className="playerScore-pa">
@@ -301,6 +390,7 @@ function Scoreboard(props) {
           </Col>
         </Row>
 
+        {userRole === "admin" ?
         <Row>
           <span className="gameInfo">
             <span className="gameInfo-button">
@@ -325,16 +415,17 @@ function Scoreboard(props) {
                     </span>
                   </td>
                 </tr>
+                {userRole === "admin" && <>
                 <tr Style="color: white; width: 3vw;">
                   <td><span Style="color: #3b973b" onClick={() => changeTime(1)}>+1 SEC</span></td>
                   <td><span Style="color: #3b973b" onClick={() => changeTime(10)}>+10 SEC</span></td>
                   <td><span Style="color: #3b973b" onClick={() => changeTime(60)}>+60 SEC</span></td>
                   {isStart === false
                     ? <td colspan='2'><span>SWITCH SIDES</span></td>
-                    : <td><span>dq</span></td>}
+                    : <td><span onClick={setDq}>dq</span></td>}
                   {isStart === false
                     ? ''
-                    : <td><span>sub</span></td>}
+                    : <td><span onClick={setSub}>sub</span></td>}
                 </tr>
                 <tr Style="color: white; width: 3vw;">
                   <td><span Style="color: #ba353d" onClick={() => changeTime(-1)}>-1 SEC</span></td>
@@ -342,16 +433,39 @@ function Scoreboard(props) {
                   <td><span Style="color: #ba353d" onClick={() => changeTime(-60)}>-60 SEC</span></td>
                   {isStart === false
                     ? <td colspan='2' onClick={() => { setIsStart(true); start(); }}><span>START GAME</span></td>
-                    : <td colspan='2' onClick={() => { setIsStart(false); end(); }}><span>END GAME</span></td>}
+                    : <td colspan='2' onClick={() => { setIsStart(false); endGame(); }}><span>END GAME</span></td>}
                 </tr>
+                </>}
               </table>
+            
             </span>
-            {isStop === false 
-              ? <span onClick={stop} className="gameInfo-time"> {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:{currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds} </span>
-              : <span onClick={start} className="gameInfo-time"> {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:{currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds} </span>
-            }
+              {isStop === false 
+                ? <span onClick={stop} className="gameInfo-time"> {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:{currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds} </span>
+                : <span onClick={start} className="gameInfo-time"> {currentMinutes < 10 ? `0${currentMinutes}` : currentMinutes}:{currentSeconds < 10 ? `0${currentSeconds}` : currentSeconds} </span>
+              }
           </span>
-        </Row>
+        </Row> 
+        : <>
+          <span Style="background-color: black;
+                                  border: 1px solid black;
+                                  align-content: center;
+                                  justify-content: flex-start;
+                                  display: flex;
+                                  font-weight: bold;
+                                  font-size: 5vmin;
+                                  color: gray;
+                                  cursor: default;
+                                  justify-content: center;
+                                  margin-top: 5vh">
+            <span Style="color: #ED8B08; margin-right: 0.5vw">match{matchInfo.game.matGameNum} </span>
+                        - {matchInfo.game.division.divisionGender} / 
+                        {matchInfo.game.division.divisionAge} / 
+                        {matchInfo.game.division.divisionBelt} / 
+                        {matchInfo.game.division.divisionWeight} / 
+                        {matchInfo.game.division.divisionType}
+          </span>
+        </>
+        }
       </div>
       : null}
     </>
