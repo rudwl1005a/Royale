@@ -41,7 +41,7 @@ public class GameController {
 
     @PostMapping("/score.do")
     @ApiOperation(value = "경기 종료 후 점수 삽입")
-    public ResponseEntity<Game> insertGameScore(@RequestBody @Valid GameScoreRequestDto dto){
+    public ResponseEntity<Game> insertGameScore(@RequestBody GameScoreRequestDto dto){
         System.out.println(dto);
         return new ResponseEntity<>(gameService.insertCurrentGameScore(dto), HttpStatus.OK);
     }

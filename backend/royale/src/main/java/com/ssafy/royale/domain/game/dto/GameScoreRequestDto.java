@@ -13,9 +13,9 @@ public class GameScoreRequestDto {
     @NotNull
     private Long gameSeq;
     @NotNull
-    private int player1Score;
+    private String player1Score;
     @NotNull
-    private int player2Score;
+    private String player2Score;
     @NotNull
     private Long gameWinner;
 }

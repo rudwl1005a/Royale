@@ -137,7 +137,7 @@ public class GameServiceImpl implements GameService{
     @Override
     public Game insertCurrentGameScore(GameScoreRequestDto dto) {
         Game game = gameRepository.findById(dto.getGameSeq()).orElseThrow(GameNotFoundException::new);
-        game.setScoreAndWinner(Integer.toString(dto.getPlayer1Score()), Integer.toString(dto.getPlayer2Score()), dto.getGameWinner());
+        game.setScoreAndWinner(dto.getPlayer1Score(), dto.getPlayer2Score(), dto.getGameWinner());
         gameRepository.save(game);
 
         return insertNextGame(game, dto);

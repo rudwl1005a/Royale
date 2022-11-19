@@ -169,10 +169,24 @@ export const changeWeightCheck = async (userSeq) => {
     return err.response;
   }
 }
+
+// 끝난 게임 정보 저장
+export const endGameApi = async (gameScoreRequestDto) => {
+  try {
+    console.log("끝난 게임 정보 저장");
+    console.log(gameScoreRequestDto);
+    const res = await axios.post("/game/score.do", gameScoreRequestDto);
+    console.log(res);
+  } catch (err) {
+    return err.response;
+  }
+};
+
 //토너먼트 데이터 조회
 export const getTournament = async (leagueSeq, divisionSeq) => {
   try {
     const res = await axios.get(`game?leagueSeq=${leagueSeq}&divisionSeq=${divisionSeq}`);
+
     return res;
   } catch (err) {
     return err.response;
