@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import { createApplyApi, closeApplyApi } from "../../api/api";
 import SelectDivision from "../SelectDivision";
-import SearchTeam from "../SearchTeam";
+// import SearchTeam from "../SearchTeam";
 
 import { divisionStore } from "../../store";
 
