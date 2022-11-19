@@ -51,7 +51,7 @@ function CreateLeague(props) {
             <Col lg={12}>
               <div className="site-heading">
                 <h2 className="heading_animation">
-                  NEw <span>LEAGUE</span>
+                  NEW <span>LEAGUE</span>
                 </h2>
                 <p>
                   blanditiis praesentium voluptatum deleniti atque

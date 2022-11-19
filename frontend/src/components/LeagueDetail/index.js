@@ -145,7 +145,7 @@ function LeagueDetail(props) {
                     <Tab eventKey="applies" title="대회 신청">
                       <Row>
                         <Col md={12}>
-                          <LeagueApply />
+                          <LeagueApply leagueSeq={leagueSeq}/>
                         </Col>
                       </Row>
                     </Tab>

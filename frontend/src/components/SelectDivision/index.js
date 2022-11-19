@@ -327,7 +327,7 @@ function SelectDivision() {
             <Col lg={2}>{selectType()}</Col>
             <Col lg={2}>{selectWeight()}</Col>
             <Col lg={2}>
-              <button onClick={handleSubmit}> Search </button>
+              <button onClick={handleSubmit}> Select </button>
             </Col>
           </Row>
         </Container>

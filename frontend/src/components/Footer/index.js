@@ -25,98 +25,20 @@ function Footer(props) {
         <div className="footer-top-area">
           <Container>
             <Row>
+              <Col lg={2} />
               <Col lg={4} sm={6}>
                 <div className="single-footer">
                   <h3>About us</h3>
                   <p>
-                    Etiam consequat sem ullamcorper, euismod metus sit amet,
-                    tristique justo. Vestibulum mattis, nisi ut faucibus
-                    commodo, risus ex commodo.
+                    리그로얄은 대한민국 최고의 주짓수 대회입니다.
                   </p>
                   <p>
-                    euismod metus sit amet, tristique justo. Vestibulum mattis
-                    Vestibulum mattis,{" "}
+                  The most awaited jiu jitsu events in South Korea.
                   </p>
                 </div>
               </Col>
-              <Col lg={2} sm={6}>
-                <div className="widget-content">
-                  <div className="single-footer">
-                    <h3>Explore</h3>
-                    <ul>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaCaretRight />
-                          About
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaCaretRight />
-                          Our Games
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaCaretRight />
-                          Contact Us
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaCaretRight />
-                          Help &amp; Support
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaCaretRight />
-                          Privacy Policy
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </Col>
-              <Col lg={3} sm={6}>
-                <div className="widget-content">
-                  <div className="single-footer">
-                    <h3>Our Games</h3>
-                    <ul>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaCaretRight />
-                          Need For Speed
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaCaretRight />
-                          Call Of Duty
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaCaretRight />
-                          Resident Evil
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaCaretRight />
-                          Dragons Fight
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/" onClick={onClick}>
-                          <FaCaretRight />2 Player Champions
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </Col>
-              <Col lg={3} sm={6}>
+              <Col lg={1} />
+              <Col lg={4} sm={6}>
                 <div className="single-footer">
                   <h3>Contact Us</h3>
                   <div className="footer-contact">
@@ -125,9 +47,7 @@ function Footer(props) {
                       Address{" "}
                     </h4>
                     <p>
-                      88 road, broklyn street
-                      <br />
-                      new york, usa
+                    부산광역시 부산진구 서면로 51 지하1층
                     </p>
                   </div>
                   <div className="footer-contact">
@@ -135,14 +55,14 @@ function Footer(props) {
                       <FaEnvelope />
                       Email Address
                     </h4>
-                    <p>info@example.com</p>
+                    <p>royale@royale.kr</p>
                   </div>
                   <div className="footer-contact">
                     <h4 className="title">
                       <FaPhoneAlt />
                       Phone{" "}
                     </h4>
-                    <p>777-1234-567</p>
+                    <p>010-9885-9195</p>
                   </div>
                 </div>
               </Col>

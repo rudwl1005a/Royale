@@ -178,3 +178,24 @@ export const getTournament = async (leagueSeq, divisionSeq) => {
     return err.response;
   }
 }
+
+// 리그 신청 API
+export const createApplyApi = async (CreateApplyRequestDto) => {
+  try {
+    const res = await axios.post("/applies", CreateApplyRequestDto);
+    console.log(res);
+    return res;
+  } catch (err) {
+    return err.response;
+  }
+};
+
+
+// 리그 신청 마감 API
+export const closeApplyApi = async (leagueSeq) => {
+  try {
+    const res = await axios.get(`/game/finish/${leagueSeq}`);
+    console.log(res);
+    return res;
+  } catch (err) {}
+};
