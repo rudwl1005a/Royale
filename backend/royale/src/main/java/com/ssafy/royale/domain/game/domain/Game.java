@@ -20,7 +20,7 @@ public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "game_seq")
-    private Long game_seq;
+    private Long gameSeq;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_seq")
