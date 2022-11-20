@@ -7,9 +7,8 @@ import { MdClose } from "react-icons/md";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import hero1 from "../../img/DaveKim_1900x1200.gif";
-import hero2 from "../../img/DaveKim_1452x755.gif";
-import hero3 from "../../img/DB_RM_1900x900.gif";
+import cho from "../../img/cho.gif";
+import dave from "../../img/dave.gif";
 import "./style.css";
 
 function Hero(props) {
@@ -44,38 +43,7 @@ function Hero(props) {
           <div className="slide">
             <div
               className="fag-main-slide"
-              style={{ backgroundImage: `url(${hero1})` }}
-            >
-              <div className="fag-main-caption">
-                <div className="fag-caption-cell">
-                  <Container>
-                    <Row>
-                      <Col sm={12}>
-                        <div className="slider-text">
-                          <h3>There is no losing in jiujitsu</h3>
-                          <h2>You either win or you learn</h2>
-                          <Link
-                            to="/"
-                            onClick={openModal}
-                            className="popup-youtube fag-btn-outline"
-                          >
-                            <span>
-                              <FaPlay />
-                            </span>
-                            Watch Highlight
-                          </Link>
-                        </div>
-                      </Col>
-                    </Row>
-                  </Container>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="slide">
-            <div
-              className="fag-main-slide"
-              style={{ backgroundImage: `url(${hero3})` }}
+              style={{ backgroundImage: `url(${dave})` }}
             >
               <div className="fag-main-caption">
                 <div className="fag-caption-cell">
@@ -106,7 +74,7 @@ function Hero(props) {
           <div className="slide">
             <div
               className="fag-main-slide"
-              style={{ backgroundImage: `url(${hero2})` }}
+              style={{ backgroundImage: `url(${cho})` }}
             >
               <div className="fag-main-caption">
                 <div className="fag-caption-cell">
@@ -114,8 +82,8 @@ function Hero(props) {
                     <Row>
                       <Col sm={12}>
                         <div className="slider-text">
-                          <h3>oss!</h3>
-                          <h2>Let's roll!!</h2>
+                          <h3>There is no losing in jiujitsu</h3>
+                          <h2>You either win or you learn</h2>
                           <Link
                             to="/"
                             onClick={openModal}

@@ -145,6 +145,7 @@ export const gameGet = async (gameSeq) => {
 export const getDivisionSeqAPI = async (divisionRequestDto) => {
   try {
     const res = await axios.post("/division", divisionRequestDto);
+    console.warn(res);
     return res;
   } catch (err) {
     return err.response;
@@ -196,6 +197,8 @@ export const getTournament = async (leagueSeq, divisionSeq) => {
 // 리그 신청 API
 export const createApplyApi = async (CreateApplyRequestDto) => {
   try {
+    console.log("리그 신청 API");
+    console.log(CreateApplyRequestDto);
     const res = await axios.post("/applies", CreateApplyRequestDto);
     console.log(res);
     return res;
@@ -204,10 +207,19 @@ export const createApplyApi = async (CreateApplyRequestDto) => {
   }
 };
 
+// 리그 마감 후 게임 생성 API
+export const createGameApi = async (leagueSeq) => {
+  try {
+    const res = await axios.get(`/game/finish/${leagueSeq}`);
+    console.log(res);
+    return res;
+  } catch (err) {}
+};
+
 // 리그 신청 마감 API
 export const closeApplyApi = async (leagueSeq) => {
   try {
-    const res = await axios.get(`/game/finish/${leagueSeq}`);
+    const res = await axios.patch(`/leagues/close/${leagueSeq}`);
     console.log(res);
     return res;
   } catch (err) {}
@@ -222,4 +234,13 @@ export const lastGameApi = async (leagueSeq) => {
   } catch (err) {
     return err.response;
   }
+}
+
+// 리그 신청 마감 여부 조회 API
+export const getApplyClosedApi = async (leagueSeq) => {
+  try {
+    const res = await axios.get(`/leagues/close/${leagueSeq}`);
+    console.warn(res);
+    return res;
+  } catch (err) {}
 };

@@ -93,7 +93,6 @@ function Index() {
     return (
         <Container className="fag-contact-details-area">
             <div className="button-area">
-정                {/* <h1>Search</h1> */}
                 <SearchBox className="container-style">
                     <input className="input-style" placeholder='검색어를 입력하세요'
                         value={keyword}

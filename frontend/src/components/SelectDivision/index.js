@@ -22,14 +22,7 @@ function SelectDivision() {
     console.warn(getLeagueSeqDto);
     const data = await getDivisionSeqAPI(getLeagueSeqDto);
     setDivisionSeq(data.data);
-    // setDivisionSeqState(data.data);
-    // console.log("divisionSeq: ", divisionSeq, "divisionState: ", divisionSeqState);
-    // divisionFunction(divisionSeqState);
   }
-
-  // useEffect(() => {
-  //   console.log("console: " + divisionSeq);
-  // }, [divisionSeq])
 
   const handleSubmit = async (event) => {
     const getLeagueSeqDto = {
@@ -327,7 +320,7 @@ function SelectDivision() {
             <Col lg={2}>{selectType()}</Col>
             <Col lg={2}>{selectWeight()}</Col>
             <Col lg={2}>
-              <button onClick={handleSubmit}> Select </button>
+              <button onClick={handleSubmit} style={{ backgroundColor: "#ff7a21", color:"white"}}> Select </button>
             </Col>
           </Row>
         </Container>
@@ -346,7 +339,7 @@ export const Select = styled.select`
   line-height: 1.5;
   background: black;
   color: white;
-  border: 2px solid;
+  border: 1px solid #ec7532;
 
   width: 12vw;
   text-indent: 0.5vw;
