@@ -162,9 +162,10 @@ public class GameServiceImpl implements GameService{
     }
 
     @Override
-    public List<LastGameDto> getLastGame() {
+    public List<LastGameDto> getLastGame(Long leagueSeq) {
         List<LastGameDto> result = new ArrayList<>();
-        List<Game> list = gameRepository.findTop8GameByGameWinnerIsNotNullOrderByGameSeqDesc();
+        League league = leagueRepository.findById(leagueSeq).get();
+        List<Game> list = gameRepository.findTop8GameByLeagueAndGameWinnerIsNotNullOrderByGameSeqDesc(league);
         for(Game game : list) {
             User user1 = userRepository.findById(game.getPlayer1_seq().getUser().getUserSeq()).get();
             User user2 = userRepository.findById(game.getPlayer2_seq().getUser().getUserSeq()).get();

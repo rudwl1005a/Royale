@@ -13,5 +13,5 @@ public interface GameService {
     List<TournamentResponseDto> getTournament(Long leagueSeq, Long divisionSeq);
     Game insertCurrentGameScore(GameScoreRequestDto dto);
     GameResponseDto getGameInfo(Long gameSeq);
-    List<LastGameDto> getLastGame();
+    List<LastGameDto> getLastGame(Long leagueSeq);
 }

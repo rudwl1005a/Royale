@@ -18,6 +18,8 @@ function LeagueDetail(props) {
   let { leagueSeq } = useParams();
 
   const [leagueData, setLeagueData] = useState(null);
+
+  const userRole = sessionStorage.getItem("userRole");
   
   useEffect(() => {
     async function getData() {
@@ -125,6 +127,7 @@ function LeagueDetail(props) {
                         </Col>
                       </Row>
                     </Tab>
+                    {userRole === "admin" &&
                     <Tab eventKey="search" title="참가자 조회">
                       <Row>
                         <Col md={12}>
@@ -132,7 +135,7 @@ function LeagueDetail(props) {
                           {/* <LeagueStatus /> */}
                         </Col>
                       </Row>
-                    </Tab>
+                    </Tab>}
                     
                   </Tabs>
                 </div>

@@ -14,6 +14,6 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     int countByLeagueAndDivision(League league, Division division);
     Optional<Game> findTop1ByLeagueAndDivisionAndTournamentRoundText(League league, Division division, int tournamentRoundText);
 
-    List<Game> findTop8GameByGameWinnerIsNotNullOrderByGameSeqDesc();
+    List<Game> findTop8GameByLeagueAndGameWinnerIsNotNullOrderByGameSeqDesc(League league);
 //    List<Game> findAllByGameWinner(long gameWinner);
 }
