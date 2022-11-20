@@ -207,7 +207,6 @@ export const createApplyApi = async (CreateApplyRequestDto) => {
   }
 };
 
-
 // 리그 마감 후 게임 생성 API
 export const createGameApi = async (leagueSeq) => {
   try {
@@ -224,6 +223,17 @@ export const closeApplyApi = async (leagueSeq) => {
     console.log(res);
     return res;
   } catch (err) {}
+};
+
+// 최근 경기 8개 불러오기
+export const lastGameApi = async (leagueSeq) => {
+  try {
+    const res = await axios.get(`/game/last-game.do/${leagueSeq}`);
+    console.log(res);
+    return res;
+  } catch (err) {
+    return err.response;
+  }
 }
 
 // 리그 신청 마감 여부 조회 API

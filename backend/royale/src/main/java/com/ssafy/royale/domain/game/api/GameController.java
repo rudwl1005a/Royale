@@ -46,9 +46,9 @@ public class GameController {
         return new ResponseEntity<>(gameService.insertCurrentGameScore(dto), HttpStatus.OK);
     }
 
-    @GetMapping("/last-game.do")
+    @GetMapping("/last-game.do/{leagueSeq}")
     @ApiOperation(value = "최근 게임 8개 조회")
-    public ResponseEntity<?> getLastGame(){
-        return new ResponseEntity<>(gameService.getLastGame(), HttpStatus.OK);
+    public ResponseEntity<?> getLastGame(@PathVariable Long leagueSeq){
+        return new ResponseEntity<>(gameService.getLastGame(leagueSeq), HttpStatus.OK);
     }
 }
