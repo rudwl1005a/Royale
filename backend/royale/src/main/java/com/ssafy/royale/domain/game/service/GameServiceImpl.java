@@ -4,16 +4,14 @@ import com.ssafy.royale.domain.game.dao.DivisionRepository;
 import com.ssafy.royale.domain.game.dao.GameRepository;
 import com.ssafy.royale.domain.game.domain.Division;
 import com.ssafy.royale.domain.game.domain.Game;
-import com.ssafy.royale.domain.game.dto.GameResponseDto;
-import com.ssafy.royale.domain.game.dto.GameScoreRequestDto;
-import com.ssafy.royale.domain.game.dto.PlayerTree;
-import com.ssafy.royale.domain.game.dto.TournamentResponseDto;
+import com.ssafy.royale.domain.game.dto.*;
 import com.ssafy.royale.domain.game.exception.DivisionNotFoundException;
 import com.ssafy.royale.domain.game.exception.GameNotFoundException;
 import com.ssafy.royale.domain.league.dao.LeagueRepository;
 import com.ssafy.royale.domain.league.domain.League;
 import com.ssafy.royale.domain.league.exception.LeagueNotFoundException;
 import com.ssafy.royale.domain.user.dao.ApplyRepository;
+import com.ssafy.royale.domain.user.dao.UserRepository;
 import com.ssafy.royale.domain.user.domain.Apply;
 import com.ssafy.royale.domain.user.domain.User;
 import com.ssafy.royale.domain.user.dto.ParticipantsDto;
@@ -27,6 +25,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService{
 
+    private final UserRepository userRepository;
     private final ApplyRepository applyRepository;
     private final DivisionRepository divisionRepository;
     private final LeagueRepository leagueRepository;
@@ -117,13 +116,13 @@ public class GameServiceImpl implements GameService{
             }
 
             //마지막 index는 null처리
-            Integer nextMatchId = i == gameList.size()-1 ? null : gameList.get((i/2) + (gameList.size() / 2) + 1).getGame_seq().intValue();
+            Integer nextMatchId = i == gameList.size()-1 ? null : gameList.get((i/2) + (gameList.size() / 2) + 1).getGameSeq().intValue();
             TournamentResponseDto tournamentResponseDto = TournamentResponseDto.builder()
-                    .id(gameList.get(i).getGame_seq().intValue())
+                    .id(gameList.get(i).getGameSeq().intValue())
                     .name(Integer.toString(gameList.get(i).getMatGameNum()))
                     .nextMatchId(nextMatchId)
                     .tournamentRoundText(Integer.toString(gameList.get(i).getTournamentRoundText()))
-                    .startTime(Integer.toString(gameList.get(i).getGame_seq().intValue()))
+                    .startTime(Integer.toString(gameList.get(i).getGameSeq().intValue()))
                     .participants(participantsDtoList)
                     .build();
             tournamentResponseDtoList.add(tournamentResponseDto);
@@ -162,6 +161,26 @@ public class GameServiceImpl implements GameService{
                         .build();
     }
 
+    @Override
+    public List<LastGameDto> getLastGame() {
+        List<LastGameDto> result = new ArrayList<>();
+        List<Game> list = gameRepository.findTop8GameByGameWinnerIsNotNullOrderByGameSeqDesc();
+        for(Game game : list) {
+            User user1 = userRepository.findById(game.getPlayer1_seq().getUser().getUserSeq()).get();
+            User user2 = userRepository.findById(game.getPlayer2_seq().getUser().getUserSeq()).get();
+            LastGameDto lastGameDto = LastGameDto.builder()
+                    .gameSeq(game.getGameSeq())
+                    .apply1name(user1.getUserName())
+                    .apply2name(user2.getUserName())
+                    .apply1score(game.getPlayer1_score())
+                    .apply2score(game.getPlayer2_score())
+                    .division(game.getDivision())
+                    .build();
+            result.add(lastGameDto);
+        }
+        return result;
+    }
+
     /*
     다음게임 인덱스 찾는 공식
     해당 깊이 첫 인덱스가 짝수라면 = (현재인덱스/2) + (길이 * 2의 ^ 2-깊이) + (첫인덱스 + 1 / 2)
@@ -171,13 +190,13 @@ public class GameServiceImpl implements GameService{
         int gameCount = gameRepository.countByLeagueAndDivision(game.getLeague(), game.getDivision()) + 1;
         Optional<Game> firstGame = gameRepository.findTop1ByLeagueAndDivisionAndTournamentRoundText(game.getLeague(), game.getDivision(), game.getTournamentRoundText());
         Long nextGameId = 0L;
-        if(firstGame.get().getGame_seq() %2 == 0){
-            nextGameId = (game.getGame_seq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGame_seq() + 1) / 2);
+        if(firstGame.get().getGameSeq() %2 == 0){
+            nextGameId = (game.getGameSeq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGameSeq() + 1) / 2);
         }else{
-            if(game.getGame_seq() % 2 == 0){
-                nextGameId = (game.getGame_seq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGame_seq() + 1) / 2)-1;
+            if(game.getGameSeq() % 2 == 0){
+                nextGameId = (game.getGameSeq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGameSeq() + 1) / 2)-1;
             }else{
-                nextGameId = (game.getGame_seq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGame_seq() + 1) / 2);
+                nextGameId = (game.getGameSeq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGameSeq() + 1) / 2);
             }
         }
         try {

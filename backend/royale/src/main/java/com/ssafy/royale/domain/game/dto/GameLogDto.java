@@ -25,7 +25,7 @@ public class GameLogDto {
         if (gameLog == null) throw new RuntimeException("엔티티가 null입니다.");
 
         return GameLogDto.builder()
-                .gameSeq(gameLog.getGame().getGame_seq())
+                .gameSeq(gameLog.getGame().getGameSeq())
                 .score1(gameLog.getScore1())
                 .score2(gameLog.getScore2())
                 .advantage1(gameLog.getAdvantage1())

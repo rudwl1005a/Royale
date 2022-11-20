@@ -45,4 +45,10 @@ public class GameController {
         System.out.println(dto);
         return new ResponseEntity<>(gameService.insertCurrentGameScore(dto), HttpStatus.OK);
     }
+
+    @GetMapping("/last-game.do")
+    @ApiOperation(value = "최근 게임 8개 조회")
+    public ResponseEntity<?> getLastGame(){
+        return new ResponseEntity<>(gameService.getLastGame(), HttpStatus.OK);
+    }
 }
