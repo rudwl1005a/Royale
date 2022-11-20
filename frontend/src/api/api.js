@@ -213,3 +213,13 @@ export const closeApplyApi = async (leagueSeq) => {
     return res;
   } catch (err) {}
 };
+
+
+// 리그 신청 마감 여부 조회 API
+export const getApplyClosedApi = async (leagueSeq) => {
+  try {
+    const res = await axios.get(`/game/finish/${leagueSeq}`);
+    console.log(res);
+    return res;
+  } catch (err) {}
+};

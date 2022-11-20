@@ -22,14 +22,7 @@ function SelectDivision() {
     console.warn(getLeagueSeqDto);
     const data = await getDivisionSeqAPI(getLeagueSeqDto);
     setDivisionSeq(data.data);
-    // setDivisionSeqState(data.data);
-    // console.log("divisionSeq: ", divisionSeq, "divisionState: ", divisionSeqState);
-    // divisionFunction(divisionSeqState);
   }
-
-  // useEffect(() => {
-  //   console.log("console: " + divisionSeq);
-  // }, [divisionSeq])
 
   const handleSubmit = async (event) => {
     const getLeagueSeqDto = {
