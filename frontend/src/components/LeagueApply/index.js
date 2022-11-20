@@ -2,8 +2,9 @@ import React, { useEffect, userEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Link } from "react-router-dom";
 
-import { createApplyApi, closeApplyApi } from "../../api/api";
+import { createApplyApi, createGameApi, closeApplyApi, getApplyClosedApi } from "../../api/api";
 import SelectDivision from "../SelectDivision";
 // import SearchTeam from "../SearchTeam";
 
@@ -21,6 +22,7 @@ function LeagueApply(props) {
   const [teamSeq, setTeamSeq] = useState(1);
   const [leagueSeq, setLeagueSeq] = useState(null);
   const { divisionSeq } = divisionStore();
+  const [closed, setClosed] = useState(false);
 
   async function getData(CreateApplyRequestDto) {
     const data = await createApplyApi(CreateApplyRequestDto);
@@ -28,6 +30,9 @@ function LeagueApply(props) {
   
   useEffect(() => {
     setLeagueSeq(props.leagueSeq);
+    console.warn(closed);
+    setClosed(getApplyClosedApi(leagueSeq));
+    console.warn(closed);
     console.log("userSeq >> ", userSeq, ", teamSeq >> ", teamSeq, ", leagueSeq >> ", leagueSeq, ", divisionSeq >> ", divisionSeq);
   }, [leagueSeq]);
   
@@ -39,14 +44,15 @@ function LeagueApply(props) {
       leagueSeq, 
       divisionSeq
     };
-
     getData(CreateApplyRequestDto);
     event.preventDefault();
   };
 
   return (
     <>
-      <section className="checkout-page-area section_100">
+      { closed ? (
+      <div>
+        <section className="checkout-page-area section_100">
         <Container>
 
           <Row>
@@ -112,13 +118,16 @@ function LeagueApply(props) {
                   <Row>
                     <Col lg={12}>
                       <div className="comment-field form-action">
+                        <div>
                         <button
                           type="submit"
                           className="fag-btn"
                           style={{ backgroundColor: "#ff7a21" }}
                         >
-                          Send Message
+                          <Link to={`/leaguelist`}>Apply</Link>
+                          {/* <Link to={`/leaguedetail/${leagueSeq}`}>Apply</Link> */}
                         </button>
+                          </div>
                       </div>
                     </Col>
                   </Row>
@@ -134,7 +143,8 @@ function LeagueApply(props) {
             <Col lg={8}>
             {
               userRole === "admin" &&
-              <button onClick={closeApplyApi(leagueSeq)} type="submit"
+              <button onClick={ () => {createGameApi(leagueSeq); closeApplyApi(leagueSeq)} }
+              type="submit"
               className="fag-btn"
               style={{ backgroundColor: "#ff7a21" }}>대회 마감</button>
             }
@@ -142,6 +152,8 @@ function LeagueApply(props) {
           </Row>
         </Container>
       </section>
+      </div>):(<p>대회가 마감되었습니다.</p>)}
+      
     </>
   );
 }

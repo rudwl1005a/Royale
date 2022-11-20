@@ -33,49 +33,50 @@ function LeagueDetail(props) {
 
   return (
     <>
-      {leagueData ? (
+      {leagueData && leagueSeq ? (
         <section className="fag-breadcrumb-area">
-          <Container>
-            <Row>
-              <Col lg={12}>
-                <div className="games-details-banner">
-                  <Row>
-                    <Col lg={3} sm={4}>
-                      <div className="details-banner-thumb">
-                        <img src={leagueData.leaguePoster} alt="games" />
-                      </div>
-                    </Col>
-                    <Col lg={6} sm={8}>
-                      <div className="details-banner-info">
-                        <h3>
-                          {leagueData.leagueName}
-                          <span className="single_rating">
-                            <AiFillStar />
-                            4.5
+        <Container>
+          <Row>
+            <Col lg={12}>
+              <div className="games-details-banner">
+                <Row>
+                  <Col lg={3} sm={4}>
+                    <div className="details-banner-thumb">
+                      <img src={leagueData.leaguePoster} alt="games" />
+                    </div>
+                  </Col>
+                  <Col lg={6} sm={8}>
+                    <div className="details-banner-info">
+                      <h3>
+                        {leagueData.leagueName}
+                        <span className="single_rating">
+                          <AiFillStar />
+                          4.5
+                        </span>
+                      </h3>
+                      <div className="single_game_meta">
+                        <p className="details-genre">
+                          <FaPlaceOfWorship /> PLACE: {leagueData.leaguePlace}
+                        </p>
+                        <p className="details-time-left">
+                          <FaCalendarAlt />
+                          DATE:{" "}
+                          <span>
+                            {leagueData.leagueDate[0]}/
+                            {leagueData.leagueDate[1]}/
+                            {leagueData.leagueDate[2]}
                           </span>
-                        </h3>
-                        <div className="single_game_meta">
-                          <p className="details-genre">
-                            <FaPlaceOfWorship /> PLACE: {leagueData.leaguePlace}
-                          </p>
-                          <p className="details-time-left">
-                            <FaCalendarAlt />
-                            DATE:{" "}
-                            <span>
-                              {leagueData.leagueDate[0]}/
-                              {leagueData.leagueDate[1]}/
-                              {leagueData.leagueDate[2]}
-                            </span>
-                          </p>
-                        </div>
+                        </p>
                       </div>
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </section>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+        
       ) : (
         ""
       )}
