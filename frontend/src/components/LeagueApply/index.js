@@ -54,7 +54,21 @@ function LeagueApply(props) {
       <div>
         <section className="checkout-page-area section_100">
         <Container>
-
+        { userRole === "admin" ? 
+            <Row>
+            <Col lg={2}/>
+            <Col lg={8}>
+            {
+              userRole === "admin" &&
+              <button onClick={ () => {createGameApi(leagueSeq); closeApplyApi(leagueSeq); window.location.reload();} }
+              type="submit"
+              className="fag-btn"
+              style={{ backgroundColor: "#ff7a21" }}>
+                대회 마감
+                </button>
+            }
+            </Col>
+          </Row> : 
           <Row>
             <Col lg={12}>
               <div className="site-heading">
@@ -135,24 +149,11 @@ function LeagueApply(props) {
                 </form>
               </div>
             </Col>
-            
           </Row>
+        }
           <br/>
           <br/>
-          <Row>
-            <Col lg={2}/>
-            <Col lg={8}>
-            {
-              userRole === "admin" &&
-              <button onClick={ () => {createGameApi(leagueSeq); closeApplyApi(leagueSeq); window.location.reload();} }
-              type="submit"
-              className="fag-btn"
-              style={{ backgroundColor: "#ff7a21" }}>
-                대회 마감
-                </button>
-            }
-            </Col>
-          </Row>
+          
         </Container>
       </section>
       </div>):(<p>대회가 마감되었습니다.</p>)}

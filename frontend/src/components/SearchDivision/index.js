@@ -73,9 +73,13 @@ function SearchDivision() {
     if (divisionType === "Gi-absol" || divisionType === "Nogi-absol") {
       // 앱솔
       return <AbsolWeightSelectBox />;
-    } else if (divisionAge === "Elementary") {
-      // 초등부
-      return <ElemantaryWeightSelectBox />;
+    } else if (
+      divisionAge === "Adult" ||
+      divisionAge === "Master1" ||
+      divisionAge === "Master2" ||
+      divisionAge === "Master3"
+    ) {
+      return <AdultMasterWeightSelectBox />; // 성인부
     } else if (
       setDivisionGender === "F" || // 여성부
       divisionAge === "MiddleSchool" || // 중등부
@@ -83,7 +87,8 @@ function SearchDivision() {
     ) {
       return <FemaleMiddleHighWeightSelectBox />;
     } else {
-      return <AdultMasterWeightSelectBox />; // 성인부
+      // 초등부
+      return <ElemantaryWeightSelectBox />;
     }
   }
 
@@ -96,9 +101,6 @@ function SearchDivision() {
         }}
         value={divisionGender}
       >
-        <option value="" hidden>
-          Gender
-        </option>
         <option value="M">남성부 (Male)</option>
         <option value="F">여성부 (Female)</option>
       </Select>
