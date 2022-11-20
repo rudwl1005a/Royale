@@ -120,6 +120,7 @@ function LeagueApply(props) {
                       <div className="comment-field form-action">
                         <div>
                         <button
+                          // onClick={window.location.reload()}
                           type="submit"
                           className="fag-btn"
                           style={{ backgroundColor: "#ff7a21" }}
@@ -143,10 +144,12 @@ function LeagueApply(props) {
             <Col lg={8}>
             {
               userRole === "admin" &&
-              <button onClick={ () => {createGameApi(leagueSeq); closeApplyApi(leagueSeq)} }
+              <button onClick={ () => {createGameApi(leagueSeq); closeApplyApi(leagueSeq); window.location.reload();} }
               type="submit"
               className="fag-btn"
-              style={{ backgroundColor: "#ff7a21" }}>대회 마감</button>
+              style={{ backgroundColor: "#ff7a21" }}>
+                대회 마감
+                </button>
             }
             </Col>
           </Row>
