@@ -114,9 +114,6 @@ function SearchDivision() {
         }}
         value={divisionAge}
       >
-        <option value="" hidden>
-          Age
-        </option>
         <option value="Elementary">초등부 (Elementary)</option>
         <option value="MiddleSchool">중등부 (Middle School)</option>
         <option value="HighSchool">고등부 (High School)</option>
@@ -137,9 +134,6 @@ function SearchDivision() {
         }}
         value={divisionBelt}
       >
-        <option value="" hidden>
-          Belt
-        </option>
         <option value="Beginner">White 비기너</option>
         <option value="White">White</option>
         <option value="Blue">Blue</option>
@@ -159,9 +153,6 @@ function SearchDivision() {
         }}
         value={divisionBelt}
       >
-        <option value="" hidden>
-          Belt
-        </option>
         <option value="White">White</option>
         <option value="Blue">Blue</option>
         <option value="Purple">Purple</option>
@@ -180,9 +171,6 @@ function SearchDivision() {
         }}
         value={divisionBelt}
       >
-        <option value="" hidden>
-          Belt
-        </option>
         <option value="White">White</option>
         <option value="Blue">Blue</option>
       </Select>
@@ -198,9 +186,6 @@ function SearchDivision() {
         }}
         value={divisionType}
       >
-        <option value="" hidden>
-          Type
-        </option>
         <option value="Gi">기 (gi)</option>
         <option value="Gi-absol">기 앱솔 (gi-absol)</option>
         <option value="Nogi">노기 (nogi)</option>
@@ -217,9 +202,6 @@ function SearchDivision() {
         }}
         value={divisionType}
       >
-        <option value="" hidden>
-          Type
-        </option>
         <option value="Gi">기 (gi)</option>
         <option value="Nogi">노기 (nogi)</option>
       </Select>
@@ -234,9 +216,6 @@ function SearchDivision() {
         }}
         value={divisionWeight}
       >
-        <option value="" hidden>
-          Weight
-        </option>
         <option value="-absol">-absol</option>
         <option value="+absol">+absol</option>
       </Select>
@@ -251,9 +230,6 @@ function SearchDivision() {
         }}
         value={divisionWeight}
       >
-        <option value="" hidden>
-          Weight
-        </option>
         <option value="-57.5kg">-57.5kg</option>
         <option value="-64kg">-64kg</option>
         <option value="-70kg">-70kg</option>
@@ -274,9 +250,6 @@ function SearchDivision() {
         }}
         value={divisionWeight}
       >
-        <option value="" hidden>
-          Weight
-        </option>
         <option value="-47.5kg">-47.5kg</option>
         <option value="-53.5kg">-53.5kg</option>
         <option value="-58.5kg">-58.5kg</option>
@@ -296,9 +269,6 @@ function SearchDivision() {
         }}
         value={divisionWeight}
       >
-        <option value="" hidden>
-          Weight
-        </option>
         <option value="-30kg">-30kg</option>
         <option value="-35kg">-35kg</option>
         <option value="-40kg">-40kg</option>
@@ -327,7 +297,7 @@ function SearchDivision() {
             <Col lg={2}>{selectType()}</Col>
             <Col lg={2}>{selectWeight()}</Col>
             <Col lg={2}>
-              <button onClick={handleSubmit}> Select </button>
+            <button onClick={handleSubmit} style={{ backgroundColor: "#ff7a21", color:"white"}}> Select </button>
             </Col>
           </Row>
         </Container>
@@ -346,7 +316,7 @@ export const Select = styled.select`
   line-height: 1.5;
   background: black;
   color: white;
-  border: 2px solid;
+  border: 1px solid #ec7532;
 
   width: 12vw;
   text-indent: 0.5vw;
