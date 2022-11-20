@@ -20,7 +20,9 @@ function Contact(props) {
                 </div>
                 <div className="contact-text">
                   <p>
-                    City Street Suice 2/A Sydney, <br /> Australia 58000
+                  부산광역시 부산진구 서면로 51 지하1층
+                  <br/>
+                  주짓수랜드
                   </p>
                 </div>
               </div>
@@ -34,8 +36,8 @@ function Contact(props) {
                   <h4>Phones</h4>
                 </div>
                 <div className="contact-text">
-                  <p>+008 - 5069 - 9600</p>
-                  <p>+009 - 5069 - 5801</p>
+                  <p>051 - 000 - 0000</p>
+                  <p>010 - 9885 - 9195</p>
                 </div>
               </div>
             </Col>
@@ -48,8 +50,8 @@ function Contact(props) {
                   <h4>Email</h4>
                 </div>
                 <div className="contact-text">
-                  <p>support@example.com</p>
-                  <p>info@example.com</p>
+                  <p>royale@royale.kr</p>
+                  <p>choch953@gmail.com</p>
                 </div>
               </div>
             </Col>
@@ -66,11 +68,6 @@ function Contact(props) {
                 <h2 className="heading_animation">
                   Send <span>Message</span>
                 </h2>
-                <p>
-                  blanditiis praesentium voluptatum deleniti atque
-                  corrupti.accusamus et iusto odio corrupti.accusamus et iusto
-                  odioiusto odio dignissimos ducimus qui blanditiis
-                </p>
               </div>
             </Col>
           </Row>

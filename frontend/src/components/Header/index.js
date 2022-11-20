@@ -1,23 +1,32 @@
-import React, { useState } from "react";
+import { React, useState } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MobileMenu from "../MobileMenu";
-// import logo from "../../img/Logo_LeagueRoyale_black.png";
 import logo from "../../img/Logo_Royale_black.png";
-import admin from "../../img/admin.jpg";
+import admin from "../../img/royale.png";
+import { useNavigate } from "react-router-dom";
 
 import "./style.css";
 
 function Header(props) {
-  // const [show, setShow] = useState(false);
 
-  // const SubmitHandler = (e) => {
-  //   e.preventDefault();
-  // };
+  const navigate = useNavigate();
+
+  // 로그인 변수
+  const isLogin = sessionStorage.getItem("userEmail") === null ? false : true;
+  const userRole = sessionStorage.getItem("userRole");
+  const userName = sessionStorage.getItem("userName");
 
   const onClick = (e) => {
     e.preventDefault();
   };
+
+  const logout = (e) => {
+    e.preventDefault();
+    sessionStorage.clear();
+    alert('로그아웃 하셨습니다.')
+    navigate(`../`);
+  }
 
   const [state, setstate] = useState(false);
   const changeClass = () => {
@@ -47,36 +56,34 @@ function Header(props) {
                       <Link to="/">Home</Link>
                     </li>
                     <li>
-                      {" "}
-                      {/* <li className="has-sub"> */}
                       <Link to="/" onClick={onClick}>
                         League
                       </Link>
                       <ul>
-                        <li>
+                        {/* <li>
                           <Link to="/about">About Us</Link>
-                        </li>
+                        </li> */}
                         <li>
-                          <Link to="/leaguelist">schedule</Link>
+                          <Link to="/leaguelist">Leagues</Link>
                         </li>
                         <li>
                           <Link to="/rule">Rule</Link>
                         </li>
                       </ul>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link to="/" onClick={onClick}>
                         Rank
                       </Link>
                       <ul>
                         <li>
-                          <Link to="/personalRank">개인 랭킹</Link>
+                          <Link to="/personalRank">Personal</Link>
                         </li>
                         <li>
-                          <Link to="/teamRank">팀별 랭킹</Link>
+                          <Link to="/teamRank">Team</Link>
                         </li>
                       </ul>
-                    </li>
+                    </li> */}
                     <li>
                       <a
                         href="http://jiujitsuroyale.com/"
@@ -103,41 +110,43 @@ function Header(props) {
               </div>
               <div className="header-right d-flex align-items-center justify-content-between">
                 <div className="header-auth">
-                  <Link to="/" onClick={onClick} className="lang-btn">
-                    <img src={admin} alt="admin" />
-                    Dave
-                  </Link>
+                  {isLogin === false ? 
+                    <Link to="/" onClick={onClick} className="lang-btn">
+                      MENU
+                    </Link>
+                    :
+                    <Link to="/" onClick={onClick} className="lang-btn">
+                      <img src={admin} alt="admin" />
+                      {userName}
+                    </Link>
+                  }
                   <ul className="user_menu">
+                    {userRole === "admin" && 
+                      <div>
+                        {/* <li>
+                      <Link to="/searchApplicant">Search</Link>
+                    </li> */}
                     <li>
-                      <Link to="/" onClick={onClick}>
-                        Profile
-                      </Link>
+                      <Link to="/createLeague">league</Link>
                     </li>
+                      </div>
+                    }
+                    {isLogin === false ? 
+                    <div>
+                      <li>
+                        <Link to="/register">Register</Link>
+                      </li>
+                      <li>
+                        <Link to="/login">Login</Link>
+                      </li>
+                    </div>
+                    :
                     <li>
-                      <Link to="/" onClick={onClick}>
-                        Forums
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" onClick={onClick}>
-                        Message
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" onClick={onClick}>
-                        challenges
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" onClick={onClick}>
-                        Settings
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/" onClick={onClick}>
+                      <Link to="/" onClick={logout}>
                         Logout
                       </Link>
                     </li>
+                  }
                   </ul>
                 </div>
               </div>

@@ -12,7 +12,7 @@ const menus = [
   },
   {
     id: 2,
-    title: "Pages",
+    title: "League",
     link: "/",
     submenu: [
       {
@@ -22,55 +22,30 @@ const menus = [
       },
       {
         id: 22,
-        title: "Our Games",
-        link: "/games",
+        title: "Leagues",
+        link: "/leaguelist",
       },
       {
         id: 23,
-        title: "Games Single",
-        link: "/game-single",
-      },
-      {
-        id: 24,
-        title: "Matches",
-        link: "/match",
-      },
-      {
-        id: 25,
-        title: "Matches Single",
-        link: "/match-single",
-      },
-      {
-        id: 26,
-        title: "404 Error",
-        link: "/error",
-      },
-      {
-        id: 27,
-        title: "Login",
-        link: "/login",
-      },
-      {
-        id: 28,
-        title: "Register",
-        link: "/register",
+        title: "Rule",
+        link: "/rule",
       },
     ],
   },
   {
     id: 3,
-    title: "News",
+    title: "Rank",
     link: "/",
     submenu: [
       {
         id: 31,
-        title: "All News",
-        link: "/blog",
+        title: "Personal",
+        link: "/personalRank",
       },
       {
         id: 32,
-        title: "News Single",
-        link: "/blog-single",
+        title: "Team",
+        link: "/teamRank",
       },
     ],
   },
@@ -78,31 +53,14 @@ const menus = [
     id: 4,
     title: "Store",
     link: "/",
-    submenu: [
-      {
-        id: 41,
-        title: "All Products",
-        link: "/products",
-      },
-      {
-        id: 42,
-        title: "Product Single",
-        link: "/product-single",
-      },
-      {
-        id: 43,
-        title: "Cart",
-        link: "/cart",
-      },
-      {
-        id: 44,
-        title: "Checkout",
-        link: "/checkout",
-      },
-    ],
   },
   {
     id: 5,
+    title: "Video",
+    link: "/video",
+  },
+  {
+    id: 6,
     title: "Contact",
     link: "/contact",
   },

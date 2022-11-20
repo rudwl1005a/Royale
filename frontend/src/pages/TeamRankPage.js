@@ -2,7 +2,7 @@ import React from "react";
 
 import Header from "../components/Header";
 import PageTitle from "../components/PageTitle";
-import TeamRank from "../components/TeamRank";
+// import TeamRank from "../components/TeamRank";
 import Footer from "../components/Footer";
 
 const TeamRankPage = () => {
@@ -16,7 +16,7 @@ const TeamRankPage = () => {
           </>
         }
       />
-      <TeamRank />
+      {/* <TeamRank /> */}
       <Footer />
     </>
   );

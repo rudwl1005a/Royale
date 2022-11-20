@@ -7,9 +7,8 @@ import { MdClose } from "react-icons/md";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import hero1 from "../../img/slider-1.jpg";
-import hero2 from "../../img/slider-2.jpg";
-import hero3 from "../../img/promo-bg.jpg";
+import cho from "../../img/cho.gif";
+import dave from "../../img/dave.gif";
 import "./style.css";
 
 function Hero(props) {
@@ -44,7 +43,7 @@ function Hero(props) {
           <div className="slide">
             <div
               className="fag-main-slide"
-              style={{ backgroundImage: `url(${hero1})` }}
+              style={{ backgroundImage: `url(${dave})` }}
             >
               <div className="fag-main-caption">
                 <div className="fag-caption-cell">
@@ -52,8 +51,8 @@ function Hero(props) {
                     <Row>
                       <Col sm={12}>
                         <div className="slider-text">
-                          <h3>Drive Fast</h3>
-                          <h2>Speedy Race</h2>
+                          <h3>Dave Kim</h3>
+                          <h2>1% better every single day</h2>
                           <Link
                             to="/"
                             onClick={openModal}
@@ -62,7 +61,7 @@ function Hero(props) {
                             <span>
                               <FaPlay />
                             </span>
-                            Watch Trailer
+                            Watch Highlight
                           </Link>
                         </div>
                       </Col>
@@ -75,7 +74,7 @@ function Hero(props) {
           <div className="slide">
             <div
               className="fag-main-slide"
-              style={{ backgroundImage: `url(${hero3})` }}
+              style={{ backgroundImage: `url(${cho})` }}
             >
               <div className="fag-main-caption">
                 <div className="fag-caption-cell">
@@ -83,8 +82,8 @@ function Hero(props) {
                     <Row>
                       <Col sm={12}>
                         <div className="slider-text">
-                          <h3>Extreme Warrior</h3>
-                          <h2>Realistic battles</h2>
+                          <h3>There is no losing in jiujitsu</h3>
+                          <h2>You either win or you learn</h2>
                           <Link
                             to="/"
                             onClick={openModal}
@@ -93,38 +92,7 @@ function Hero(props) {
                             <span>
                               <FaPlay />
                             </span>
-                            Watch Trailer
-                          </Link>
-                        </div>
-                      </Col>
-                    </Row>
-                  </Container>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="slide">
-            <div
-              className="fag-main-slide"
-              style={{ backgroundImage: `url(${hero2})` }}
-            >
-              <div className="fag-main-caption">
-                <div className="fag-caption-cell">
-                  <Container>
-                    <Row>
-                      <Col sm={12}>
-                        <div className="slider-text">
-                          <h3>action Games</h3>
-                          <h2>Realistic battles</h2>
-                          <Link
-                            to="/"
-                            onClick={openModal}
-                            className="popup-youtube fag-btn-outline"
-                          >
-                            <span>
-                              <FaPlay />
-                            </span>
-                            Watch Trailer
+                            Watch Highlight
                           </Link>
                         </div>
                       </Col>
@@ -155,7 +123,7 @@ function Hero(props) {
                   loading="lazy"
                   width="800"
                   height="500"
-                  src="https://www.youtube.com/embed/3SAuuHCOkyI"
+                  src="https://www.youtube.com/embed/DH8CwiSW2aU"
                   title="YouTube video player"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

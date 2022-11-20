@@ -1,6 +1,7 @@
 package com.ssafy.royale.domain.league.domain;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @Getter
+@Setter
 @ToString
 public class League {
     @Id
@@ -25,6 +27,8 @@ public class League {
     private LocalDateTime leagueDeadline;
     private String leaguePoster;
     private String leagueInfo;
+
+    private Boolean leagueClose;
     @CreationTimestamp
     @Column(name = "REG_DTM", nullable = false)
     private LocalDateTime REG_DTM;

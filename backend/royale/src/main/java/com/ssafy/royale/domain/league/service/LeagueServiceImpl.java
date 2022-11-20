@@ -4,15 +4,23 @@ import com.ssafy.royale.domain.league.dao.LeagueRepository;
 import com.ssafy.royale.domain.league.domain.League;
 import com.ssafy.royale.domain.league.dto.CreateLeagueRequestDto;
 import com.ssafy.royale.domain.league.dto.UpdateLeagueRequestDto;
+import com.ssafy.royale.global.util.S3Uploader;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Service("leagueService")
 @RequiredArgsConstructor
 @Transactional
 public class LeagueServiceImpl implements LeagueService{
+
+    @Autowired
+    S3Uploader s3Uploader;
 
     @Autowired
     LeagueRepository leagueRepository;
@@ -28,11 +36,27 @@ public class LeagueServiceImpl implements LeagueService{
                 .leaguePlace(createLeagueRequestDto.getLeaguePlace())
                 .leagueDate(createLeagueRequestDto.getLeagueDate())
                 .leagueDeadline(createLeagueRequestDto.getLeagueDeadline())
-                .leaguePoster(createLeagueRequestDto.getLeaguePoster())
                 .leagueInfo(createLeagueRequestDto.getLeagueInfo())
+                .leagueClose(false)
                 .build();
 
         return leagueRepository.save(league);
+    }
+
+    @Override
+    public String updateLeaguePoster(Long leagueSeq, MultipartFile poster) throws IOException {
+
+        System.out.println("leagueSeq >>> " + leagueSeq);
+        System.out.println("MultipartFile >>> " + poster);
+
+        // S3에 저장
+        String posterURL = s3Uploader.upload(poster, "leaguePoster");
+
+        // DB에 저장
+        League updateLeague = leagueRepository.findById(leagueSeq).get();
+        updateLeague.setLeaguePoster(posterURL);
+
+        return posterURL;
     }
 
     /**
@@ -66,5 +90,19 @@ public class LeagueServiceImpl implements LeagueService{
     @Override
     public void deleteLeague(League league) {
         leagueRepository.delete(league);
+    }
+
+    /**
+     * 대회 신청 마감
+     */
+    @Override
+    public Boolean closeLeague(long leagueSeq) {
+
+        League updateLeague = leagueRepository.findByLeagueSeq(leagueSeq).get();
+        updateLeague.setLeagueClose(true);
+
+        leagueRepository.save(updateLeague);
+
+        return updateLeague.getLeagueClose();
     }
 }

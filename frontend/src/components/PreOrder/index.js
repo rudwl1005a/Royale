@@ -16,12 +16,13 @@ function PreOrder(props) {
             <Row>
               <div className="col-12 text-center">
                 <div className="preorder-box">
-                  <p>release in 10 days</p>
+                  <p></p>
                   <h3>
-                    SteamWorld Quest <span>Hand of Gilgamech</span>
+                    <span>Heroes are born at </span>
+                    league Royale
                   </h3>
-                  <Link to="/" onClick={onClick} className="fag-btn-outline">
-                    Pre-Order Now!
+                  <Link to="/leaguelist" onClick={onClick} className="fag-btn-outline">
+                    Apply Now!
                   </Link>
                 </div>
               </div>

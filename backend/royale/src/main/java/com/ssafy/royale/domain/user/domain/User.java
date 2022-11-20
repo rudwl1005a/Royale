@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Builder
@@ -31,6 +32,8 @@ public class User {
     private String userPhone;
     @Column(name = "user_token", unique = false, nullable = true)
     private String userToken;
+    @Column(name = "user_role", unique = false, nullable = true)
+    private String userRole;
 
     @CreationTimestamp
     @Column(name = "REG_DTM", nullable = false)
@@ -39,6 +42,9 @@ public class User {
     @UpdateTimestamp
     @Column(name = "MOD_DTM", nullable = true)
     private LocalDateTime MOD_DTM;
+
+    @OneToMany(mappedBy = "user")
+    private List<Apply> applies;
 
     public void updateUser(String userPassword, String userName, String userPhone) {
         this.userPassword = userPassword;
