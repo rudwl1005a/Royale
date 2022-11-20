@@ -21,7 +21,7 @@ function PreOrder(props) {
                     <span>Heroes are born at </span>
                     league Royale
                   </h3>
-                  <Link to="/" onClick={onClick} className="fag-btn-outline">
+                  <Link to="/leaguelist" onClick={onClick} className="fag-btn-outline">
                     Apply Now!
                   </Link>
                 </div>
