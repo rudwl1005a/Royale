@@ -117,13 +117,13 @@ public class GameServiceImpl implements GameService{
             }
 
             //마지막 index는 null처리
-            Integer nextMatchId = i == gameList.size()-1 ? null : gameList.get((i/2) + (gameList.size() / 2) + 1).getGame_seq().intValue();
+            Integer nextMatchId = i == gameList.size()-1 ? null : gameList.get((i/2) + (gameList.size() / 2) + 1).getGameSeq().intValue();
             TournamentResponseDto tournamentResponseDto = TournamentResponseDto.builder()
-                    .id(gameList.get(i).getGame_seq().intValue())
+                    .id(gameList.get(i).getGameSeq().intValue())
                     .name(Integer.toString(gameList.get(i).getMatGameNum()))
                     .nextMatchId(nextMatchId)
                     .tournamentRoundText(Integer.toString(gameList.get(i).getTournamentRoundText()))
-                    .startTime(Integer.toString(gameList.get(i).getGame_seq().intValue()))
+                    .startTime(Integer.toString(gameList.get(i).getGameSeq().intValue()))
                     .participants(participantsDtoList)
                     .build();
             tournamentResponseDtoList.add(tournamentResponseDto);
@@ -171,13 +171,13 @@ public class GameServiceImpl implements GameService{
         int gameCount = gameRepository.countByLeagueAndDivision(game.getLeague(), game.getDivision()) + 1;
         Optional<Game> firstGame = gameRepository.findTop1ByLeagueAndDivisionAndTournamentRoundText(game.getLeague(), game.getDivision(), game.getTournamentRoundText());
         Long nextGameId = 0L;
-        if(firstGame.get().getGame_seq() %2 == 0){
-            nextGameId = (game.getGame_seq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGame_seq() + 1) / 2);
+        if(firstGame.get().getGameSeq() %2 == 0){
+            nextGameId = (game.getGameSeq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGameSeq() + 1) / 2);
         }else{
-            if(game.getGame_seq() % 2 == 0){
-                nextGameId = (game.getGame_seq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGame_seq() + 1) / 2)-1;
+            if(game.getGameSeq() % 2 == 0){
+                nextGameId = (game.getGameSeq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGameSeq() + 1) / 2)-1;
             }else{
-                nextGameId = (game.getGame_seq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGame_seq() + 1) / 2);
+                nextGameId = (game.getGameSeq()/2) + (int)(gameCount *  Math.pow(2, (-1) * game.getTournamentRoundText())) + ((firstGame.get().getGameSeq() + 1) / 2);
             }
         }
         try {
