@@ -16,6 +16,8 @@ function LeagueApply(props) {
 
   const userSeq = sessionStorage.getItem("userSeq");
   const userName = sessionStorage.getItem("userName");
+  const userRole = sessionStorage.getItem("userRole");
+
   const [teamSeq, setTeamSeq] = useState(1);
   const [leagueSeq, setLeagueSeq] = useState(null);
   const { divisionSeq } = divisionStore();
@@ -125,7 +127,19 @@ function LeagueApply(props) {
             </Col>
             
           </Row>
-            <button onClick={closeApplyApi(leagueSeq)}>대회 마감</button>
+          <br/>
+          <br/>
+          <Row>
+            <Col lg={2}/>
+            <Col lg={8}>
+            {
+              userRole === "admin" &&
+              <button onClick={closeApplyApi(leagueSeq)} type="submit"
+              className="fag-btn"
+              style={{ backgroundColor: "#ff7a21" }}>대회 마감</button>
+            }
+            </Col>
+          </Row>
         </Container>
       </section>
     </>

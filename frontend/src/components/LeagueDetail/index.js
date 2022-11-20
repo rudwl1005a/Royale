@@ -6,13 +6,16 @@ import { useParams } from "react-router-dom";
 import LeagueInfo from "../LeagueInfo";
 import LeagueApply from "../LeagueApply";
 import LeagueStatus from "../LeagueStatus";
-import SelectDivision from "../SelectDivision";
+import SearchDivision from "../SearchDivision";
 import SearchApplicant from "../SearchApplicant";
 
 import "./style.css";
 import Daejin from "../Tournament/Tournament";
 import { getLeagueApi } from "../../api/api";
 
+import video_img from "../../img/leagueInfo_video.png";
+import rank_img from "../../img/leagueInfo_rank.png";
+import money_img from "../../img/leagueInfo_money.png";
 
 function LeagueDetail(props) {
   let { leagueSeq } = useParams();
@@ -100,6 +103,22 @@ function LeagueDetail(props) {
                           )}
                         </Col>
                       </Row>
+                      <br/><br/>
+                      <Row>
+                        <Col md={4}>
+                          <img src={video_img} alt="video" width="30%"/>
+                          <p><br />리그로얄의 모든 시합은 4k로 촬영되어 웹사이트에 무료 업로드 됩니다. 참가한 선수들의 개인 프로필에 해당 영상이 태그되며, 본인을 포함한 다른 선수들의 경기 영상을 언제든지 검색, 확인할 수 있습니다.</p>
+                        </Col>
+                        <Col md={4}>
+                        <img src={rank_img} alt="rank" width="30%" />
+                        <p><br />리그로얄은 대회에 참가하는 모든 선수들의 승패 프로필을 기록하여 새로운 순위 집계 시스템을 제공합니다.<br /> 각 벨트의 상위권 선수들은 매년  3회 개최되는 상금을 건 “Super Fight” 형식의 대회에 참가하는 자격을 갖게 됩니다.</p>
+                        </Col>
+                        <Col md={4}>
+                        <img src={money_img} alt="money" width="30%" text-align = "center"/>
+                        <br />
+                        <p><br />어덜트 앱솔루트 우승자에게 상금이 지급됩니다!</p>
+                        </Col>
+                      </Row>
                     </Tab>
                     <Tab eventKey="applies" title="대회 신청">
                       <Row>
@@ -111,7 +130,7 @@ function LeagueDetail(props) {
                     <Tab eventKey="matches" title="대진표">
                       <Row>
                         <Col md={12}>
-                          <SelectDivision/>
+                          <SearchDivision/>
                           <br />
                           <br />
                           <Daejin leagueSeq={leagueSeq} />
