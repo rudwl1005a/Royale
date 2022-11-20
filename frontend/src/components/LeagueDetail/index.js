@@ -1,35 +1,27 @@
-// import React, { useState } from "react";
 import { React, useEffect, useState } from "react";
 import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 import { FaPlaceOfWorship, FaCalendarAlt } from "react-icons/fa";
 import { AiFillStar } from "react-icons/ai";
-// import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-import { Link, useParams } from "react-router-dom";
-import img from "../../img/game-4.jpg";
-import feature1 from "../../img/feature-1.png";
-import feature2 from "../../img/feature-2.png";
-import feature3 from "../../img/feature-3.png";
-import feature4 from "../../img/feature-4.png";
-import author1 from "../../img/4.jpg";
-import author2 from "../../img/5.jpg";
-
+import { useParams } from "react-router-dom";
 import LeagueInfo from "../LeagueInfo";
 import LeagueApply from "../LeagueApply";
 import LeagueStatus from "../LeagueStatus";
-import SelectDivision from "../SelectDivision";
+import SearchDivision from "../SearchDivision";
+import SearchApplicant from "../SearchApplicant";
 
 import "./style.css";
 import Daejin from "../Tournament/Tournament";
 import { getLeagueApi } from "../../api/api";
 
+import video_img from "../../img/leagueInfo_video.png";
+import rank_img from "../../img/leagueInfo_rank.png";
+import money_img from "../../img/leagueInfo_money.png";
 
 function LeagueDetail(props) {
   let { leagueSeq } = useParams();
 
   const [leagueData, setLeagueData] = useState(null);
-  // const divisionFunction = (value) => {
-  //   console.log("divisionFunction: ",value);
-  // }
+  
   useEffect(() => {
     async function getData() {
       const { data } = await getLeagueApi(leagueSeq);
@@ -39,87 +31,58 @@ function LeagueDetail(props) {
     getData();
   }, []);
 
-
-
-  // const [modal, setModal] = useState(false);
-  // const [videoLoading, setVideoLoading] = useState(true);
-
-  // const closeModal = () => {
-  //   setModal(false);
-  // };
-  // const openModal = () => {
-  //   setModal(true);
-  // };
-
-  // const spinner = () => {
-  //   setVideoLoading(!videoLoading);
-  // };
   return (
     <>
-      {leagueData ? (
+      {leagueData && leagueSeq ? (
         <section className="fag-breadcrumb-area">
-          <Container>
-            <Row>
-              <Col lg={12}>
-                <div className="games-details-banner">
-                  <Row>
-                    <Col lg={3} sm={4}>
-                      <div className="details-banner-thumb">
-                        {/* <img src={img} alt="games" /> */}
-                        <img src={leagueData.leaguePoster} alt="games" />
-                      </div>
-                    </Col>
-                    <Col lg={6} sm={8}>
-                      <div className="details-banner-info">
-                        <h3>
-                          {leagueData.leagueName}
-                          <span className="single_rating">
-                            <AiFillStar />
-                            4.5
+        <Container>
+          <Row>
+            <Col lg={12}>
+              <div className="games-details-banner">
+                <Row>
+                  <Col lg={3} sm={4}>
+                    <div className="details-banner-thumb">
+                      <img src={leagueData.leaguePoster} alt="games" />
+                    </div>
+                  </Col>
+                  <Col lg={6} sm={8}>
+                    <div className="details-banner-info">
+                      <h3>
+                        {leagueData.leagueName}
+                        <span className="single_rating">
+                          <AiFillStar />
+                          4.5
+                        </span>
+                      </h3>
+                      <div className="single_game_meta">
+                        <p className="details-genre">
+                          <FaPlaceOfWorship /> PLACE: {leagueData.leaguePlace}
+                        </p>
+                        <p className="details-time-left">
+                          <FaCalendarAlt />
+                          DATE:{" "}
+                          <span>
+                            {leagueData.leagueDate[0]}/
+                            {leagueData.leagueDate[1]}/
+                            {leagueData.leagueDate[2]}
                           </span>
-                        </h3>
-                        <div className="single_game_meta">
-                          <p className="details-genre">
-                            <FaPlaceOfWorship /> PLACE: {leagueData.leaguePlace}
-                          </p>
-                          <p className="details-time-left">
-                            <FaCalendarAlt />
-                            DATE:{" "}
-                            <span>
-                              {leagueData.leagueDate[0]}/
-                              {leagueData.leagueDate[1]}/
-                              {leagueData.leagueDate[2]}
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                    </Col>
-                    <Col lg={3}>
-                      <div className="game-price single_game_price">
-                        <h4>₩ 50,000 ~ </h4>
-                        <p className="off">
-                          <del>$56.99</del>
-                          <span />
-                          50% OFF
                         </p>
                       </div>
-                      <div className="details-banner-action">
-                        <Link to="/" className="fag-btn">
-                          Buy Now
-                        </Link>
-                      </div>
-                    </Col>
-                  </Row>
-                </div>
-              </Col>
-            </Row>
-          </Container>
-        </section>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+        
       ) : (
         ""
       )}
 
       <section className="fag-games-details-page section_100">
+        <br/>
         <Container>
           <Row className="justify-content-end">
             <Col lg={12}>
@@ -141,6 +104,22 @@ function LeagueDetail(props) {
                           )}
                         </Col>
                       </Row>
+                      <br/><br/>
+                      <Row>
+                        <Col md={4}>
+                          <img src={video_img} alt="video" width="30%"/>
+                          <p><br />리그로얄의 모든 시합은 4k로 촬영되어 웹사이트에 무료 업로드 됩니다. 참가한 선수들의 개인 프로필에 해당 영상이 태그되며, 본인을 포함한 다른 선수들의 경기 영상을 언제든지 검색, 확인할 수 있습니다.</p>
+                        </Col>
+                        <Col md={4}>
+                        <img src={rank_img} alt="rank" width="30%" />
+                        <p><br />리그로얄은 대회에 참가하는 모든 선수들의 승패 프로필을 기록하여 새로운 순위 집계 시스템을 제공합니다.<br /> 각 벨트의 상위권 선수들은 매년  3회 개최되는 상금을 건 “Super Fight” 형식의 대회에 참가하는 자격을 갖게 됩니다.</p>
+                        </Col>
+                        <Col md={4}>
+                        <img src={money_img} alt="money" width="30%" text-align = "center"/>
+                        <br />
+                        <p><br />어덜트 앱솔루트 우승자에게 상금이 지급됩니다!</p>
+                        </Col>
+                      </Row>
                     </Tab>
                     <Tab eventKey="applies" title="대회 신청">
                       <Row>
@@ -152,7 +131,7 @@ function LeagueDetail(props) {
                     <Tab eventKey="matches" title="대진표">
                       <Row>
                         <Col md={12}>
-                          <SelectDivision/>
+                          <SearchDivision/>
                           <br />
                           <br />
                           <Daejin leagueSeq={leagueSeq} />
@@ -166,237 +145,15 @@ function LeagueDetail(props) {
                         </Col>
                       </Row>
                     </Tab>
-                    <Tab eventKey="features" title="Features">
-                      <div className="tab-gamess-details">
-                        <Row>
-                          <Col md={12}>
-                            {/* <LeagueApply /> */}
-                            <div className="tab-body">
-                              <Row>
-                                <Col lg={6} sm={6}>
-                                  <div className="features-game">
-                                    <div className="feature-image">
-                                      <img src={feature1} alt="feature" />
-                                    </div>
-                                    <div className="feature-text">
-                                      <h3>horor &amp; Adventure</h3>
-                                      <p>
-                                        Lorem ipsum is simply are many
-                                        variations of pass of majority.
-                                      </p>
-                                    </div>
-                                  </div>
-                                </Col>
-                                <Col lg={6} sm={6}>
-                                  <div className="features-game">
-                                    <div className="feature-image">
-                                      <img src={feature2} alt="feature" />
-                                    </div>
-                                    <div className="feature-text">
-                                      <h3>Multi Players</h3>
-                                      <p>
-                                        Lorem ipsum is simply are many
-                                        variations of pass of majority.
-                                      </p>
-                                    </div>
-                                  </div>
-                                </Col>
-                                <Col lg={6} sm={6}>
-                                  <div className="features-game">
-                                    <div className="feature-image">
-                                      <img src={feature3} alt="feature" />
-                                    </div>
-                                    <div className="feature-text">
-                                      <h3>Real GraphicHeroes</h3>
-                                      <p>
-                                        Lorem ipsum is simply are many
-                                        variations of pass of majority.
-                                      </p>
-                                    </div>
-                                  </div>
-                                </Col>
-                                <Col lg={6} sm={6}>
-                                  <div className="features-game">
-                                    <div className="feature-image">
-                                      <img src={feature4} alt="feature" />
-                                    </div>
-                                    <div className="feature-text">
-                                      <h3>Smooth Controlling</h3>
-                                      <p>
-                                        Lorem ipsum is simply are many
-                                        variations of pass of majority.
-                                      </p>
-                                    </div>
-                                  </div>
-                                </Col>
-                              </Row>
-                            </div>
-                          </Col>
-                        </Row>
-                      </div>
+                    <Tab eventKey="search" title="참가자 조회">
+                      <Row>
+                        <Col md={12}>
+                        <SearchApplicant/>
+                          {/* <LeagueStatus /> */}
+                        </Col>
+                      </Row>
                     </Tab>
-                    <Tab eventKey="reviews" title="reviews">
-                      <div className="tab-gamess-details">
-                        <Row>
-                          <Col md={12}>
-                            <div className="tab-body">
-                              <div className="fag-comment-list">
-                                <div className="single-comment-item">
-                                  <div className="single-comment-box">
-                                    <div className="main-comment">
-                                      <div className="author-image">
-                                        <img src={author1} alt="author" />
-                                      </div>
-                                      <div className="comment-text">
-                                        <div className="comment-info">
-                                          <h4>david kamal</h4>
-                                          <ul>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                          </ul>
-                                          <p>4 minitues ago</p>
-                                        </div>
-                                        <div className="comment-text-inner">
-                                          <p>
-                                            Ne erat velit invidunt his. Eum in
-                                            dicta veniam interesset, harum lupta
-                                            definitionem. Vocibus suscipit
-                                            prodesset vim ei, equidem perpetua
-                                            eu per.
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="single-comment-box comment_reply">
-                                    <div className="main-comment">
-                                      <div className="author-image">
-                                        <img src={author2} alt="author" />
-                                      </div>
-                                      <div className="comment-text">
-                                        <div className="comment-info">
-                                          <h4>Jerix Ablin</h4>
-                                          <ul>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                          </ul>
-                                          <p>12 minitues ago</p>
-                                        </div>
-                                        <div className="comment-text-inner">
-                                          <p>
-                                            orem ipsum dolor sit amet,
-                                            consectetur adipisicing elit. Velit
-                                            omnis animi et iure laudantium
-                                            vitae, praesentium optio, sapiente
-                                            distinctio illo?{" "}
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="single-comment-box">
-                                    <div className="main-comment">
-                                      <div className="author-image">
-                                        <img src={author1} alt="author" />
-                                      </div>
-                                      <div className="comment-text">
-                                        <div className="comment-info">
-                                          <h4>david kamal</h4>
-                                          <ul>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                            <li>
-                                              <AiFillStar />
-                                            </li>
-                                          </ul>
-                                          <p>4 minitues ago</p>
-                                        </div>
-                                        <div className="comment-text-inner">
-                                          <p>
-                                            Ne erat velit invidunt his. Eum in
-                                            dicta veniam interesset, harum lupta
-                                            definitionem. Vocibus suscipit
-                                            prodesset vim ei, equidem perpetua
-                                            eu per.
-                                          </p>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              {/* /end comment list */}
-                              <div className="fag-leave-comment">
-                                <form>
-                                  <Row>
-                                    <Col lg={12}>
-                                      <div className="comment-field">
-                                        <textarea
-                                          className="comment"
-                                          placeholder="Comment..."
-                                          name="comment"
-                                          defaultValue={""}
-                                        />
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                  <Row>
-                                    <Col lg={12}>
-                                      <div className="comment-field">
-                                        <button
-                                          type="submit"
-                                          className="fag-btn"
-                                        >
-                                          Add Comment <span />
-                                        </button>
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                </form>
-                              </div>
-                              {/* /end comment form */}
-                            </div>
-                          </Col>
-                        </Row>
-                        {/* End Row */}
-                      </div>
-                    </Tab>
+                    
                   </Tabs>
                 </div>
               </div>
@@ -404,37 +161,6 @@ function LeagueDetail(props) {
           </Row>
         </Container>
       </section>
-
-      {/* {modal ? (
-        <section className="modal__bg">
-          <div className="modal__align">
-            <div className="modal__content">
-              <span className="closeVideo" onClick={closeModal}>
-                <MdClose />
-              </span>
-              <div className="modal__video-align">
-                {videoLoading ? (
-                  <div className="modal__spinner">
-                    <BiLoaderAlt className="modal__spinner-style" />
-                  </div>
-                ) : null}
-                <iframe
-                  className="modal__video-style"
-                  onLoad={spinner}
-                  loading="lazy"
-                  width="800"
-                  height="500"
-                  src="https://www.youtube.com/embed/3SAuuHCOkyI"
-                  title="YouTube video player"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : null} */}
     </>
   );
 }

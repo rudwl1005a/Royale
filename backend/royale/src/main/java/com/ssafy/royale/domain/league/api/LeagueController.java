@@ -40,8 +40,8 @@ public class LeagueController {
          */
         // 모든 정보가 입력되지 않은 경우
         if (createLeagueRequestDto.getLeagueName().equals("") || createLeagueRequestDto.getLeaguePlace().equals("")
-        || createLeagueRequestDto.getLeagueDate().equals("") || createLeagueRequestDto.getLeagueDeadline().equals("")
-        || createLeagueRequestDto.getLeagueInfo().equals("") ) {
+                || createLeagueRequestDto.getLeagueDate().equals("") || createLeagueRequestDto.getLeagueDeadline().equals("")
+                || createLeagueRequestDto.getLeagueInfo().equals("") ) {
             return ResponseEntity.status(405).body("모든 내용을 입력해주세요");
         }
 
@@ -65,7 +65,7 @@ public class LeagueController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> tempUpload(@PathVariable @ApiParam(value = "리그 코드", required = true) String leagueSeq,
-                             @RequestPart @ApiParam(value = "대회 포스터", required = true) MultipartFile poster) throws IOException {
+                                        @RequestPart @ApiParam(value = "대회 포스터", required = true) MultipartFile poster) throws IOException {
         try {
             League league = leagueService.findLeagueByLeagueSeq(Long.parseLong(leagueSeq));
 //            String date = league.getLeagueDate().toString();
@@ -134,7 +134,6 @@ public class LeagueController {
         }
     }
 
-//    @PatchMapping("/{leagueSeq}")
     @PatchMapping
     @ApiOperation(value = "대회 수정", notes = "대회 정보 수정")
     @ApiResponses({
@@ -145,17 +144,11 @@ public class LeagueController {
             @ApiResponse(code = 500, message = "서버 오류")
     })
     public ResponseEntity<?> updateLeague(
-//            @PathVariable(value = "leagueSeq")
             @RequestBody
             @ApiParam(value = "대회 정보 수정", required = true) UpdateLeagueRequestDto updateLeagueRequestDto ) {
-//            @ApiParam(value = "대회 정보 수정", required = true) long leagueSeq, CreateLeagueRequestDto updateLeagueRequestDto ) {
         /**
          * 권한 확인 필요!!
          */
-        // 등록된 대회가 없을 경우
-//        if ( leagueService.findLeagueByLeagueSeq(l) == null ) {
-//            return ResponseEntity.status(404).body("등록된 대회가 없습니다.");
-//        }
 
         System.out.println(updateLeagueRequestDto);
 
@@ -171,37 +164,6 @@ public class LeagueController {
             return ResponseEntity.status(200).body(league);
         } catch (Exception e) {
             return ResponseEntity.status(400).body("대회 정보 수정 실패");
-        }
-    }
-
-    @PatchMapping("close/{leagueSeq}")
-    @ApiOperation(value = "대회 신청 마감", notes = "대회 신청 마감")
-    @ApiResponses({
-            @ApiResponse(code = 200, message = "성공"),
-            @ApiResponse(code = 400, message = "잘못된 요청"),
-            @ApiResponse(code = 404, message = "대회 없음"),
-            @ApiResponse(code = 405, message = "입력 오류"),
-            @ApiResponse(code = 500, message = "서버 오류")
-    })
-    public ResponseEntity<?> closeLeague(
-            @PathVariable(value = "leagueSeq")
-            @ApiParam(value = "대회 신청 마감", required = true) Long leagueSeq) {
-
-        // 등록된 대회가 없을 경우
-        if ( leagueService.findLeagueByLeagueSeq(leagueSeq) == null ) {
-            return ResponseEntity.status(404).body("등록된 대회가 없습니다.");
-        }
-
-        try {
-            Boolean leagueClose = leagueService.closeLeague(leagueSeq);
-
-            if (leagueClose) {
-                return ResponseEntity.status(200).body("대회 신청이 마감되었습니다.");
-            } else {
-                return ResponseEntity.status(405).body("대회 신청이 마감에 실패하였습니다.");
-            }
-        } catch (Exception e) {
-            return ResponseEntity.status(400).body("대회 신청 마감에 문제가 발생하였습니다.");
         }
     }
 
@@ -233,6 +195,69 @@ public class LeagueController {
             return ResponseEntity.status(200).body("대회 삭제 성공");
         } catch (Exception e) {
             return ResponseEntity.status(400).body("대회 삭제 실패");
+        }
+    }
+
+    /**
+     * 대회 신청 마감
+     */
+    @PatchMapping("close/{leagueSeq}")
+    @ApiOperation(value = "대회 신청 마감", notes = "대회 신청 마감")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 400, message = "잘못된 요청"),
+            @ApiResponse(code = 404, message = "대회 없음"),
+            @ApiResponse(code = 405, message = "입력 오류"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> closeLeague(
+            @PathVariable(value = "leagueSeq")
+            @ApiParam(value = "대회 신청 마감", required = true) Long leagueSeq) {
+
+        // 등록된 대회가 없을 경우
+        if ( leagueService.findLeagueByLeagueSeq(leagueSeq) == null ) {
+            return ResponseEntity.status(404).body("등록된 대회가 없습니다.");
+        }
+
+        try {
+            Boolean leagueClose = leagueService.closeLeague(leagueSeq);
+
+            if (leagueClose) {
+                return ResponseEntity.status(200).body("대회 신청이 마감되었습니다.");
+            } else {
+                return ResponseEntity.status(405).body("대회 신청이 마감에 실패하였습니다.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("대회 신청 마감에 문제가 발생하였습니다.");
+        }
+    }
+
+
+    /**
+     * 대회 신청 마감 조회
+     */
+    @GetMapping("close/{leagueSeq}")
+    @ApiOperation(value = "대회 신청 마감 조회", notes = "leagueSeq를 통해 대회 신청 마감 여부 조회")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "성공"),
+            @ApiResponse(code = 400, message = "잘못된 요청"),
+            @ApiResponse(code = 404, message = "대회 없음"),
+            @ApiResponse(code = 500, message = "서버 오류")
+    })
+    public ResponseEntity<?> getLeagueStatus(
+            @PathVariable(value = "leagueSeq")
+            @ApiParam(value = "대회 신청 마감 조회", required = true) Long leagueSeq) {
+
+        // 등록된 대회가 없을 경우
+        if ( leagueService.findLeagueByLeagueSeq(leagueSeq) == null ) {
+            return ResponseEntity.status(404).body("등록된 대회가 없습니다.");
+        }
+
+        try {
+            League league = leagueService.findLeagueByLeagueSeq(leagueSeq);
+            return ResponseEntity.status(200).body(league.getLeagueClose());
+        } catch (Exception e) {
+            return ResponseEntity.status(400).body("대회 신청 마감 여부 조회 실패");
         }
     }
 }

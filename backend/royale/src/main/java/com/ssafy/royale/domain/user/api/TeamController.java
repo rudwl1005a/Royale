@@ -16,8 +16,6 @@ import java.util.List;
 @RequestMapping("/api/teams")
 public class TeamController {
     private final TeamService teamService;
-
-    @GetMapping("/{teamName}")
     public ResponseEntity<List<SearchTeamResponseDto>> getApplyList(@PathVariable String teamName){
         return new ResponseEntity<>(teamService.getTeamList(teamName), HttpStatus.OK);
     }

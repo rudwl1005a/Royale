@@ -49,6 +49,7 @@ public class ApplyController {
 
             return ResponseEntity.status(200).body(apply);
         } catch (Exception e) {
+            System.out.println(e);
             return ResponseEntity.status(400).body("대회 지원에 실패하였습니다.");
         }
     }

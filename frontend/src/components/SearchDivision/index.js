@@ -6,7 +6,7 @@ import { divisionStore } from "../../store"
 
 import { getDivisionSeqAPI } from "../../api/api";
 
-function SelectDivision() {
+function SearchDivision() {
   const { divisionSeq, setDivisionSeq } = divisionStore();
   const [divisionAge, setDivisionAge] = useState("");
   const [divisionBelt, setDivisionBelt] = useState("");
@@ -22,7 +22,14 @@ function SelectDivision() {
     console.warn(getLeagueSeqDto);
     const data = await getDivisionSeqAPI(getLeagueSeqDto);
     setDivisionSeq(data.data);
+    // setDivisionSeqState(data.data);
+    // console.log("divisionSeq: ", divisionSeq, "divisionState: ", divisionSeqState);
+    // divisionFunction(divisionSeqState);
   }
+
+  // useEffect(() => {
+  //   console.log("console: " + divisionSeq);
+  // }, [divisionSeq])
 
   const handleSubmit = async (event) => {
     const getLeagueSeqDto = {
@@ -320,7 +327,7 @@ function SelectDivision() {
             <Col lg={2}>{selectType()}</Col>
             <Col lg={2}>{selectWeight()}</Col>
             <Col lg={2}>
-              <button onClick={handleSubmit} style={{ backgroundColor: "#ff7a21", color:"white"}}> Select </button>
+              <button onClick={handleSubmit}> Select </button>
             </Col>
           </Row>
         </Container>
@@ -329,7 +336,7 @@ function SelectDivision() {
   );
 }
 
-export default SelectDivision;
+export default SearchDivision;
 
 export const Label = styled.label`
   font-size: 10px;
@@ -339,7 +346,7 @@ export const Select = styled.select`
   line-height: 1.5;
   background: black;
   color: white;
-  border: 1px solid #ec7532;
+  border: 2px solid;
 
   width: 12vw;
   text-indent: 0.5vw;

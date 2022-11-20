@@ -12,7 +12,7 @@ const LeagueListPage = () => {
       <PageTitle
         Title={
           <>
-            League <span>Schedule</span>
+            League <span>List</span>
           </>
         }
       />

@@ -54,9 +54,10 @@ function CreateLeague(props) {
                   NEW <span>LEAGUE</span>
                 </h2>
                 <p>
-                  blanditiis praesentium voluptatum deleniti atque
-                  corrupti.accusamus et iusto odio corrupti.accusamus et iusto
-                  odioiusto odio dignissimos ducimus qui blanditiis
+                  <br/>
+              다음 내용을 입력하여 새로운 대회를 생성하세요!
+              <br/>
+              Enter the following to create a new League!
                 </p>
               </div>
             </Col>

@@ -4,16 +4,14 @@ import com.ssafy.royale.domain.game.dao.DivisionRepository;
 import com.ssafy.royale.domain.game.dao.GameRepository;
 import com.ssafy.royale.domain.game.domain.Division;
 import com.ssafy.royale.domain.game.domain.Game;
-import com.ssafy.royale.domain.game.dto.GameResponseDto;
-import com.ssafy.royale.domain.game.dto.GameScoreRequestDto;
-import com.ssafy.royale.domain.game.dto.PlayerTree;
-import com.ssafy.royale.domain.game.dto.TournamentResponseDto;
+import com.ssafy.royale.domain.game.dto.*;
 import com.ssafy.royale.domain.game.exception.DivisionNotFoundException;
 import com.ssafy.royale.domain.game.exception.GameNotFoundException;
 import com.ssafy.royale.domain.league.dao.LeagueRepository;
 import com.ssafy.royale.domain.league.domain.League;
 import com.ssafy.royale.domain.league.exception.LeagueNotFoundException;
 import com.ssafy.royale.domain.user.dao.ApplyRepository;
+import com.ssafy.royale.domain.user.dao.UserRepository;
 import com.ssafy.royale.domain.user.domain.Apply;
 import com.ssafy.royale.domain.user.domain.User;
 import com.ssafy.royale.domain.user.dto.ParticipantsDto;
@@ -27,6 +25,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class GameServiceImpl implements GameService{
 
+    private final UserRepository userRepository;
     private final ApplyRepository applyRepository;
     private final DivisionRepository divisionRepository;
     private final LeagueRepository leagueRepository;
@@ -160,6 +159,26 @@ public class GameServiceImpl implements GameService{
                         .player2Seq(game.getPlayer2_seq().getApplySeq())
                         .game(game)
                         .build();
+    }
+
+    @Override
+    public List<LastGameDto> getLastGame() {
+        List<LastGameDto> result = new ArrayList<>();
+        List<Game> list = gameRepository.findTop8GameByGameWinnerIsNotNullOrderByGameSeqDesc();
+        for(Game game : list) {
+            User user1 = userRepository.findById(game.getPlayer1_seq().getUser().getUserSeq()).get();
+            User user2 = userRepository.findById(game.getPlayer2_seq().getUser().getUserSeq()).get();
+            LastGameDto lastGameDto = LastGameDto.builder()
+                    .gameSeq(game.getGameSeq())
+                    .apply1name(user1.getUserName())
+                    .apply2name(user2.getUserName())
+                    .apply1score(game.getPlayer1_score())
+                    .apply2score(game.getPlayer2_score())
+                    .division(game.getDivision())
+                    .build();
+            result.add(lastGameDto);
+        }
+        return result;
     }
 
     /*
