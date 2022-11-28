@@ -28,21 +28,24 @@
 ## 02 주요 기능
 
 ❗ 스태프
-&nbsp;&nbsp;
-✔ 대회 생성
-&nbsp;&nbsp;
-✔ 대회 참가 마감
-&nbsp;&nbsp;
-✔ 대진표 생성
-&nbsp;&nbsp;
-✔ 스코어보드 관리
-&nbsp;&nbsp;
-✔ 선수 계체 관리
 
-❕ 선수
-  ✔ 대회 참가 신청
-  ✔ 스코어보드 조회
-  ✔ 대회 현황 조회
+&nbsp;&nbsp;✔ 대회 생성
+
+&nbsp;&nbsp;✔ 대회 참가 마감
+
+&nbsp;&nbsp;✔ 대진표 생성
+
+&nbsp;&nbsp;✔ 스코어보드 관리
+
+&nbsp;&nbsp;✔ 선수 계체 관리
+
+❗ 선수
+
+&nbsp;&nbsp;✔ 대회 참가 신청
+
+&nbsp;&nbsp;✔ 스코어보드 조회
+
+&nbsp;&nbsp;✔ 대회 현황 조회
 
 ---
 
