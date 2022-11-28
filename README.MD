@@ -13,7 +13,7 @@
 | 이태엽 | UCC 제작 & 서류정리|
 
 
-![logo2](README.assets/logo2.png)
+![image](https://user-images.githubusercontent.com/62234293/204180303-6d30643e-0713-4db5-a00a-431acfeed5c8.png)
 
 ---
 
@@ -73,7 +73,7 @@
 ![image](https://user-images.githubusercontent.com/62234293/204178989-7fbf509d-f86b-419a-b328-b8310f81ba28.png)
 
 ✨ **스코어보드**
-![image](https://user-images.githubusercontent.com/62234293/204179989-b9061c31-1c8a-4027-bd8e-1acc118981a7.png)
+![KakaoTalk_20221128_114025927](https://user-images.githubusercontent.com/62234293/204180126-37cc8289-14eb-46cf-8ced-1a90c5e1fa32.gif)
 
 
 ---
@@ -130,4 +130,4 @@
 
 - **Rest API**
 
-![image-20221006112833140](README.assets/image-20221006112833140.png)
+![image](https://user-images.githubusercontent.com/62234293/204180205-7a0aafda-34d7-4345-8d3f-a39f8d5f601a.png)
