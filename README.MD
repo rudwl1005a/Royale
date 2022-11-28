@@ -1,6 +1,5 @@
 # Royale (주짓수대회 자동화 서비스)
 
-[TOC]
 
 📆 **프로젝트 진행기간 : 2022/10/10 - 2022/11/25** 
 
@@ -40,13 +39,7 @@
 
 ## 03 담당 기능
 
-✔ 회원가입시 메일 인증 구현
-
-✔ Spring Security + JWT를 활용한 회원 인증 및 관리
-
-✔ Jenkins를 활용한 CI, CD
-
-✔ Docker와 Docker-compose로 컨테이너화
+✔ 
 
 ---
 
@@ -81,10 +74,10 @@
 - nginx 1.23.1
 
 📌 **Frontend**
-- "npm": "^8.19.3",
-- "react": "^18.2.0",
-- "zustand": "^4.1.4"
-- "socket.io": "^4.5.3",
+- "npm": "8.19.3"
+- "react": "18.2.0"
+- "zustand": "4.1.4"
+- "socket.io": "4.5.3"
 
 ---
 
@@ -97,13 +90,9 @@
 
 ## 07 협업 툴
 
-- **Gitlab**
-
-![image-20221006112132474](README.assets/image-20221006112132474.png)
-
 - **Notion**
 
-![image-20221006112354591](README.assets/image-20221006112354591.png)
+![image](https://user-images.githubusercontent.com/62234293/204177389-eb8d3278-6ef7-462a-a40a-613c47118636.png)
 
 ---
 
@@ -111,19 +100,15 @@
 
 - **ERD**
   
-  ![img](https://cdn.discordapp.com/attachments/1012637429376753677/1027439856579776543/unknown.png)
+  ![image](https://user-images.githubusercontent.com/62234293/204178034-a7bf3270-5a97-4bd3-a49a-f124e07f0ec7.png)
 
 - **기능 명세서**
 
-![image-20221006112549162](README.assets/image-20221006112549162.png)
+![image](https://user-images.githubusercontent.com/62234293/204178124-96e86a5a-bd1a-4d3e-bbb4-55361342b845.png)
 
 - **Figma**
 
-![image-20221006112716610](README.assets/image-20221006112716610.png)
-
-- **컴포넌트 구조 설계**
-
-![image-20221006112759543](README.assets/image-20221006112759543.png)
+![image](https://user-images.githubusercontent.com/62234293/204178246-11e3b3ca-b81b-417d-aa69-ad005a669e6a.png)
 
 - **Rest API**
 
