@@ -110,7 +110,7 @@
 ![image](https://user-images.githubusercontent.com/62234293/204177389-eb8d3278-6ef7-462a-a40a-613c47118636.png)
 
 - **Zira**
-![image](https://user-images.githubusercontent.com/62234293/204179908-72b1165b-d44e-45d0-8a49-0bdc4c15d6a8.png)
+![image](https://user-images.githubusercontent.com/62234293/204180730-ca96a930-4088-4900-a37e-195ccf79654c.png)
 
 ---
 
