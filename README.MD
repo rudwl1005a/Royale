@@ -48,20 +48,35 @@
 #### **회원가입 및 로그인**
 
 ✨ **회원가입**
-
-
+![image](https://user-images.githubusercontent.com/62234293/204178650-520fd7d3-0404-460f-a74d-53fc63230937.png)
 
 ✨ **로그인**
-
+![image](https://user-images.githubusercontent.com/62234293/204178670-7d1beaf3-1bee-4f72-a1c1-8a526ea55376.png)
 
 ---
 
 #### 메인페이지
 
-![메인](README.assets/메인.gif)
+![image](https://user-images.githubusercontent.com/62234293/204178700-45994e5a-d62d-43f6-ab3a-ec1527bb94c9.png)
 
 ---
 
+#### 대회
+
+✨ **대회신청**
+![image](https://user-images.githubusercontent.com/62234293/204178789-cf4eceac-dc7e-46aa-8e99-d2e98b54e1eb.png)
+
+✨ **개체통과**
+![image](https://user-images.githubusercontent.com/62234293/204178927-241ab4b1-47d8-4fc5-862e-69009f4168eb.png)
+
+✨ **대진표**
+![image](https://user-images.githubusercontent.com/62234293/204178989-7fbf509d-f86b-419a-b328-b8310f81ba28.png)
+
+✨ **스코어보드**
+![image](https://user-images.githubusercontent.com/62234293/204179989-b9061c31-1c8a-4027-bd8e-1acc118981a7.png)
+
+
+---
 
 ## 05 개발환경
 
@@ -83,7 +98,7 @@
 
 ## 06 서비스 아키텍처
 
-![image-20221006111907348](README.assets/image-20221006111907348.png)
+![image](https://user-images.githubusercontent.com/62234293/204178568-c591e119-fc6f-4ae2-b8f5-8e10babf2837.png)
 
 ---
 
@@ -93,6 +108,9 @@
 - **Notion**
 
 ![image](https://user-images.githubusercontent.com/62234293/204177389-eb8d3278-6ef7-462a-a40a-613c47118636.png)
+
+- **Zira**
+![image](https://user-images.githubusercontent.com/62234293/204179908-72b1165b-d44e-45d0-8a49-0bdc4c15d6a8.png)
 
 ---
 
