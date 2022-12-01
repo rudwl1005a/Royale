@@ -53,8 +53,26 @@
 
 ## 03 담당 기능
 
-&nbsp;&nbsp;✔ 
-<!-- 스코어보드 개발, 토너먼트 생성 알고리즘 구현 참여, 프로젝트 기획, 회원가입/로그인, 백엔드 API개발(user, game, game log, division), 데이터베이스 설계 -->
+&nbsp;&nbsp;✔ 백엔드 API 개발<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - SpringBoot, REST API 기반으로 백엔드 개발<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - 회원관련 API 개발: JWT(access token, refresh token) 기반으로 한 로그인/회원가입, 회원 CRUD<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - Game, Game-log API 개발: 스코어보드 관련 CRUD<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - division API 개발: 체급표 조회 API<br/>
+
+&nbsp;&nbsp;✔ 스코어보드 개발<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - WebSocket을 사용한 실시간 스코어보드 개발<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - 대회 진행중 눈에 잘 띄게 디자인<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - Game-Log API와 연동하여 새로고침 및 랜더링 시 동기화 되도록 개발<br/>
+
+&nbsp;&nbsp;✔ 토너먼트 생성 알고리즘 구현 참여<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - 같은 체육관의 신청자끼리 마지막에 만날 수 있도록 토너먼트를 자동 생성하는 알고리즘 구현<br/>
+
+&nbsp;&nbsp;✔ 데이터베이스 설계<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - 정규화 과정으로 데이터베이스 설계 및 실제 데이터 정제<br/>
+
+&nbsp;&nbsp;✔ 프로젝트 기획<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - 수기로 진행되는 주짓수 대회를 Digital Transfomation하기 위한 필요한 기능 정리<br/>
+&nbsp;&nbsp;&nbsp;&nbsp; - ERD, 요구사항/기능정의서, API docs, git convention 등 서비스 개발에 필요한 사전 문서 정리<br/>
 
 ---
 
